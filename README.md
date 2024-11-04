@@ -1,5 +1,5 @@
 Team Members:
 - Edison Zeng: realSinewave
-- SeungHo Choi: 
-- Nathan Li: 
+- SeungHo Choi: SHCAAA
+- Nathan Li: banxiafire
 - Evan Lee: dogunee
