@@ -6,7 +6,17 @@ package use_case.transcribe;
 public interface TranscribeDataAccessInterface {
 
     /**
-     * Updates the system to record a new transcription
+     * save the new file.
      */
-    void transcribe();
+    void save();
+
+    /**
+     * Checkout the original language
+     */
+    void checkOriginLanguage();
+
+    /**
+     * Checkout target language
+     */
+    void checkTargetLanguage();
 }
