@@ -1,21 +1,23 @@
 package ca.axoplasm.Octoscribe.entity;
 
+import java.time.Duration;
+
 public class Segment {
-    private int startTime = 0;
-    private int endTime = 0;
+    private final Duration startTime;
+    private final Duration endTime;
     private String text = null;
 
-    public Segment(int startTime, int endTime, String text) {
+    public Segment(Duration startTime, Duration endTime, String text) {
         this.startTime = startTime;
         this.endTime = endTime;
         this.text = text;
     }
 
-    public int getStartTime() {
+    public Duration getStartTime() {
         return startTime;
     }
 
-    public int getEndTime() {
+    public Duration getEndTime() {
         return endTime;
     }
 
