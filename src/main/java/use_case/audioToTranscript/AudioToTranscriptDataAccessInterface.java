@@ -1,5 +1,7 @@
 package use_case.audioToTranscript;
 
+import ca.axoplasm.Octoscribe.entity.Transcription;
+
 /**
  * The interface of the DAO for the Transcribe Use Case.
  */
@@ -19,4 +21,12 @@ public interface AudioToTranscriptDataAccessInterface {
      * Checkout target language
      */
     void checkTargetLanguage();
+
+    /**
+     * Output trans
+     * @return Transcription
+     */
+    Transcription toTranscript();
+
+
 }
