@@ -1,4 +1,4 @@
 package use_case.translateTranscript;
 
-public interface TranslateTranscriptInterface git{
+public interface TranslateTranscriptInterface {
 }
