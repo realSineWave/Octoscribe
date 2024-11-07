@@ -1,9 +1,9 @@
-package use_case.transcribe;
+package use_case.audioToTranscript;
 
 /**
  * The interface of the DAO for the Transcribe Use Case.
  */
-public interface TranscribeDataAccessInterface {
+public interface AudioToTranscriptDataAccessInterface {
 
     /**
      * save the new file.
