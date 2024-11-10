@@ -1,11 +1,11 @@
 package use_case.translateTranscript;
 
-public class translateTranscriptOutputData {
+public class TranslateTranscriptOutputData {
     private final String fileName;
 
     private final boolean status;
 
-    public translateTranscriptOutputData(String fileName, Boolean status){
+    public TranslateTranscriptOutputData(String fileName, Boolean status){
         this.fileName = fileName;
         this.status = status;
     }

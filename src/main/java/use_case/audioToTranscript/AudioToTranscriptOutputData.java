@@ -1,12 +1,12 @@
 package use_case.audioToTranscript;
 
-public class audioToTranscriptOutputData {
+public class AudioToTranscriptOutputData {
 
     private final String fileName;
 
     private final boolean status;
 
-    public audioToTranscriptOutputData(String fileName, Boolean status){
+    public AudioToTranscriptOutputData(String fileName, Boolean status){
         this.fileName = fileName;
         this.status = status;
     }
