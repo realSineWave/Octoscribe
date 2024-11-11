@@ -4,7 +4,6 @@ import entity.Segment;
 import entity.SegmentedTranscription;
 
 import javax.json.JsonObject;
-import java.io.File;
 import java.util.List;
 
 /**
@@ -25,7 +24,7 @@ public interface AudioToTranscriptDataAccessInterface {
     /**
      * Get the translated result in format of JSObject
      */
-    JsonObject getSegmentedTranscript();
+    JsonObject getTranscriptJson();
 
     /**
      * Output segments
@@ -35,5 +34,5 @@ public interface AudioToTranscriptDataAccessInterface {
     List<Segment> toSegments(JsonObject jsonObject);
 
 
-    SegmentedTranscription toSegmentedTranscription();
+    SegmentedTranscription getSegmentedTranscription();
 }

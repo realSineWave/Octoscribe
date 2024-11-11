@@ -6,30 +6,27 @@ import entity.SegmentedTranscription;
 import entity.SegmentedTranscriptionFactory;
 import use_case.audioToTranscript.AudioToTranscriptDataAccessInterface;
 import okhttp3.*;
-import java.io.File;
-import java.io.IOException;
+
 import javax.json.*;
-import java.io.StringReader;
-import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AudioToTranscriptDataAccessObject implements AudioToTranscriptDataAccessInterface {
+public class DataAccessObject implements AudioToTranscriptDataAccessInterface {
     private final OkHttpClient client = new OkHttpClient();
-    private String apiKey;
+    private String whisperApiKey;
     private String language = null;
     private String apiUrl;
     private final SegmentFactory segmentFactory = new SegmentFactory();
     private final SegmentedTranscriptionFactory segmentedTranscriptionFactory = new SegmentedTranscriptionFactory();
 
     public void AudioToTranscriptOutputData(){
-        this.apiKey = System.getenv("API_KEY");
+        this.whisperApiKey = System.getenv("API_KEY");
         this.apiUrl = "https://api.openai.com/v1/audio/transcriptions";
     }
 
 
     @Override
-    public JsonObject getSegmentedTranscript() {
+    public JsonObject getTranscriptJson() {
         JsonBuilderFactory factory = Json.createBuilderFactory(null);
         return factory.createObjectBuilder()
                 .add("firstName", "John")
@@ -37,7 +34,8 @@ public class AudioToTranscriptDataAccessObject implements AudioToTranscriptDataA
                 .add("text", "The beach was a popular spot on a hot summer day. People were swimming in the ocean, building sandcastles, and playing beach volleyball.")
                 .add("segments", factory.createArrayBuilder()
                         .add(factory.createObjectBuilder()
-                                .add("start", 0.0)
+                                .add("st" +
+                                        "art", 0.0)
                                 .add("end", 3.319999933242798)
                                 .add("text", "The beach was a popular spot on a hot summer day."))
                         .add(factory.createObjectBuilder()
@@ -64,8 +62,8 @@ public class AudioToTranscriptDataAccessObject implements AudioToTranscriptDataA
 
 
     @Override
-    public SegmentedTranscription toSegmentedTranscription() {
-        JsonObject jsonObject = getSegmentedTranscript();
+    public SegmentedTranscription getSegmentedTranscription() {
+        JsonObject jsonObject = getTranscriptJson();
         List<Segment> lists = toSegments(jsonObject);
         String text = jsonObject.getString("text");
         String language = null;
