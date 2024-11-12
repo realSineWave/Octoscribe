@@ -15,6 +15,7 @@ import java.io.StringReader;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class DataAccessObject implements AudioToTranscriptDataAccessInterface, TranslateTranscriptDataAccessInterface {
     private final OkHttpClient client = new OkHttpClient();
@@ -160,6 +161,22 @@ public class DataAccessObject implements AudioToTranscriptDataAccessInterface, T
 
     @Override
     public SegmentedTranscription TransSegmentedTranscription(SegmentedTranscription transcription, String language) {
-        return null;
+        List<Segment> segments = TransSegmentList(transcription.getSegments(), language);
+        StringBuilder allText = new StringBuilder();
+        for (Segment segment: segments) {
+            allText.append(segment.getText());
+        }
+        return this.segmentedTranscriptionFactory.createSegmented(language, allText.toString(), segments);
     }
+
 }
+
+
+
+
+
+
+
+
+
+

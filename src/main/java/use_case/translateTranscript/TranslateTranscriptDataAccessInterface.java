@@ -31,6 +31,7 @@ public interface TranslateTranscriptDataAccessInterface {
     /**
      * Get new translated SegmentedTranscipt results from the initial one that one shoule be the
      * final ultimate pro max ultra and super solution to interface.
+     * also i used the combination of the segment to reduce the use of the api.
      */
     default SegmentedTranscription TransSegmentedTranscription(SegmentedTranscription transcription, String language){
         throw new UnsupportedOperationException("Not implemented or wrong object");
