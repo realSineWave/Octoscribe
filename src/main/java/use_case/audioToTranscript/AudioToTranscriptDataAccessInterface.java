@@ -25,7 +25,7 @@ public interface AudioToTranscriptDataAccessInterface {
     /**
      * Get the translated result in format of JSObject
      */
-    JsonObject getSegmentedTranscript(File audio);
+    JsonObject getTranscriptedJson(File audio);
 
     /**
      * Output segments
@@ -35,5 +35,5 @@ public interface AudioToTranscriptDataAccessInterface {
     List<Segment> toSegments(JsonObject jsonObject);
 
 
-    SegmentedTranscription toSegmentedTranscription(File file);
+    SegmentedTranscription getSegmentedTranscription(File file);
 }
