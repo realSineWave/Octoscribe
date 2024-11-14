@@ -1,6 +1,6 @@
 package use_case.audioToTranscript;
 
-import entity.SegmentedTranscription;
+import ca.axoplasm.Octoscribe.entity.SegmentedTranscription;
 
 public interface AudioToTranscriptFileSaveInterface {
 

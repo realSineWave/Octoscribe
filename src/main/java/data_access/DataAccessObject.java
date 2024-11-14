@@ -15,7 +15,6 @@ import java.io.StringReader;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 public class DataAccessObject implements AudioToTranscriptDataAccessInterface, TranslateTranscriptDataAccessInterface {
     private final OkHttpClient client = new OkHttpClient();
@@ -70,14 +69,18 @@ public class DataAccessObject implements AudioToTranscriptDataAccessInterface, T
 
     @Override
     public List<Segment> toSegments(JsonObject jsonObject) {
-        List<Segment> result = new ArrayList<Segment>();
+        List<Segment> result = new ArrayList<>();
         JsonArray ray = jsonObject.getJsonArray("segments");
         for (JsonValue each : ray){
             JsonObject asobj = each.asJsonObject();
-            long start = asobj.getJsonNumber("start").longValue();
-            Duration startTime = Duration.ofSeconds(start);
-            long end = asobj.getJsonNumber("end").longValue();
-            Duration endTime = Duration.ofSeconds(end);
+            float start = asobj.getJsonNumber("start").numberValue().floatValue();
+            long startsecondsPart = (long) start;
+            long startnanosPart = (long) ((start - startsecondsPart) * 1_000_000_000);
+            Duration startTime = Duration.ofSeconds(startsecondsPart, startnanosPart);
+            float end = asobj.getJsonNumber("end").numberValue().floatValue();
+            long endsecondsPart = (long) end;
+            long endnanosPart = (long) ((end - endsecondsPart) * 1_000_000_000);
+            Duration endTime = Duration.ofSeconds(endsecondsPart, endnanosPart);
             String text = asobj.getString("text");
             Segment parts = this.segmentFactory.createSegment(startTime, endTime, text);
             result.add(parts);
