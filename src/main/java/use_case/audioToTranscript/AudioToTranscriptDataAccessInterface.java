@@ -1,9 +1,10 @@
 package use_case.audioToTranscript;
 
-import entity.Segment;
-import entity.SegmentedTranscription;
+import ca.axoplasm.Octoscribe.entity.Segment;
+import ca.axoplasm.Octoscribe.entity.SegmentedTranscription;
 
 import javax.json.JsonObject;
+import java.io.File;
 import java.util.List;
 
 /**
@@ -24,7 +25,7 @@ public interface AudioToTranscriptDataAccessInterface {
     /**
      * Get the translated result in format of JSObject
      */
-    JsonObject getTranscriptJson();
+    JsonObject getTranscriptedJson(File audio);
 
     /**
      * Output segments
@@ -34,5 +35,5 @@ public interface AudioToTranscriptDataAccessInterface {
     List<Segment> toSegments(JsonObject jsonObject);
 
 
-    SegmentedTranscription getSegmentedTranscription();
+    SegmentedTranscription getSegmentedTranscription(File file);
 }
