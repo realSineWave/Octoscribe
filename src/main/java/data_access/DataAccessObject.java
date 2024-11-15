@@ -21,7 +21,7 @@ public class DataAccessObject implements AudioToTranscriptDataAccessInterface, T
     private String OpenAiapiKey;
     private String language = null;
     private String whisperApiUrl;
-    private File file;
+    private File file = null;
     private final SegmentFactory segmentFactory = new SegmentFactory();
     private final SegmentedTranscriptionFactory segmentedTranscriptionFactory = new SegmentedTranscriptionFactory();
     private String DeepLApiKey;
@@ -30,17 +30,16 @@ public class DataAccessObject implements AudioToTranscriptDataAccessInterface, T
     /**
      * Constructor of the DAO, using overloading. If you gonna use the DAO for translation, add on the parameter called
      * target languge.
-     * @param file the audio file.
+     *
      * @param targetLanguage the language you gonna translate to.
      */
-    public DataAccessObject(File file, String targetLanguage){
+    public DataAccessObject(String targetLanguage){
         this.OpenAiapiKey = "sk-proj-uGI-ofIHwn18Y3PSlfZHDfs3wIfdzqmWWN2VJaTzl15gtBsDzTTtzb-uWRJz34f55i3yVA80SdT3BlbkFJ" +
                 "PP4fS9xLckhEMcmPrcKEfF9Yti_l0AUqYhxJJwutUvmqAXnl_WBdS20G1_nm1qjpaYuNs8cAQA";
         this.whisperApiUrl = "https://api.openai.com/v1/audio/transcriptions";
         this.DeepLUrl = "https://api-free.deepl.com/v2/translate";
         this.DeepLApiKey = "119441ee-8da3-4d15-9373-f117f5eca6fa:fx";
         this.language = targetLanguage;
-        this.file = file;
     }
 
     /**
@@ -48,6 +47,19 @@ public class DataAccessObject implements AudioToTranscriptDataAccessInterface, T
      * @param file the audio file.
      */
     public DataAccessObject(File file){
+        this.OpenAiapiKey = "sk-proj-uGI-ofIHwn18Y3PSlfZHDfs3wIfdzqmWWN2VJaTzl15gtBsDzTTtzb-uWRJz34f55i3yVA80SdT3BlbkFJ" +
+                "PP4fS9xLckhEMcmPrcKEfF9Yti_l0AUqYhxJJwutUvmqAXnl_WBdS20G1_nm1qjpaYuNs8cAQA";
+        this.whisperApiUrl = "https://api.openai.com/v1/audio/transcriptions";
+        this.DeepLUrl = "https://api-free.deepl.com/v2/translate";
+        this.DeepLApiKey = "119441ee-8da3-4d15-9373-f117f5eca6fa:fx";
+        this.file = file;
+    }
+
+    /**
+     * Constructor of the DAO, using overloading. This one if audio directly to translated results.
+     * @param file the audio file.
+     */
+    public DataAccessObject(File file, String language){
         this.OpenAiapiKey = "sk-proj-uGI-ofIHwn18Y3PSlfZHDfs3wIfdzqmWWN2VJaTzl15gtBsDzTTtzb-uWRJz34f55i3yVA80SdT3BlbkFJ" +
                 "PP4fS9xLckhEMcmPrcKEfF9Yti_l0AUqYhxJJwutUvmqAXnl_WBdS20G1_nm1qjpaYuNs8cAQA";
         this.whisperApiUrl = "https://api.openai.com/v1/audio/transcriptions";
@@ -107,18 +119,23 @@ public class DataAccessObject implements AudioToTranscriptDataAccessInterface, T
     }
 
 
+    /**
+     * This one is to get the translated SegmentedTranscription.
+     *
+     * @return The segmented transcription.
+     */
     @Override
     public SegmentedTranscription getSegmentedTranscription() {
         JsonObject jsonObject = getTranscriptedJson();
         List<Segment> lists = toSegments(jsonObject);
         String text = jsonObject.getString("text");
-        String language = null;
+        String detectedLanguage;
         if (!jsonObject.containsKey("language")) {
-            language = "Unknown";
+            detectedLanguage = "Unknown";
         } else {
-            language = jsonObject.getString("language");
+            detectedLanguage = jsonObject.getString("language");
         }
-        return this.segmentedTranscriptionFactory.createSegmented(language, text, lists);
+        return this.segmentedTranscriptionFactory.createSegmented(detectedLanguage, text, lists);
     }
 
     @Override
@@ -194,6 +211,17 @@ public class DataAccessObject implements AudioToTranscriptDataAccessInterface, T
             allText.append(segment.getText());
         }
         return this.segmentedTranscriptionFactory.createSegmented(this.language, allText.toString(), segments);
+    }
+
+
+    /**
+     * It is the ultimate all in one function, get the translated SegTrans from audio, requires to use the third
+     * constructor.
+     * @return the translated segmentedtranciption.
+     */
+    public SegmentedTranscription AudioDirectlyToTranslatedTranscription() {
+        SegmentedTranscription transcription = getSegmentedTranscription();
+        return TransSegmentedTranscription(transcription);
     }
 
 }
