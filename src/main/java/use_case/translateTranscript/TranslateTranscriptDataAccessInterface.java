@@ -10,21 +10,21 @@ public interface TranslateTranscriptDataAccessInterface {
     /**
      * Translate the transcript into another language into json
      */
-    default JsonObject getTranslateJson(String text, String language){
+    default JsonObject getTranslateJson(String text){
         throw new UnsupportedOperationException("Not implemented or wrong object");
     }
 
     /**
      * Get the segment to the segment translation
      */
-    default Segment TransSegment(Segment segment, String targetLanguage){
+    default Segment TransSegment(Segment segment){
         throw new UnsupportedOperationException("Not implemented or wrong object");
     }
 
     /**
      * Get a list of segments output
      */
-    default List<Segment> TransSegmentList(List<Segment> segments, String language){
+    default List<Segment> TransSegmentList(List<Segment> segments){
         throw new UnsupportedOperationException("Not implemented or wrong object");
     }
 
@@ -33,7 +33,7 @@ public interface TranslateTranscriptDataAccessInterface {
      * final ultimate pro max ultra and super solution to interface.
      * also i used the combination of the segment to reduce the use of the api.
      */
-    default SegmentedTranscription TransSegmentedTranscription(SegmentedTranscription transcription, String language){
+    default SegmentedTranscription TransSegmentedTranscription(SegmentedTranscription transcription){
         throw new UnsupportedOperationException("Not implemented or wrong object");
     }
 
