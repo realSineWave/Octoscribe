@@ -26,6 +26,6 @@ public class AudioToTranscriptInteractor implements AudioToTranscriptInputBounda
         //Outputdata structure later need to be confirmedgigi
 
         AudioToTranscriptOutputBoundary.prepareSuccessView
-                (AudioToTranscriptOutputData temp);
+                (AudioToTranscriptOutputData);
     }
 }
