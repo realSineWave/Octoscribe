@@ -5,4 +5,6 @@ import ca.axoplasm.Octoscribe.entity.SegmentedTranscription;
 public interface AudioToTranscriptFileSaveInterface {
 
 void save (SegmentedTranscription segmentedTranscription);
+
+    String getName();
 }

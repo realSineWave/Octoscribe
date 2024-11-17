@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.time.Duration;
 
 public class AudioToTranscriptFileSaveObject implements AudioToTranscriptFileSaveInterface {
+    private String name = "subtitles.txt";
 
     @Override
     public void save(SegmentedTranscription segmentedTranscription) {
@@ -27,15 +28,23 @@ public class AudioToTranscriptFileSaveObject implements AudioToTranscriptFileSav
             if (counter == 0){
                 BufferedWriter writer = new BufferedWriter(new FileWriter(name + ".txt"));
                 writeFile(segmentedTranscription, i, writer);
+                this.name = name + ".txt";
             }
             else {
                 BufferedWriter writer = new BufferedWriter(new FileWriter(name + "(" + counter + ")" + ".txt"));
                 writeFile(segmentedTranscription, i, writer);
+                this.name = name + "(" + counter + ")" + ".txt";
             }
+
 
         } catch (IOException e) {
             System.out.println("An error occurred: " + e.getMessage());
         }
+    }
+
+    @Override
+    public String getName() {
+        return this.name;
     }
 
     private void writeFile(SegmentedTranscription segmentedTranscription, int i, BufferedWriter writer) throws IOException {
