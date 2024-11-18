@@ -4,6 +4,7 @@ import ca.axoplasm.Octoscribe.entity.Segment;
 import ca.axoplasm.Octoscribe.entity.SegmentedTranscription;
 
 import javax.json.JsonObject;
+import java.io.File;
 import java.util.List;
 
 /**
@@ -11,20 +12,10 @@ import java.util.List;
  */
 public interface AudioToTranscriptDataAccessInterface {
 
-//    /**
-//     * save the new file.
-//     */
-//    void save();
-
-//    /**
-//     * Checkout the original language
-//     */
-//    void checkOriginLanguage();
-
     /**
      * Get the translated result in format of JSObject
      */
-    JsonObject getTranscriptedJson();
+    JsonObject getTranscriptedJson(File file);
 
     /**
      * Output segments
@@ -34,5 +25,5 @@ public interface AudioToTranscriptDataAccessInterface {
     List<Segment> toSegments(JsonObject jsonObject);
 
 
-    SegmentedTranscription getSegmentedTranscription();
+    SegmentedTranscription getSegmentedTranscription(File file);
 }
