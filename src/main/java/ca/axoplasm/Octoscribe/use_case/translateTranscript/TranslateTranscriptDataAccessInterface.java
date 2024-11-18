@@ -3,7 +3,7 @@ package ca.axoplasm.Octoscribe.use_case.translateTranscript;
 import ca.axoplasm.Octoscribe.entity.Segment;
 import ca.axoplasm.Octoscribe.entity.SegmentedTranscription;
 
-import javax.json.JsonObject;
+import jakarta.json.JsonObject;
 import java.util.List;
 
 public interface TranslateTranscriptDataAccessInterface {

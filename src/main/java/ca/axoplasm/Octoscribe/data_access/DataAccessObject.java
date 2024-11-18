@@ -10,7 +10,7 @@ import ca.axoplasm.Octoscribe.use_case.translateTranscript.TranslateTranscriptDa
 
 import java.io.File;
 import java.io.IOException;
-import javax.json.*;
+import jakarta.json.*;
 import java.io.StringReader;
 import java.time.Duration;
 import java.util.ArrayList;
