@@ -1,12 +1,12 @@
-package data_access;
+package ca.axoplasm.Octoscribe.data_access;
 
 import ca.axoplasm.Octoscribe.entity.Segment;
 import ca.axoplasm.Octoscribe.entity.SegmentFactory;
 import ca.axoplasm.Octoscribe.entity.SegmentedTranscription;
 import ca.axoplasm.Octoscribe.entity.SegmentedTranscriptionFactory;
-import use_case.audioToTranscript.AudioToTranscriptDataAccessInterface;
+import ca.axoplasm.Octoscribe.use_case.audioToTranscript.AudioToTranscriptDataAccessInterface;
 import okhttp3.*;
-import use_case.translateTranscript.TranslateTranscriptDataAccessInterface;
+import ca.axoplasm.Octoscribe.use_case.translateTranscript.TranslateTranscriptDataAccessInterface;
 
 import java.io.File;
 import java.io.IOException;

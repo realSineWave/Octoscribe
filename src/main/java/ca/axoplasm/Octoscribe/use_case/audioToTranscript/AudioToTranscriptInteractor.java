@@ -1,7 +1,7 @@
-package use_case.audioToTranscript;
+package ca.axoplasm.Octoscribe.use_case.audioToTranscript;
 
 import ca.axoplasm.Octoscribe.entity.SegmentedTranscription;
-import data_access.AudioToTranscriptFileSaveObject;
+import ca.axoplasm.Octoscribe.data_access.AudioToTranscriptFileSaveObject;
 
 import javax.json.JsonObject;
 /**

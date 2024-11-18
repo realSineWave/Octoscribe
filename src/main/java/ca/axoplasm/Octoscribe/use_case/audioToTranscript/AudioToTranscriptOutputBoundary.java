@@ -1,4 +1,4 @@
-package use_case.audioToTranscript;
+package ca.axoplasm.Octoscribe.use_case.audioToTranscript;
 
 public interface AudioToTranscriptOutputBoundary {
 
