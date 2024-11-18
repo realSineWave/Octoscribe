@@ -66,6 +66,7 @@ public class DataAccessObject implements AudioToTranscriptDataAccessInterface, T
         this.DeepLUrl = "https://api-free.deepl.com/v2/translate";
         this.DeepLApiKey = "119441ee-8da3-4d15-9373-f117f5eca6fa:fx";
         this.file = file;
+        this.language = language;
     }
 
 
