@@ -11,16 +11,6 @@ import java.util.List;
  */
 public interface AudioToTranscriptDataAccessInterface {
 
-//    /**
-//     * save the new file.
-//     */
-//    void save();
-
-//    /**
-//     * Checkout the original language
-//     */
-//    void checkOriginLanguage();
-
     /**
      * Get the translated result in format of JSObject
      */
