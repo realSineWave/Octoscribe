@@ -19,9 +19,7 @@ import java.util.List;
 public class DataAccessObject implements AudioToTranscriptDataAccessInterface, TranslateTranscriptDataAccessInterface {
     private final OkHttpClient client = new OkHttpClient();
     private String OpenAiapiKey;
-    private String language = null;
     private String whisperApiUrl;
-    private File file = null;
     private final SegmentFactory segmentFactory = new SegmentFactory();
     private final SegmentedTranscriptionFactory segmentedTranscriptionFactory = new SegmentedTranscriptionFactory();
     private String DeepLApiKey;
@@ -31,50 +29,22 @@ public class DataAccessObject implements AudioToTranscriptDataAccessInterface, T
      * Constructor of the DAO, using overloading. If you gonna use the DAO for translation, add on the parameter called
      * target languge.
      *
-     * @param targetLanguage the language you gonna translate to.
      */
-    public DataAccessObject(String targetLanguage){
+    public DataAccessObject(){
         this.OpenAiapiKey = "sk-proj-uGI-ofIHwn18Y3PSlfZHDfs3wIfdzqmWWN2VJaTzl15gtBsDzTTtzb-uWRJz34f55i3yVA80SdT3BlbkFJ" +
                 "PP4fS9xLckhEMcmPrcKEfF9Yti_l0AUqYhxJJwutUvmqAXnl_WBdS20G1_nm1qjpaYuNs8cAQA";
         this.whisperApiUrl = "https://api.openai.com/v1/audio/transcriptions";
         this.DeepLUrl = "https://api-free.deepl.com/v2/translate";
         this.DeepLApiKey = "119441ee-8da3-4d15-9373-f117f5eca6fa:fx";
-        this.language = targetLanguage;
-    }
-
-    /**
-     * Constructor of the DAO, using overloading. This one if for transcription use age.
-     * @param file the audio file.
-     */
-    public DataAccessObject(File file){
-        this.OpenAiapiKey = "sk-proj-uGI-ofIHwn18Y3PSlfZHDfs3wIfdzqmWWN2VJaTzl15gtBsDzTTtzb-uWRJz34f55i3yVA80SdT3BlbkFJ" +
-                "PP4fS9xLckhEMcmPrcKEfF9Yti_l0AUqYhxJJwutUvmqAXnl_WBdS20G1_nm1qjpaYuNs8cAQA";
-        this.whisperApiUrl = "https://api.openai.com/v1/audio/transcriptions";
-        this.DeepLUrl = "https://api-free.deepl.com/v2/translate";
-        this.DeepLApiKey = "119441ee-8da3-4d15-9373-f117f5eca6fa:fx";
-        this.file = file;
-    }
-
-    /**
-     * Constructor of the DAO, using overloading. This one if audio directly to translated results.
-     * @param file the audio file.
-     */
-    public DataAccessObject(File file, String language){
-        this.OpenAiapiKey = "sk-proj-uGI-ofIHwn18Y3PSlfZHDfs3wIfdzqmWWN2VJaTzl15gtBsDzTTtzb-uWRJz34f55i3yVA80SdT3BlbkFJ" +
-                "PP4fS9xLckhEMcmPrcKEfF9Yti_l0AUqYhxJJwutUvmqAXnl_WBdS20G1_nm1qjpaYuNs8cAQA";
-        this.whisperApiUrl = "https://api.openai.com/v1/audio/transcriptions";
-        this.DeepLUrl = "https://api-free.deepl.com/v2/translate";
-        this.DeepLApiKey = "119441ee-8da3-4d15-9373-f117f5eca6fa:fx";
-        this.file = file;
     }
 
 
     @Override
-    public JsonObject getTranscriptedJson() {
-        RequestBody fileBody = RequestBody.create(this.file, MediaType.parse("audio/wav"));
+    public JsonObject getTranscriptedJson(File file) {
+        RequestBody fileBody = RequestBody.create(file, MediaType.parse("audio/wav"));
         MultipartBody requestBody = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
-                .addFormDataPart("file", this.file.getName(), fileBody)
+                .addFormDataPart("file", file.getName(), fileBody)
                 .addFormDataPart("model", "whisper-small")
                 .addFormDataPart("response_format", "verbose_json")
                 .build();
@@ -103,14 +73,18 @@ public class DataAccessObject implements AudioToTranscriptDataAccessInterface, T
 
     @Override
     public List<Segment> toSegments(JsonObject jsonObject) {
-        List<Segment> result = new ArrayList<Segment>();
+        List<Segment> result = new ArrayList<>();
         JsonArray ray = jsonObject.getJsonArray("segments");
         for (JsonValue each : ray){
             JsonObject asobj = each.asJsonObject();
-            long start = asobj.getJsonNumber("start").longValue();
-            Duration startTime = Duration.ofSeconds(start);
-            long end = asobj.getJsonNumber("end").longValue();
-            Duration endTime = Duration.ofSeconds(end);
+            float start = asobj.getJsonNumber("start").numberValue().floatValue();
+            long startsecondsPart = (long) start;
+            long startnanosPart = (long) ((start - startsecondsPart) * 1_000_000_000);
+            Duration startTime = Duration.ofSeconds(startsecondsPart, startnanosPart);
+            float end = asobj.getJsonNumber("end").numberValue().floatValue();
+            long endsecondsPart = (long) end;
+            long endnanosPart = (long) ((end - endsecondsPart) * 1_000_000_000);
+            Duration endTime = Duration.ofSeconds(endsecondsPart, endnanosPart);
             String text = asobj.getString("text");
             Segment parts = this.segmentFactory.createSegment(startTime, endTime, text);
             result.add(parts);
@@ -125,8 +99,8 @@ public class DataAccessObject implements AudioToTranscriptDataAccessInterface, T
      * @return The segmented transcription.
      */
     @Override
-    public SegmentedTranscription getSegmentedTranscription() {
-        JsonObject jsonObject = getTranscriptedJson();
+    public SegmentedTranscription getSegmentedTranscription(File file) {
+        JsonObject jsonObject = getTranscriptedJson(file);
         List<Segment> lists = toSegments(jsonObject);
         String text = jsonObject.getString("text");
         String detectedLanguage;
@@ -139,12 +113,12 @@ public class DataAccessObject implements AudioToTranscriptDataAccessInterface, T
     }
 
     @Override
-    public JsonObject getTranslateJson(String text) {
+    public JsonObject getTranslateJson(String text, String language) {
         JsonObjectBuilder jsonObjectBuilder = Json.createObjectBuilder();
         JsonArrayBuilder jsonArrayBuilder = Json.createArrayBuilder();
         jsonArrayBuilder.add(text);
         jsonObjectBuilder.add("text", jsonArrayBuilder);
-        jsonObjectBuilder.add("target_lang", this.language);
+        jsonObjectBuilder.add("target_lang", language);
         JsonObject jsonPayload = jsonObjectBuilder.build();
 
         RequestBody requestBody = RequestBody.create(
@@ -177,8 +151,8 @@ public class DataAccessObject implements AudioToTranscriptDataAccessInterface, T
     }
 
     @Override
-    public Segment TransSegment(Segment segment) {
-        JsonObject jsonObject = getTranslateJson(segment.getText());
+    public Segment TransSegment(Segment segment, String language) {
+        JsonObject jsonObject = getTranslateJson(segment.getText(), language);
         StringBuilder lastString = new StringBuilder();
         for (JsonValue each : jsonObject.getJsonArray("translations")){
             JsonObject jsonText = each.asJsonObject();
@@ -189,10 +163,10 @@ public class DataAccessObject implements AudioToTranscriptDataAccessInterface, T
     }
 
     @Override
-    public List<Segment> TransSegmentList(List<Segment> segments) {
+    public List<Segment> TransSegmentList(List<Segment> segments, String language) {
         List<Segment> segments1 = new ArrayList<Segment>();
         for(Segment seg : segments) {
-            segments1.add(TransSegment(seg));
+            segments1.add(TransSegment(seg, language));
         }
         return segments1;
     }
@@ -201,16 +175,17 @@ public class DataAccessObject implements AudioToTranscriptDataAccessInterface, T
      * This one is to get the translated SegmentedTranscription.
      *
      * @param transcription Segmented transcription.
+     * @param language
      * @return The segmented transcription.
      */
     @Override
-    public SegmentedTranscription TransSegmentedTranscription(SegmentedTranscription transcription) {
-        List<Segment> segments = TransSegmentList(transcription.getSegments());
+    public SegmentedTranscription TransSegmentedTranscription(SegmentedTranscription transcription, String language) {
+        List<Segment> segments = TransSegmentList(transcription.getSegments(), language);
         StringBuilder allText = new StringBuilder();
         for (Segment segment: segments) {
             allText.append(segment.getText());
         }
-        return this.segmentedTranscriptionFactory.createSegmented(this.language, allText.toString(), segments);
+        return this.segmentedTranscriptionFactory.createSegmented(language, allText.toString(), segments);
     }
 
 
@@ -219,9 +194,9 @@ public class DataAccessObject implements AudioToTranscriptDataAccessInterface, T
      * constructor.
      * @return the translated segmentedtranciption.
      */
-    public SegmentedTranscription AudioDirectlyToTranslatedTranscription() {
-        SegmentedTranscription transcription = getSegmentedTranscription();
-        return TransSegmentedTranscription(transcription);
+    public SegmentedTranscription AudioDirectlyToTranslatedTranscription(File file, String targetLanguage) {
+        SegmentedTranscription transcription = getSegmentedTranscription(file);
+        return TransSegmentedTranscription(transcription, targetLanguage);
     }
 
 }
