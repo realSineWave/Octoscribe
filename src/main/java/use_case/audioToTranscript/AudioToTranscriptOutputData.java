@@ -1,18 +1,25 @@
 package use_case.audioToTranscript;
 
+import ca.axoplasm.Octoscribe.entity.SegmentedTranscription;
+
 public class AudioToTranscriptOutputData {
 
-    private final String fileName;
-
+    private final SegmentedTranscription segmentedTranscription;
+    private final String name;
     private final boolean status;
 
-    public AudioToTranscriptOutputData(String fileName, Boolean status){
-        this.fileName = fileName;
+    public AudioToTranscriptOutputData(SegmentedTranscription segmentedTranscription, String name, Boolean status){
+        this.segmentedTranscription = segmentedTranscription;
+        this.name = name;
         this.status = status;
     }
 
     public String getFileName() {
-        return fileName;
+        return this.name;
+    }
+
+    public SegmentedTranscription getSegmentedTranscription(){
+        return this.segmentedTranscription;
     }
 
     public Boolean getStatus(){
