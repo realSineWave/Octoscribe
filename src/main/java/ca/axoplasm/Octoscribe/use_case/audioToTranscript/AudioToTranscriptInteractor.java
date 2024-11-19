@@ -29,7 +29,8 @@ public class AudioToTranscriptInteractor implements AudioToTranscriptInputBounda
 
         saveObject.save(transcript);
 
-        AudioToTranscriptOutputData temp = new AudioToTranscriptOutputData(saveObject.getName(), false);
+        AudioToTranscriptOutputData temp =
+                new AudioToTranscriptOutputData(transcript, saveObject.getName(), false);
 
         OutputBoundary.prepareSuccessView(temp);
     }
