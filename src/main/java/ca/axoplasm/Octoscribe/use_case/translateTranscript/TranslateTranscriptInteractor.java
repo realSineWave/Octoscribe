@@ -1,8 +1,8 @@
-package use_case.translateTranscript;
+package ca.axoplasm.Octoscribe.use_case.translateTranscript;
 
 import ca.axoplasm.Octoscribe.entity.SegmentedTranscription;
-import data_access.AudioToTranscriptFileSaveObject;
-import data_access.TranslateTranscriptFileSaveObject;
+import ca.axoplasm.Octoscribe.data_access.AudioToTranscriptFileSaveObject;
+import ca.axoplasm.Octoscribe.data_access.TranslateTranscriptFileSaveObject;
 
 public class TranslateTranscriptInteractor implements TranslateTranscriptInputBoundary{
     private final TranslateTranscriptDataAccessInterface dao;

@@ -1,4 +1,4 @@
-package use_case.translateTranscript;
+package ca.axoplasm.Octoscribe.use_case.translateTranscript;
 
 public interface TranslateTranscriptOutputBoundary {
 

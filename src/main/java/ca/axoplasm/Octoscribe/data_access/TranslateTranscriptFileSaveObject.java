@@ -1,8 +1,8 @@
-package data_access;
+package ca.axoplasm.Octoscribe.data_access;
 
 import ca.axoplasm.Octoscribe.entity.Segment;
 import ca.axoplasm.Octoscribe.entity.SegmentedTranscription;
-import use_case.translateTranscript.TranslateTranscriptFileSaveInterface;
+import ca.axoplasm.Octoscribe.use_case.translateTranscript.TranslateTranscriptFileSaveInterface;
 
 import java.io.BufferedWriter;
 import java.io.File;
