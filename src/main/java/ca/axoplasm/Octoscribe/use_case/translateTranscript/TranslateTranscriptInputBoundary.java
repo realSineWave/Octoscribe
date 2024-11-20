@@ -1,8 +1,6 @@
 package use_case.translateTranscript;
 
-import use_case.audioToTranscript.AudioToTranscriptInputData;
-
-public interface TranslateTranscriptionInputBoundary {
+public interface TranslateTranscriptInputBoundary {
     /**
      * Execute translateTranscript use case.
      * @param translateTranscriptInputData input data for audioToTranscript use case.
