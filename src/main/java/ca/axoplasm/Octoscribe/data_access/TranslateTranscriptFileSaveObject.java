@@ -71,18 +71,13 @@ public class TranslateTranscriptFileSaveObject implements TranslateTranscriptFil
     }
 
     private String durationToString(Duration duration) {
-        String str = duration.toString();
-        String time = str.replaceAll("[[^\\d.]]", "");
-        float seconds = Float.parseFloat(time);
-        int nonnanoseconds = (int) seconds;
-        Float nanos = seconds - nonnanoseconds;
-        int minutes = nonnanoseconds/60;
-        String rsec = String.format("%02d", nonnanoseconds%60);
-        String hours = String.format("%02d", minutes/60);
-        String rmin = String.format("%02d", minutes%60);
-        if (nanos == 0.0) {
-            return hours + ":" + rmin + ":" + rsec + ",000";
+        Integer nanos = duration.toNanosPart();
+        int sec = duration.toSecondsPart();
+        int hours = duration.toHoursPart();
+        int min = duration.toMinutesPart();
+        if (nanos == 0) {
+            return hours + ":" + min + ":" + sec + ",000";
         }
-        return hours + ":" + rmin + ":" + rsec + "," + nanos.toString().substring(2, 5);
+        return hours + ":" + min + ":" + sec + "," + nanos.toString().substring(2, 5);
     }
 }
