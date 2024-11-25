@@ -1,39 +1,52 @@
-package data_access;
+package ca.axoplasm.Octoscribe.data_access;
 
 import ca.axoplasm.Octoscribe.entity.Segment;
 import ca.axoplasm.Octoscribe.entity.SegmentedTranscription;
-import use_case.audioToTranscript.AudioToTranscriptFileSaveInterface;
+import ca.axoplasm.Octoscribe.use_case.translateTranscript.TranslateTranscriptFileSaveInterface;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.Duration;
+import java.util.Date;
 
-public class AudioToTranscriptFileSaveObject implements AudioToTranscriptFileSaveInterface {
-    private String name = "subtitles.txt";
+public class TranslateTranscriptFileSaveObject implements TranslateTranscriptFileSaveInterface {
+    private String name;
+
+    public TranslateTranscriptFileSaveObject(){
+        Date date = new Date();
+        StringBuilder s = new StringBuilder();
+        s.append("Translated_transcript_at_");
+        s.append(date);
+        this.name = s.toString();
+    }
 
     @Override
     public void save(SegmentedTranscription segmentedTranscription) {
         int i = 0;
-        String name = "subtitles";
-        File file = new File(name + ".txt");
+        Date date = new Date();
+        StringBuilder fileName = new StringBuilder();
+        fileName.append("Translated_Transcript_at_");
+        fileName.append(date);
+        File file = new File(fileName.toString() + ".txt");
         int counter = 0;
 
         try {
             while (file.exists()) {
                 counter++;
-                file = new File(name + "(" + counter + ")" + ".txt");
+                file = new File(fileName.toString() + "(" + counter + ")" + ".txt");
             }
 
             if (counter == 0){
-                BufferedWriter writer = new BufferedWriter(new FileWriter(name + ".txt"));
+                BufferedWriter writer = new BufferedWriter(new FileWriter(fileName + ".txt"));
                 writeFile(segmentedTranscription, i, writer);
-                this.name = name + ".txt";
+                this.name = fileName + ".txt";
             }
             else {
-                BufferedWriter writer = new BufferedWriter(new FileWriter(name + "(" + counter + ")" + ".txt"));
+                BufferedWriter writer = new BufferedWriter(new FileWriter(fileName + "(" + counter + ")" + ".txt"));
                 writeFile(segmentedTranscription, i, writer);
-                this.name = name + "(" + counter + ")" + ".txt";
+                this.name = fileName + "(" + counter + ")" + ".txt";
             }
 
 
@@ -73,4 +86,3 @@ public class AudioToTranscriptFileSaveObject implements AudioToTranscriptFileSav
         return hours + ":" + rmin + ":" + rsec + "," + nanos.toString().substring(2, 5);
     }
 }
-

@@ -1,9 +1,8 @@
-package use_case.audioToTranscript;
+package ca.axoplasm.Octoscribe.use_case.audioToTranscript;
 
 import ca.axoplasm.Octoscribe.entity.SegmentedTranscription;
-import data_access.AudioToTranscriptFileSaveObject;
+import ca.axoplasm.Octoscribe.data_access.AudioToTranscriptFileSaveObject;
 
-import javax.json.JsonObject;
 /**
  *
  */
@@ -30,7 +29,8 @@ public class AudioToTranscriptInteractor implements AudioToTranscriptInputBounda
 
         saveObject.save(transcript);
 
-        AudioToTranscriptOutputData temp = new AudioToTranscriptOutputData(saveObject.getName(), false);
+        AudioToTranscriptOutputData temp =
+                new AudioToTranscriptOutputData(transcript, saveObject.getName(), false);
 
         OutputBoundary.prepareSuccessView(temp);
     }

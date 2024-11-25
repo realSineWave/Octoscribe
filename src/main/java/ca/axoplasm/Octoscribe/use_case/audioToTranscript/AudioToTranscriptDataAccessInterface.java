@@ -1,9 +1,10 @@
-package use_case.audioToTranscript;
+package ca.axoplasm.Octoscribe.use_case.audioToTranscript;
 
 import ca.axoplasm.Octoscribe.entity.Segment;
 import ca.axoplasm.Octoscribe.entity.SegmentedTranscription;
 
-import javax.json.JsonObject;
+import jakarta.json.JsonObject;
+
 import java.io.File;
 import java.util.List;
 
