@@ -13,7 +13,9 @@ public class MediaConvertObject implements VideoToAudioMediaConvertInterface, Cr
 
     @Override
     public String audioToVideo(File video) {
-        this.checkSystem();
+        if (this.checkSystem()) {
+            return "System doesn't have FFMPEG";
+        }
         String audioName = this.createAudioName(video, ".mp3");
         this.filename = audioName;
         String[] command = {
@@ -44,7 +46,9 @@ public class MediaConvertObject implements VideoToAudioMediaConvertInterface, Cr
 
     @Override
     public String createSubtitledVideo(File video, File subtitle) {
-        this.checkSystem();
+        if (this.checkSystem()) {
+            return "System doesn't have FFMPEG";
+        }
         String videoName = this.createSubtitledName(video, ".mp4");
         this.filename = videoName;
         String[] command = {
@@ -113,7 +117,7 @@ public class MediaConvertObject implements VideoToAudioMediaConvertInterface, Cr
         return name;
     }
 
-    private void checkSystem(){
+    private boolean checkSystem(){
         try {
             ProcessBuilder pb = new ProcessBuilder("ffmpeg", "-version");
             pb.redirectErrorStream(true);
@@ -128,11 +132,9 @@ public class MediaConvertObject implements VideoToAudioMediaConvertInterface, Cr
 
             int exitCode = process.waitFor();
 
-            if (exitCode != 0) {
-                throw new RuntimeException("System doesn't have FFMPEG");
-            }
+            return exitCode != 0;
         } catch (IOException | InterruptedException e) {
-            throw new RuntimeException("System doesn't have FFMPEG");
+            return true;
         }
     }
 
