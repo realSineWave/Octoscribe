@@ -31,8 +31,7 @@ public class DataAccessObject implements AudioToTranscriptDataAccessInterface, T
      *
      */
     public DataAccessObject(){
-        this.OpenAiapiKey = "sk-proj-uGI-ofIHwn18Y3PSlfZHDfs3wIfdzqmWWN2VJaTzl15gtBsDzTTtzb-uWRJz34f55i3yVA80SdT3BlbkFJ" +
-                "PP4fS9xLckhEMcmPrcKEfF9Yti_l0AUqYhxJJwutUvmqAXnl_WBdS20G1_nm1qjpaYuNs8cAQA";
+        this.OpenAiapiKey = "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";
         this.whisperApiUrl = "https://api.openai.com/v1/audio/transcriptions";
         this.DeepLUrl = "https://api-free.deepl.com/v2/translate";
         this.DeepLApiKey = "119441ee-8da3-4d15-9373-f117f5eca6fa:fx";
@@ -41,15 +40,15 @@ public class DataAccessObject implements AudioToTranscriptDataAccessInterface, T
 
     @Override
     public JsonObject getTranscriptedJson(File file) {
-        RequestBody fileBody = RequestBody.create(file, MediaType.parse("audio/wav"));
         MultipartBody requestBody = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
-                .addFormDataPart("file", file.getName(), fileBody)
-                .addFormDataPart("model", "whisper-small")
+                .addFormDataPart("file", file.getName(),
+                        RequestBody.create(file, MediaType.parse("audio/mpeg"))) // Correct MIME type for MP3
+                .addFormDataPart("timestamp_granularities[]", "segment")
+                .addFormDataPart("model", "whisper-1")
                 .addFormDataPart("response_format", "verbose_json")
                 .build();
 
-        // Build
         Request request = new Request.Builder()
                 .url(this.whisperApiUrl)
                 .addHeader("Authorization", "Bearer " + this.OpenAiapiKey)
