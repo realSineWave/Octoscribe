@@ -164,9 +164,9 @@ public class DataAccessObject implements AudioToTranscriptDataAccessInterface, T
 
     @Override
     public List<Segment> TransSegmentList(List<Segment> segments, String language) {
-        List<Segment> segments1 = new ArrayList<Segment>();
+        List<Segment> segments1 = new ArrayList<>();
         for(Segment seg : segments) {
-            segments1.add(TransSegment(seg, language));
+            segments1.add(this.TransSegment(seg, language));
         }
         return segments1;
     }
