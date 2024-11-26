@@ -23,7 +23,7 @@ public class TranslateTranscriptInteractorTest {
     @Test
     public void successTest() {
 
-        TranslateTranscriptDataAccessInterface dataAccessObject = new DataAccessObject();
+        TranslateTranscriptDataAccessInterface dao = new DataAccessObject();
         TranslateTranscriptFileSaveObject fileSaveObject = new TranslateTranscriptFileSaveObject();
         SegmentedTranscriptionFactory segmentedTranscriptionFactory = new SegmentedTranscriptionFactory();
         SegmentFactory segmentFactory = new SegmentFactory();
@@ -51,7 +51,7 @@ public class TranslateTranscriptInteractorTest {
         };
 
         TranslateTranscriptInputBoundary interactor =
-                new TranslateTranscriptInteractor(dataAccessObject, fileSaveObject, successPresenter);
+                new TranslateTranscriptInteractor(dao, fileSaveObject, successPresenter);
 
         interactor.execute(inputData);
 

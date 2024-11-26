@@ -73,15 +73,15 @@ public class TranslateTranscriptionDAOTest {
         SegmentedTranscription res = dao.TransSegmentedTranscription(segs, "en");
         assertEquals(res.getSegments().getFirst().getStartTime(), segs.getSegments().getFirst().getStartTime(),
                 "Error in start time of method " +
-                "TransSegmentList in DAo");
+                "TransSegmentList in DAO");
         assertEquals(res.getSegments().get(0).getEndTime(), segs.getSegments().get(0).getEndTime(),
                 "Error in start time of method " +
-                "TransSegmentList in DAo");
+                "TransSegmentList in DAO");
         assertEquals(res.getSegments().get(1).getStartTime(), segs.getSegments().get(1).getStartTime(),
                 "Error in start time of method " +
-                "TransSegmentList in DAo");
+                "TransSegmentList in DAO");
         assertEquals(res.getSegments().get(1).getEndTime(), segs.getSegments().get(1).getEndTime(),
                 "Error in start time of method " +
-                "TransSegmentList in DAo");
+                "TransSegmentList in DAO");
     }
 }
