@@ -13,7 +13,6 @@ public class VideoToAudioInteractor implements VideoToAudioInputBoundary{
     public void execute(VideoToAudioInputData data) {
         String status = mci.audioToVideo(data.getVideoFile());
         if (!status.equals("Video Conversion Successful")){
-            System.out.println(status);
             userpresenter.prepareFailureView(status);
         } else {
             final VideoToAudioOutputData output = new VideoToAudioOutputData(mci.getFileName(), false);

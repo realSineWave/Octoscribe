@@ -11,17 +11,17 @@ import static org.junit.jupiter.api.Assertions.*;
 class CreateSubtitledVideoInteractorTest {
     @Test
     public void successtest() {
-        File video = new File("src/test/resources/Test Video.mp4");
-        File subtitle = new File("src/test/resources/Test Video.srt");
+        File video = new File("src/test/resources/TestVideo.mp4");
+        File subtitle = new File("src/test/resources/TestVideo.srt");
         CreateSubtitledVideoInputData input = new CreateSubtitledVideoInputData(video, subtitle);
         MediaConvertObject mci = new MediaConvertObject();
 
         CreateSubtitledVideoOutputBoundary boundary = new CreateSubtitledVideoOutputBoundary() {
             @Override
             public void prepareSuccessView(CreateSubtitledVideoOutputData data) {
-                File sVideo = new File("src/test/resources/subtitledTest Video.mp4");
+                File sVideo = new File("src/test/resources/subtitledTestVideo.mp4");
                 try {
-                    assertEquals("src/test/resources/subtitledTest Video.mp4", data.getFileName());
+                    assertEquals("src/test/resources/subtitledTestVideo.mp4", data.getFileName());
                     assertFalse(data.getUseCaseFailed());
                     sVideo.delete();
                 } catch (Exception e) {
@@ -53,7 +53,7 @@ class CreateSubtitledVideoInteractorTest {
                 try {
                     fail("Use case success is unexpected.");
                 } catch (Exception e) {
-                    File audio = new File("src/test/resources/subtitledTest Video.mp4");
+                    File audio = new File("src/test/resources/subtitledTestVideo.mp4");
                     audio.delete();
                 }
             }
@@ -70,15 +70,15 @@ class CreateSubtitledVideoInteractorTest {
 
     @Test
     public void integrationTest() {
-        File video = new File("src/test/resources/Test Video.mp4");
-        File subtitle = new File("src/test/resources/Test Video.srt");
+        File video = new File("src/test/resources/TestVideo.mp4");
+        File subtitle = new File("src/test/resources/TestVideo.srt");
         CreateSubtitledVideoInputData input = new CreateSubtitledVideoInputData(video, subtitle);
         MediaConvertObject mci = new MediaConvertObject();
 
         CreateSubtitledVideoOutputBoundary boundary = new CreateSubtitledVideoOutputBoundary() {
             @Override
             public void prepareSuccessView(CreateSubtitledVideoOutputData data) {
-                File svideo = new File("src/test/resources/subtitledTest Video.mp4");
+                File svideo = new File("src/test/resources/subtitledTestVideo.mp4");
                 try {
                     assert svideo.exists();
                     svideo.delete();

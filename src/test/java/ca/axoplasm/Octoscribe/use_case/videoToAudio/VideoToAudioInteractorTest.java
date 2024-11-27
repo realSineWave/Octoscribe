@@ -13,16 +13,16 @@ class VideoToAudioInteractorTest {
 
     @Test
     public void successtest() {
-        File video = new File("src/test/resources/Test Video.mp4");
+        File video = new File("src/test/resources/TestVideo.mp4");
         VideoToAudioInputData input = new VideoToAudioInputData(video);
         MediaConvertObject mci = new MediaConvertObject();
 
         VideoToAudioOutputBoundary boundary = new VideoToAudioOutputBoundary() {
             @Override
             public void prepareSuccessView(VideoToAudioOutputData data) {
-                File audio = new File("src/test/resources/Test Video.mp3");
+                File audio = new File("src/test/resources/TestVideo.mp3");
                 try {
-                    assertEquals("src/test/resources/Test Video.mp3", data.getFileName());
+                    assertEquals("src/test/resources/TestVideo.mp3", data.getFileName());
                     assertFalse(data.getUseCaseFailed());
                     audio.delete();
                 } catch (Exception e) {
@@ -53,7 +53,7 @@ class VideoToAudioInteractorTest {
                 try {
                     fail("Use case success is unexpected.");
                 } catch (Exception e) {
-                    File audio = new File("src/test/resources/Test Video.mp3");
+                    File audio = new File("src/test/resources/TestVideo.mp3");
                     audio.delete();
                 }
             }
@@ -70,14 +70,14 @@ class VideoToAudioInteractorTest {
 
     @Test
     public void integrationTest() {
-        File video = new File("src/test/resources/Test Video.mp4");
+        File video = new File("src/test/resources/TestVideo.mp4");
         VideoToAudioInputData input = new VideoToAudioInputData(video);
         MediaConvertObject mci = new MediaConvertObject();
 
         VideoToAudioOutputBoundary boundary = new VideoToAudioOutputBoundary() {
             @Override
             public void prepareSuccessView(VideoToAudioOutputData data) {
-                File audio = new File("src/test/resources/Test Video.mp3");
+                File audio = new File("src/test/resources/TestVideo.mp3");
                 try {
                     assert audio.exists();
                     audio.delete();
