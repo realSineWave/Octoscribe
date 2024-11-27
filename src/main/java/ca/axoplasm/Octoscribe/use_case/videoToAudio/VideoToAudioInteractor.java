@@ -1,6 +1,6 @@
 package ca.axoplasm.Octoscribe.use_case.videoToAudio;
 
-public class VideoToAudioInteractor implements VideoToAudioInputBoundary{
+public class VideoToAudioInteractor implements VideoToAudioInputBoundary {
     private final VideoToAudioMediaConvertInterface mci;
     private final VideoToAudioOutputBoundary userpresenter;
 
