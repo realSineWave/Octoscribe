@@ -17,8 +17,9 @@ public class CreateSubtitledVideoInteractor implements CreateSubtitledVideoInput
         if (!status.equals("Video Conversion Successful")){
             System.out.println(status);
             userpresenter.prepareFailureView(status);
+        } else {
+            final CreateSubtitledVideoOutputData output = new CreateSubtitledVideoOutputData(mci.getFileName(), false);
+            userpresenter.prepareSuccessView(output);
         }
-        final CreateSubtitledVideoOutputData output = new CreateSubtitledVideoOutputData(mci.getFileName(), false);
-        userpresenter.prepareSuccessView(output);
     }
 }

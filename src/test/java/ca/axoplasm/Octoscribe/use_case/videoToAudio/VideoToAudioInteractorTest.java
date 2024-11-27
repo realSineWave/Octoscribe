@@ -22,7 +22,7 @@ class VideoToAudioInteractorTest {
             public void prepareSuccessView(VideoToAudioOutputData data) {
                 File audio = new File("src/test/resources/Test Video.mp3");
                 try {
-                    assertEquals("src/test/resources/Test Video.mp3", data.getFilename());
+                    assertEquals("src/test/resources/Test Video.mp3", data.getFileName());
                     assertFalse(data.getUseCaseFailed());
                     audio.delete();
                 } catch (Exception e) {
