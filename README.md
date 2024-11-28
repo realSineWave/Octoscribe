@@ -8,8 +8,6 @@
 - Nathan Li: [banxiafire](https://github.com/banxiafire)
 - Evan Lee: [dogunee](https://github.com/Dogunee)
 
----
-
 ## What does this project do?
 This program allows you to add subtitles to a video through a series of 3 steps you can take:
 1. Extract an audio file from a video
@@ -18,9 +16,7 @@ This program allows you to add subtitles to a video through a series of 3 steps 
 This project also allows you to translate subtitles and turn subtitles into PDF files.
 
 This program was created to allow users to easily create transcripts of videos and add subtitles, and is useful for 
-anyone who requires subtitles on their video. 
-
----
+anyone who requires subtitles on their video.
 
 ## Table of Contents
 1. [Features](#features)
@@ -30,8 +26,6 @@ anyone who requires subtitles on their video.
 5. [Feedback](#feedback)
 6. [Contributions](#contributions)
 
----
-
 ## Features
 - **Audio Extraction:** Upload a video file and extract its audio onto a mp3 file
 - **Transcript Creation:** Upload an audio file and generate a transcript in the form of a .srt file 
@@ -40,8 +34,6 @@ anyone who requires subtitles on their video.
 - **Generate PDF:** Upload an audio file and generate a PDF containing the transcript 
 
 Provide examples, screenshots, or tutorials here as needed.
-
----
 
 ## Installation
 ### Prerequisites
@@ -57,17 +49,11 @@ Provide examples, screenshots, or tutorials here as needed.
 
 Will have to talk about API key
 
----
-
 ## Usage
 Talk about usage
 
----
-
 ## License
 This project is licensed under the [License Name](link-to-license).
-
----
 
 ## Feedback
 We welcome your feedback!
@@ -75,8 +61,6 @@ We welcome your feedback!
 - Rules for feedback:
     - Be constructive.
     - Mention the specific issue that should be fixed.
-
----
 
 ## Contributions
 
