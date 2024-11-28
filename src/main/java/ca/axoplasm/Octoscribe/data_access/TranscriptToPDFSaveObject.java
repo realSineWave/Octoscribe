@@ -41,7 +41,7 @@ public class TranscriptToPDFSaveObject implements TranscriptToPDFsaveInterface {
 
         List<Segment> segmentList = segmentedTranscription.getSegments();
         for (Segment segment : segmentList) {
-            document.add(new Paragraph(segment.getText()));
+            document.add(new Paragraph(segment.getText()).setMarginBottom(0));
         }
         document.close();
     }
