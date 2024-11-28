@@ -29,13 +29,13 @@ public class TranslateTranscriptFileSaveObject implements TranslateTranscriptFil
         StringBuilder fileName = new StringBuilder();
         fileName.append("Translated_Transcript_at_");
         fileName.append(date);
-        File file = new File(fileName.toString() + ".txt");
+        File file = new File(fileName + ".txt");
         int counter = 0;
 
         try {
             while (file.exists()) {
                 counter++;
-                file = new File(fileName.toString() + "(" + counter + ")" + ".txt");
+                file = new File(fileName + "(" + counter + ")" + ".txt");
             }
 
             if (counter == 0){
@@ -76,8 +76,8 @@ public class TranslateTranscriptFileSaveObject implements TranslateTranscriptFil
         int hours = duration.toHoursPart();
         int min = duration.toMinutesPart();
         if (nanos == 0) {
-            return hours + ":" + min + ":" + sec + ",000";
+            return String.format("%02d", hours) + ":" + String.format("%02d", min) + ":" + String.format("%02d", sec) + ",000";
         }
-        return hours + ":" + min + ":" + sec + "," + nanos.toString().substring(2, 5);
+        return String.format("%02d", hours) + ":" + String.format("%02d", min) + ":" + String.format("%02d", sec) + "," + nanos.toString().substring(0, 3);
     }
 }
