@@ -11,19 +11,19 @@ import java.nio.file.Path;
 import java.time.Duration;
 
 public class AudioToTranscriptFileSaveObject implements AudioToTranscriptFileSaveInterface {
-    private String name = "subtitles.txt";
+    private String name = "subtitles.srt";
 
     @Override
     public void save(SegmentedTranscription segmentedTranscription, Path path) {
         int i = 0;
         String p = path.toString();
-        File file = new File(p.substring(0, p.lastIndexOf(".")) + ".txt");
+        File file = new File(p.substring(0, p.lastIndexOf(".")) + ".srt");
         int counter = 0;
 
         try {
             while (file.exists()) {
                 counter++;
-                file = new File(p.substring(0, p.lastIndexOf(".")) + "(" + counter + ")" + ".txt");
+                file = new File(p.substring(0, p.lastIndexOf(".")) + "(" + counter + ")" + ".srt");
             }
 
             BufferedWriter writer = new BufferedWriter(new FileWriter(file));

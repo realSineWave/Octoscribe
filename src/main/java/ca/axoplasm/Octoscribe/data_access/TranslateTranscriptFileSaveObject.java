@@ -29,24 +29,24 @@ public class TranslateTranscriptFileSaveObject implements TranslateTranscriptFil
         StringBuilder fileName = new StringBuilder();
         fileName.append("Translated_Transcript_at_");
         fileName.append(date);
-        File file = new File(fileName + ".txt");
+        File file = new File(fileName + ".srt");
         int counter = 0;
 
         try {
             while (file.exists()) {
                 counter++;
-                file = new File(fileName + "(" + counter + ")" + ".txt");
+                file = new File(fileName + "(" + counter + ")" + ".srt");
             }
 
             if (counter == 0){
-                BufferedWriter writer = new BufferedWriter(new FileWriter(fileName + ".txt"));
+                BufferedWriter writer = new BufferedWriter(new FileWriter(fileName + ".srt"));
                 writeFile(segmentedTranscription, i, writer);
                 this.name = fileName + ".txt";
             }
             else {
-                BufferedWriter writer = new BufferedWriter(new FileWriter(fileName + "(" + counter + ")" + ".txt"));
+                BufferedWriter writer = new BufferedWriter(new FileWriter(fileName + "(" + counter + ")" + ".srt"));
                 writeFile(segmentedTranscription, i, writer);
-                this.name = fileName + "(" + counter + ")" + ".txt";
+                this.name = fileName + "(" + counter + ")" + ".srt";
             }
 
 
