@@ -31,7 +31,7 @@ anyone who requires subtitles on their video.
 - **Transcript Creation:** Upload an audio file and generate a transcript in the form of a .srt file 
 - **Subtitle Addition:** Add subtitles to a video using a .srt file
 - **Transcript Translation:** Generate a translated transcript in the form of a .srt file
-- **Generate PDF:** Upload an audio file and generate a PDF containing the transcript 
+- **PDF Generation:** Upload an audio file and generate a PDF containing the transcript 
 
 Provide examples, screenshots, or tutorials here as needed.
 
