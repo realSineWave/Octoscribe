@@ -1,13 +1,11 @@
-package usecase.translateTranscript;
+package ca.axoplasm.Octoscribe.use_case.translateTranscript;
 
-import ca.axoplasm.Octoscribe.data_access.AudioToTranscriptFileSaveObject;
 import ca.axoplasm.Octoscribe.data_access.DataAccessObject;
 import ca.axoplasm.Octoscribe.data_access.TranslateTranscriptFileSaveObject;
 import ca.axoplasm.Octoscribe.entity.Segment;
 import ca.axoplasm.Octoscribe.entity.SegmentFactory;
 import ca.axoplasm.Octoscribe.entity.SegmentedTranscription;
 import ca.axoplasm.Octoscribe.entity.SegmentedTranscriptionFactory;
-import ca.axoplasm.Octoscribe.use_case.translateTranscript.*;
 import org.junit.jupiter.api.Test;
 
 import java.time.Duration;
@@ -41,7 +39,7 @@ public class TranslateTranscriptInteractorTest {
         TranslateTranscriptOutputBoundary successPresenter = new TranslateTranscriptOutputBoundary() {
             @Override
             public void prepareSuccessView(TranslateTranscriptOutputData data) {
-                assertEquals("Translated_", fileSaveObject.getName().substring(0, "Translated_".indexOf("_")));
+                assertEquals("Translated_", fileSaveObject.getName().substring(0, "Translated_".indexOf("_")+1));
             }
 
             @Override

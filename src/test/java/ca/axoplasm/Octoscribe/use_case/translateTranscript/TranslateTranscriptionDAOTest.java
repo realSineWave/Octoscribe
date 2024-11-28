@@ -1,11 +1,10 @@
-package usecase.translateTranscript;
+package ca.axoplasm.Octoscribe.use_case.translateTranscript;
 
 import ca.axoplasm.Octoscribe.data_access.DataAccessObject;
 import ca.axoplasm.Octoscribe.entity.Segment;
 import ca.axoplasm.Octoscribe.entity.SegmentFactory;
 import ca.axoplasm.Octoscribe.entity.SegmentedTranscription;
 import ca.axoplasm.Octoscribe.entity.SegmentedTranscriptionFactory;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.time.Duration;
