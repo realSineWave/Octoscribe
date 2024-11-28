@@ -14,6 +14,7 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter")
     implementation("com.squareup.okhttp3:okhttp:4.12.0")
     implementation("jakarta.json:jakarta.json-api:2.1.3")
+    implementation ("org.eclipse.parsson:parsson:1.1.1")
 
 }
 
