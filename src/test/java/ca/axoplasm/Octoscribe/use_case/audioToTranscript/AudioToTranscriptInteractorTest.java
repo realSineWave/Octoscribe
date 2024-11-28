@@ -1,10 +1,7 @@
-package usecase.audioToTranscript;
+package ca.axoplasm.Octoscribe.use_case.audioToTranscript;
 
 import ca.axoplasm.Octoscribe.data_access.AudioToTranscriptFileSaveObject;
 import ca.axoplasm.Octoscribe.data_access.DataAccessObject;
-import ca.axoplasm.Octoscribe.entity.Segment;
-import ca.axoplasm.Octoscribe.entity.SegmentFactory;
-import ca.axoplasm.Octoscribe.use_case.audioToTranscript.*;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
