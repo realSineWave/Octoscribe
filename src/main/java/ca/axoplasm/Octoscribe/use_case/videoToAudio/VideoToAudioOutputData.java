@@ -9,7 +9,7 @@ public class VideoToAudioOutputData {
         this.useCaseFailed = useCaseFailed;
     }
 
-    public String getFilename() {
+    public String getFileName() {
         return filename;
     }
 
