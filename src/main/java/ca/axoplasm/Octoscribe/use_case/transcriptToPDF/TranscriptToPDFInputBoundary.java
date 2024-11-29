@@ -4,5 +4,5 @@ import ca.axoplasm.Octoscribe.use_case.translateTranscript.TranslateTranscriptIn
 
 public interface TranscriptToPDFInputBoundary {
 
-    void execute(TranslateTranscriptInputData inputData);
+    void execute(TranscriptToPDFInputData inputData);
 }
