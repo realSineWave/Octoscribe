@@ -6,6 +6,7 @@ import ca.axoplasm.Octoscribe.entity.SegmentedTranscription;
 import ca.axoplasm.Octoscribe.use_case.transcriptToPDF.*;
 import org.junit.jupiter.api.Test;
 import java.io.File;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.*;
 
@@ -17,8 +18,8 @@ public class transcriptToPDFInteractorTest {
    public void successTest() {
        TranscriptToPDFsaveInterface PDFSaveObject = new TranscriptToPDFSaveObject();
 
-       Segment segment_1 = new Segment(10, 12, "Hello");
-       Segment segment_2 = new Segment(11, 23, "Bye");
+        Segment segment_1 = new Segment(Duration.ofNanos(10), Duration.ofNanos(12), "Hello");
+        Segment segment_2 = new Segment(Duration.ofNanos(10), Duration.ofNanos(12), "Bye");
        List<Segment> segmentList = new ArrayList<Segment>();
        segmentList.add(segment_1);
        segmentList.add(segment_2);

@@ -3,9 +3,14 @@ package usecase.translateTranscript;
 import ca.axoplasm.Octoscribe.data_access.AudioToTranscriptFileSaveObject;
 import ca.axoplasm.Octoscribe.data_access.DataAccessObject;
 import ca.axoplasm.Octoscribe.data_access.TranslateTranscriptFileSaveObject;
+import ca.axoplasm.Octoscribe.entity.Segment;
 import ca.axoplasm.Octoscribe.entity.SegmentedTranscription;
 import ca.axoplasm.Octoscribe.use_case.translateTranscript.*;
 import org.junit.jupiter.api.Test;
+
+import java.time.Duration;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -18,7 +23,14 @@ public class TranslateTranscriptInteractorTest {
         TranslateTranscriptDataAccessInterface dataAccessObject = new DataAccessObject();
         TranslateTranscriptFileSaveObject fileSaveObject = new TranslateTranscriptFileSaveObject();
 
-        SegmentedTranscription temp; // need to initiale; replace this with having sample list of segments
+        Segment segment_1 = new Segment(Duration.ofNanos(10), Duration.ofNanos(12), "Hello");
+        Segment segment_2 = new Segment(Duration.ofNanos(10), Duration.ofNanos(12), "Bye");
+        List<Segment> segmentList = new ArrayList<Segment>();
+        segmentList.add(segment_1);
+        segmentList.add(segment_2);
+
+        SegmentedTranscription temp =
+                new SegmentedTranscription("en", "test", segmentList);
 
         TranslateTranscriptInputData inputData =
                 new TranslateTranscriptInputData(temp , "en");
