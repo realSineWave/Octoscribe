@@ -29,24 +29,24 @@ public class TranslateTranscriptFileSaveObject implements TranslateTranscriptFil
         StringBuilder fileName = new StringBuilder();
         fileName.append("Translated_Transcript_at_");
         fileName.append(date);
-        File file = new File(fileName.toString() + ".txt");
+        File file = new File(fileName + ".srt");
         int counter = 0;
 
         try {
             while (file.exists()) {
                 counter++;
-                file = new File(fileName.toString() + "(" + counter + ")" + ".txt");
+                file = new File(fileName + "(" + counter + ")" + ".srt");
             }
 
             if (counter == 0){
-                BufferedWriter writer = new BufferedWriter(new FileWriter(fileName + ".txt"));
+                BufferedWriter writer = new BufferedWriter(new FileWriter(fileName + ".srt"));
                 writeFile(segmentedTranscription, i, writer);
                 this.name = fileName + ".txt";
             }
             else {
-                BufferedWriter writer = new BufferedWriter(new FileWriter(fileName + "(" + counter + ")" + ".txt"));
+                BufferedWriter writer = new BufferedWriter(new FileWriter(fileName + "(" + counter + ")" + ".srt"));
                 writeFile(segmentedTranscription, i, writer);
-                this.name = fileName + "(" + counter + ")" + ".txt";
+                this.name = fileName + "(" + counter + ")" + ".srt";
             }
 
 
@@ -76,8 +76,8 @@ public class TranslateTranscriptFileSaveObject implements TranslateTranscriptFil
         int hours = duration.toHoursPart();
         int min = duration.toMinutesPart();
         if (nanos == 0) {
-            return hours + ":" + min + ":" + sec + ",000";
+            return String.format("%02d", hours) + ":" + String.format("%02d", min) + ":" + String.format("%02d", sec) + ",000";
         }
-        return hours + ":" + min + ":" + sec + "," + nanos.toString().substring(2, 5);
+        return String.format("%02d", hours) + ":" + String.format("%02d", min) + ":" + String.format("%02d", sec) + "," + nanos.toString().substring(0, 3);
     }
 }
