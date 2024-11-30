@@ -1,4 +1,4 @@
-package ca.axoplasm.Octoscribe.audio_to_transcript;
+package ca.axoplasm.Octoscribe.interface_adapter.audio_to_transcript;
 
 import ca.axoplasm.Octoscribe.use_case.audioToTranscript.AudioToTranscriptInputBoundary;
 import ca.axoplasm.Octoscribe.use_case.audioToTranscript.AudioToTranscriptInputData;

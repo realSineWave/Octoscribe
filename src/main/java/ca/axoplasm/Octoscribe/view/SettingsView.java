@@ -2,7 +2,7 @@ package ca.axoplasm.Octoscribe.view;
 
 import javax.swing.*;
 
-public class SettingsView {
+public class SettingsView extends JFrame {
     private JPanel panel1;
     private JTextField WhisperAPIField;
     private JButton cancelButton;
