@@ -53,7 +53,7 @@ Will have to talk about API key
 Talk about usage
 
 ## License
-This project is licensed under the [License Name](link-to-license).
+This project is licensed under the [The MIT License](https://opensource.org/license/MIT).
 
 ## Feedback
 We welcome your feedback!
