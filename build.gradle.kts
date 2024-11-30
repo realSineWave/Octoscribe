@@ -16,6 +16,7 @@ dependencies {
     implementation("jakarta.json:jakarta.json-api:2.1.3")
     implementation("com.itextpdf:kernel:7.2.6")
     implementation("com.itextpdf:layout:7.2.6")
+    implementation ("org.eclipse.parsson:parsson:1.1.1")
 
 }
 
