@@ -1,4 +1,4 @@
-package usecase.transcriptToPDF;
+package ca.axoplasm.Octoscribe.use_case.transcriptToPDF;
 
 import  ca.axoplasm.Octoscribe.data_access.TranscriptToPDFSaveObject;
 import ca.axoplasm.Octoscribe.entity.Segment;

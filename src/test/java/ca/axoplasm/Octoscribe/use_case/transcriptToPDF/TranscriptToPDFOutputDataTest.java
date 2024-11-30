@@ -1,4 +1,4 @@
-package usecase.transcriptToPDF;
+package ca.axoplasm.Octoscribe.use_case.transcriptToPDF;
 
 import ca.axoplasm.Octoscribe.use_case.transcriptToPDF.TranscriptToPDFOutputData;
 import org.junit.jupiter.api.Test;
