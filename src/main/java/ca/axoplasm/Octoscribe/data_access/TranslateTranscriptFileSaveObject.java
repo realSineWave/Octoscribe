@@ -29,24 +29,24 @@ public class TranslateTranscriptFileSaveObject implements TranslateTranscriptFil
         StringBuilder fileName = new StringBuilder();
         fileName.append("Translated_Transcript_at_");
         fileName.append(date);
-        File file = new File(fileName.toString() + ".txt");
+        File file = new File(fileName + ".srt");
         int counter = 0;
 
         try {
             while (file.exists()) {
                 counter++;
-                file = new File(fileName.toString() + "(" + counter + ")" + ".txt");
+                file = new File(fileName + "(" + counter + ")" + ".srt");
             }
 
             if (counter == 0){
-                BufferedWriter writer = new BufferedWriter(new FileWriter(fileName + ".txt"));
+                BufferedWriter writer = new BufferedWriter(new FileWriter(fileName + ".srt"));
                 writeFile(segmentedTranscription, i, writer);
                 this.name = fileName + ".txt";
             }
             else {
-                BufferedWriter writer = new BufferedWriter(new FileWriter(fileName + "(" + counter + ")" + ".txt"));
+                BufferedWriter writer = new BufferedWriter(new FileWriter(fileName + "(" + counter + ")" + ".srt"));
                 writeFile(segmentedTranscription, i, writer);
-                this.name = fileName + "(" + counter + ")" + ".txt";
+                this.name = fileName + "(" + counter + ")" + ".srt";
             }
 
 
@@ -71,18 +71,13 @@ public class TranslateTranscriptFileSaveObject implements TranslateTranscriptFil
     }
 
     private String durationToString(Duration duration) {
-        String str = duration.toString();
-        String time = str.replaceAll("[[^\\d.]]", "");
-        float seconds = Float.parseFloat(time);
-        int nonnanoseconds = (int) seconds;
-        Float nanos = seconds - nonnanoseconds;
-        int minutes = nonnanoseconds/60;
-        String rsec = String.format("%02d", nonnanoseconds%60);
-        String hours = String.format("%02d", minutes/60);
-        String rmin = String.format("%02d", minutes%60);
-        if (nanos == 0.0) {
-            return hours + ":" + rmin + ":" + rsec + ",000";
+        Integer nanos = duration.toNanosPart();
+        int sec = duration.toSecondsPart();
+        int hours = duration.toHoursPart();
+        int min = duration.toMinutesPart();
+        if (nanos == 0) {
+            return String.format("%02d", hours) + ":" + String.format("%02d", min) + ":" + String.format("%02d", sec) + ",000";
         }
-        return hours + ":" + rmin + ":" + rsec + "," + nanos.toString().substring(2, 5);
+        return String.format("%02d", hours) + ":" + String.format("%02d", min) + ":" + String.format("%02d", sec) + "," + nanos.toString().substring(0, 3);
     }
 }
