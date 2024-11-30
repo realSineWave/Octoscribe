@@ -1,0 +1,8 @@
+0
+00:00:00,000 --> 00:00:04,149
+Hello, welcome to the demonstration of the Whisper API.
+
+1
+00:00:05,129 --> 00:00:10,399
+This is the second segment of the transcription.
+
