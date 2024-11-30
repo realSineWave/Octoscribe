@@ -65,11 +65,6 @@ We welcome your feedback!
 
 ## Contributions
 
-We welcome contributions to this project and encourage you to get involved! To contribute, start by forking the repository on GitHub and cloning it to
-your local machine. Make your changes in a new branch created from the main branch, and follow our contribution guidelines. When your changes are
-ready, submit a pull request (PR) with a clear and concise description of the work done. Ensure your PR follows our merge request standards, which
-include proper code formatting, testing, and detailed commit messages. Once submitted, our team will review your PR according to the established
-review protocols, which include checking code quality, compatibility, and documentation updates. If contributions are currently closed, this will be
-indicated on the main page of the repository. Thank you for your interest in improving our project!
+We welcome contributions to this project and encourage you to get involved! To contribute, start by forking the repository on GitHub and cloning it to your local machine. When your changes are ready, submit a pull request with a clear and concise description of the work done. Ensure your PR follows our merge request standards, which include proper code formatting, testing, and detailed commit messages. Once submitted, our team will review your PR according to the established review protocols, which include checking code quality, compatibility, and documentation updates. If contributions are currently closed, this will be indicated on the main page of the repository. Thank you for your interest in improving our project!
 
 ---
