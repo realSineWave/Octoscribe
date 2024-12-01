@@ -17,7 +17,7 @@ public class TranslateTranscriptFileSaveObject implements TranslateTranscriptFil
     /**
      * Initialization of that DAO. Name of that file is at the time the object is created.
      */
-    public TranslateTranscriptFileSaveObject(){
+    public TranslateTranscriptFileSaveObject() {
         Date date = new Date();
         StringBuilder s = new StringBuilder();
         s.append("Translated_transcript_at_");

@@ -4,10 +4,10 @@ import ca.axoplasm.Octoscribe.interface_adapter.AddFile.AddFileController;
 import ca.axoplasm.Octoscribe.interface_adapter.AddFile.FileListModel;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.IOException;
 
 public class AddFileView extends JFrame {
     private JPanel contentPane;
@@ -20,6 +20,7 @@ public class AddFileView extends JFrame {
     private JCheckBox translateCheckbox;
     private JTextField translateToLanguageCode;
     private JCheckBox subVideoCheckbox;
+    private JCheckBox createPDFCheckbox;
     private final JFileChooser fileChooser = new JFileChooser();
     private AddFileController controller = null;
     private FileListModel fileListModel;
@@ -48,6 +49,11 @@ public class AddFileView extends JFrame {
                             translateToLanguageCode.getText(),
                             subVideoCheckbox.isSelected()
                     );
+                    try {
+                        controller.execute();
+                    } catch (IOException ex) {
+                        JOptionPane.showMessageDialog(AddFileView.this, ex.getMessage());
+                    }
                 }
             }
         });

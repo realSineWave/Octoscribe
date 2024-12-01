@@ -6,12 +6,10 @@ public class AudioToTranscriptOutputData {
 
     private final SegmentedTranscription segmentedTranscription;
     private final String name;
-    private final boolean status;
 
-    public AudioToTranscriptOutputData(SegmentedTranscription segmentedTranscription, String name, Boolean status){
+    public AudioToTranscriptOutputData(SegmentedTranscription segmentedTranscription, String name){
         this.segmentedTranscription = segmentedTranscription;
         this.name = name;
-        this.status = status;
     }
 
     public String getFileName() {
@@ -20,9 +18,5 @@ public class AudioToTranscriptOutputData {
 
     public SegmentedTranscription getSegmentedTranscription(){
         return this.segmentedTranscription;
-    }
-
-    public Boolean getStatus(){
-        return this.status;
     }
 }

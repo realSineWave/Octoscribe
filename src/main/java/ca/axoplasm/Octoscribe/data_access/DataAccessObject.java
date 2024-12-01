@@ -45,11 +45,11 @@ public class DataAccessObject implements AudioToTranscriptDataAccessInterface, T
      * @return the JsonObject, for later manipulation.
      */
     @Override
-    public JsonObject getTranscribedJson(File file) {
+    public JsonObject getTranscribedJson(File file) throws IOException {
         MultipartBody requestBody = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
                 .addFormDataPart("file", file.getName(),
-                        RequestBody.create(file, null)) // MIME type for MP3
+                        RequestBody.create(file, null))
                 .addFormDataPart("timestamp_granularities[]", "segment")
                 .addFormDataPart("model", "whisper-1")
                 .addFormDataPart("response_format", "verbose_json")
@@ -63,16 +63,14 @@ public class DataAccessObject implements AudioToTranscriptDataAccessInterface, T
 
         try (Response response = this.client.newCall(request).execute()) {
             if (!response.isSuccessful()) {
-                System.err.println("Request failed: " + response.message());
-                return null;
+                throw new IOException("Request failed");
             }
 
             try (JsonReader jsonReader = Json.createReader(new StringReader(response.body().string()))) {
                 return jsonReader.readObject();
             }
         } catch (IOException e) {
-            e.printStackTrace();
-            return null;
+            throw new IOException("Request failed");
         }
     }
 
@@ -119,7 +117,7 @@ public class DataAccessObject implements AudioToTranscriptDataAccessInterface, T
      * @return the segmentedTranscription.
      */
     @Override
-    public SegmentedTranscription getSegmentedTranscription(File file) {
+    public SegmentedTranscription getSegmentedTranscription(File file) throws IOException {
         JsonObject jsonObject = getTranscribedJson(file);
         List<Segment> lists = toSegments(jsonObject);
         String text = jsonObject.getString("text");
@@ -143,7 +141,7 @@ public class DataAccessObject implements AudioToTranscriptDataAccessInterface, T
      * @return JsonObject of the translated results. Null if there is something wrong.
      */
     @Override
-    public JsonObject getTranslateJson(String text, String language) {
+    public JsonObject getTranslateJson(String text, String language) throws IOException {
         JsonObjectBuilder jsonObjectBuilder = Json.createObjectBuilder();
         JsonArrayBuilder jsonArrayBuilder = Json.createArrayBuilder();
         jsonArrayBuilder.add(text);
@@ -166,8 +164,7 @@ public class DataAccessObject implements AudioToTranscriptDataAccessInterface, T
 
         try (Response response = client.newCall(request).execute()) {
             if (!response.isSuccessful()) {
-                System.err.println("Request failed: " + response.message());
-                return null;
+                throw new IOException("Request failed");
             }
 
             String responseBody = response.body().string();
@@ -175,8 +172,7 @@ public class DataAccessObject implements AudioToTranscriptDataAccessInterface, T
             return jsonReader.readObject();
 
         } catch (IOException e) {
-            e.printStackTrace();
-            return null;
+            throw new IOException("Request failed");
         }
     }
 
@@ -189,7 +185,7 @@ public class DataAccessObject implements AudioToTranscriptDataAccessInterface, T
      * @return a translated segment.
      */
     @Override
-    public Segment TransSegment(Segment segment, String language) {
+    public Segment TransSegment(Segment segment, String language) throws IOException {
         JsonObject jsonObject = getTranslateJson(segment.getText(), language);
         StringBuilder lastString = new StringBuilder();
         for (JsonValue each : jsonObject.getJsonArray("translations")){
@@ -209,7 +205,7 @@ public class DataAccessObject implements AudioToTranscriptDataAccessInterface, T
      * @return the translated list of segments.
      */
     @Override
-    public List<Segment> TransSegmentList(List<Segment> segments, String language) {
+    public List<Segment> TransSegmentList(List<Segment> segments, String language) throws IOException {
         List<Segment> segments1 = new ArrayList<>();
         for(Segment seg : segments) {
             segments1.add(this.TransSegment(seg, language));
@@ -225,7 +221,7 @@ public class DataAccessObject implements AudioToTranscriptDataAccessInterface, T
      * @return The segmented transcription.
      */
     @Override
-    public SegmentedTranscription TransSegmentedTranscription(SegmentedTranscription transcription, String language) {
+    public SegmentedTranscription TransSegmentedTranscription(SegmentedTranscription transcription, String language) throws IOException {
         List<Segment> segments = TransSegmentList(transcription.getSegments(), language);
         StringBuilder allText = new StringBuilder();
         for (Segment segment: segments) {
@@ -233,20 +229,6 @@ public class DataAccessObject implements AudioToTranscriptDataAccessInterface, T
         }
         return this.segmentedTranscriptionFactory.createSegmented(language, allText.toString(), segments);
     }
-
-
-    /**
-     * It is the ultimate all in one function, get the translated SegTrans from audio.
-     * ISO file for language code(2 letters): <a href="https://www.iso.org/standard/74575.html">...</a>
-     * @param file the file takes in for transcription and translation.
-     * @param targetLanguage the desired language for translation, in format of Strong, Still, follow ISO Standard.
-     * @return the translated segmentedtranciption.
-     */
-    public SegmentedTranscription AudioDirectlyToTranslatedTranscription(File file, String targetLanguage) {
-        SegmentedTranscription transcription = getSegmentedTranscription(file);
-        return TransSegmentedTranscription(transcription, targetLanguage);
-    }
-
 }
 
 

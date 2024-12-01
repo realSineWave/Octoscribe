@@ -33,4 +33,8 @@ public class FileState {
     public String getFileName() {
         return file.getName();
     }
+
+    public File getFile() {
+        return file;
+    }
 }

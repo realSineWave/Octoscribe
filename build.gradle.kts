@@ -19,6 +19,8 @@ dependencies {
     implementation ("org.eclipse.parsson:parsson:1.1.1")
     implementation("com.jgoodies:jgoodies-forms:1.9.0")
     implementation("com.jgoodies:jgoodies-common:1.8.1")
+    implementation("org.apache.tika:tika-core:3.0.0")
+    implementation("org.apache.tika:tika-parsers-standard-package:3.0.0")
 }
 
 tasks.test {

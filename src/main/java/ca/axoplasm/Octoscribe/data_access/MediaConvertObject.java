@@ -17,7 +17,7 @@ public class MediaConvertObject implements VideoToAudioMediaConvertInterface, Cr
      * @return String indicates whether we've done it successfully.
      */
     @Override
-    public String audioToVideo(File video) {
+    public String videoToAudio(File video) {
         if (this.checkSystem()) {
             return "System doesn't have FFMPEG";
         }
