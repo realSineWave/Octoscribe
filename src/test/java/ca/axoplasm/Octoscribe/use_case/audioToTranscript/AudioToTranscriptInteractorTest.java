@@ -28,6 +28,10 @@ public class AudioToTranscriptInteractorTest {
                 new AudioToTranscriptInteractor(dataAccessObject, (AudioToTranscriptFileSaveObject) fileSaveObject);
 
         AudioToTranscriptOutputData output = interactor.execute(inputData);
-        assertEquals(output.getSegmentedTranscription(), assertInstanceOf(SegmentedTranscription.class, output.getSegmentedTranscription()));
+        assertEquals(output.getSegmentedTranscription(),
+                assertInstanceOf(SegmentedTranscription.class, output.getSegmentedTranscription()));
+
+        File file = new File("src/test/resources/testAudio.srt");
+        file.delete();
     }
 }
