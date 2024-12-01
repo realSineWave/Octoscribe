@@ -4,6 +4,7 @@ import  ca.axoplasm.Octoscribe.data_access.TranscriptToPDFSaveObject;
 import ca.axoplasm.Octoscribe.entity.Segment;
 import ca.axoplasm.Octoscribe.entity.SegmentedTranscription;
 import ca.axoplasm.Octoscribe.use_case.transcriptToPDF.*;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Test;
 import java.io.File;
 import java.time.Duration;
@@ -38,6 +39,12 @@ public class transcriptToPDFInteractorTest {
             extension = output.getFile().getName().substring(i+1);
         }
         assertEquals("pdf", extension); //check if the output file is pdf or not
+   }
+
+   @AfterAll
+    public static void cleanUp() {
+        File file = new File("output.pdf");
+        file.delete();
    }
 
 }
