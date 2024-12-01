@@ -26,24 +26,30 @@ public class DataAccessObject implements AudioToTranscriptDataAccessInterface, T
     private String DeepLUrl;
 
     /**
-     * Constructor of the DAO, using overloading. If you gonna use the DAO for translation, add on the parameter called
-     * target languge.
+     * Constructor of the DAO, stores the Endpoint and API key for them.
      *
      */
     public DataAccessObject(){
-        this.OpenAiapiKey = "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";
+        this.OpenAiapiKey = "sk-proj-uGI-ofIHwn18Y3PSlfZHDfs3wIfdzqmWWN2VJaTzl15gtBsDzTTtzb-uWRJz34f55i3yVA80S" +
+                "dT3BlbkFJPP4fS9xLckhEMcmPrcKEfF9Yti_l0AUqYhxJJwutUvmqAXnl_WBdS20G1_nm1qjpaYuNs8cAQA";
         this.whisperApiUrl = "https://api.openai.com/v1/audio/transcriptions";
         this.DeepLUrl = "https://api-free.deepl.com/v2/translate";
         this.DeepLApiKey = "119441ee-8da3-4d15-9373-f117f5eca6fa:fx";
     }
 
 
+    /**
+     * Send the file to Whisper API by okhttp3, and return the get the json object of the transcription.
+     *
+     * @param file can be any widely applied fire format. Recommendation: .mp3 (The one i did the test for)
+     * @return the JsonObject, for later manipulation.
+     */
     @Override
     public JsonObject getTranscriptedJson(File file) {
         MultipartBody requestBody = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
                 .addFormDataPart("file", file.getName(),
-                        RequestBody.create(file, MediaType.parse("audio/mpeg"))) // Correct MIME type for MP3
+                        RequestBody.create(file, null)) // MIME type for MP3
                 .addFormDataPart("timestamp_granularities[]", "segment")
                 .addFormDataPart("model", "whisper-1")
                 .addFormDataPart("response_format", "verbose_json")
@@ -70,6 +76,20 @@ public class DataAccessObject implements AudioToTranscriptDataAccessInterface, T
         }
     }
 
+    /**
+     * Converts a given JSON object into a list of {@link Segment} objects.
+     *
+     * <p>This method reads a JSON object containing a "segments" array, where each element is a JSON
+     * object with "start", "end", and "text" properties. The method parses these properties to
+     * construct {@link Segment} objects, which represent segments of time with associated text content.</p>
+     *
+     * <p>The "start" and "end" properties in the JSON are parsed as floating-point numbers representing
+     * seconds. These are converted to {@link Duration} objects, with precision down to nanoseconds.</p>
+     *
+     * @param jsonObject the input JSON object containing the "segments" array
+     * @return a {@link List} of {@link Segment} objects parsed from the input JSON object
+     */
+
     @Override
     public List<Segment> toSegments(JsonObject jsonObject) {
         List<Segment> result = new ArrayList<>();
@@ -91,11 +111,12 @@ public class DataAccessObject implements AudioToTranscriptDataAccessInterface, T
         return result;
     }
 
-
     /**
-     * This one is to get the translated SegmentedTranscription.
+     * Make the file to the transcription.
+     * With the help of the helper function this.toSegments(), and this.getTranscriptedJson()
      *
-     * @return The segmented transcription.
+     * @param file The file you take in for translation.
+     * @return the segmentedTranscription.
      */
     @Override
     public SegmentedTranscription getSegmentedTranscription(File file) {
@@ -111,6 +132,16 @@ public class DataAccessObject implements AudioToTranscriptDataAccessInterface, T
         return this.segmentedTranscriptionFactory.createSegmented(detectedLanguage, text, lists);
     }
 
+    /**
+     * Takes in text (Expected from the text of the segments.), and desired language. And finally output the JsonObject
+     * through sending the segments to DeepL.
+     * ISO file for language code(2 letters): <a href="https://www.iso.org/standard/74575.html">...</a>
+     * It's the helper function of TransSegment()
+     *
+     * @param text Takes in the string for transformation.
+     * @param language the desired language, makes sure that it follows ISO 639. (2023)
+     * @return JsonObject of the translated results. Null if there is something wrong.
+     */
     @Override
     public JsonObject getTranslateJson(String text, String language) {
         JsonObjectBuilder jsonObjectBuilder = Json.createObjectBuilder();
@@ -149,6 +180,14 @@ public class DataAccessObject implements AudioToTranscriptDataAccessInterface, T
         }
     }
 
+    /**
+     * It's the helper function of TransSegmentList().
+     * Translate the Segments to the translated segments.
+     * ISO file for language code(2 letters): <a href="https://www.iso.org/standard/74575.html">...</a>
+     * @param segment the segment takes in for translation.
+     * @param language the desired language.
+     * @return a translated segment.
+     */
     @Override
     public Segment TransSegment(Segment segment, String language) {
         JsonObject jsonObject = getTranslateJson(segment.getText(), language);
@@ -161,6 +200,14 @@ public class DataAccessObject implements AudioToTranscriptDataAccessInterface, T
         return this.segmentFactory.createSegment(segment.getStartTime(),segment.getEndTime(), lastString.toString());
     }
 
+    /**
+     * It's the helper function of TransSegmentedTranscription()
+     * Translate the list of segments. Uses helper function TransSegment()
+     * ISO file for language code(2 letters): <a href="https://www.iso.org/standard/74575.html">...</a>
+     * @param segments the list of segment takes in for translation.
+     * @param language the desired language for translation.
+     * @return the translated list of segments.
+     */
     @Override
     public List<Segment> TransSegmentList(List<Segment> segments, String language) {
         List<Segment> segments1 = new ArrayList<>();
@@ -172,9 +219,9 @@ public class DataAccessObject implements AudioToTranscriptDataAccessInterface, T
 
     /**
      * This one is to get the translated SegmentedTranscription.
-     *
+     * ISO file for language code(2 letters): <a href="https://www.iso.org/standard/74575.html">...</a>
      * @param transcription Segmented transcription.
-     * @param language
+     * @param language the desired language.
      * @return The segmented transcription.
      */
     @Override
@@ -191,6 +238,9 @@ public class DataAccessObject implements AudioToTranscriptDataAccessInterface, T
     /**
      * It is the ultimate all in one function, get the translated SegTrans from audio, requires to use the third
      * constructor.
+     * ISO file for language code(2 letters): <a href="https://www.iso.org/standard/74575.html">...</a>
+     * @param file the file takes in for transcription and translation.
+     * @param targetLanguage the desired language for translation, in format of Strong, Still, follow ISO Standard.
      * @return the translated segmentedtranciption.
      */
     public SegmentedTranscription AudioDirectlyToTranslatedTranscription(File file, String targetLanguage) {

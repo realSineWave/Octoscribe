@@ -16,7 +16,7 @@ public class AudioToTranscriptDAOTest {
     @Test
     void getTranscriptedJson(){
         DataAccessObject dao = new DataAccessObject();
-        File file = new File("src/test/java/usecase/audioToTranscript/testAudio.mp3");
+        File file = new File("src/test/resources/testAudio.mp3");
         SegmentedTranscription segmentedTranscription = dao.getSegmentedTranscription(file);
         assertEquals(segmentedTranscription.getText(), "Good morning. Nice to meet you.");
         assertEquals(segmentedTranscription.getSegments().getFirst().getStartTime(), Duration.ofNanos(0));

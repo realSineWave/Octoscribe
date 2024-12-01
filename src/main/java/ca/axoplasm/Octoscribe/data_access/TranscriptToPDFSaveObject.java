@@ -18,6 +18,12 @@ import ca.axoplasm.Octoscribe.entity.Segment;
 
 public class TranscriptToPDFSaveObject implements TranscriptToPDFsaveInterface {
 
+    /**
+     * Generates the file in format of PDF.
+     * The file name is output.pdf by default.
+     * @param segmentedTranscription
+     * @return the output pdf file.
+     */
     @Override
     public File save(SegmentedTranscription segmentedTranscription){
 
@@ -33,6 +39,13 @@ public class TranscriptToPDFSaveObject implements TranscriptToPDFsaveInterface {
         return new File(outputPdfFile);
     }
 
+    /**
+     * Generates the PDF from segmentedTreansciption.
+     * It is the helper function of the above one(save()).
+     * @param segmentedTranscription the segmentedTranscription waiting to be saved.
+     * @param pdfFilePath the location of the pdf you want to save, by default it's the folder the application is.
+     * @throws IOException output io exception.
+     */
     public static void createPdfFromText(SegmentedTranscription segmentedTranscription, String pdfFilePath)
             throws IOException {
         PdfWriter writer = new PdfWriter(pdfFilePath);
