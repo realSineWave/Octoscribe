@@ -9,8 +9,6 @@ import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.Paragraph;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.List;
 
@@ -30,7 +28,7 @@ public class TranscriptToPDFSaveObject implements TranscriptToPDFsaveInterface {
         String outputPdfFile = "output.pdf";
 
         try {
-            createPdfFromText(segmentedTranscription, outputPdfFile);
+            createPdfFromSegmentedTranscription(segmentedTranscription, outputPdfFile);
             System.out.println("PDF created successfully: " + outputPdfFile);
         } catch (IOException e) {
             System.err.println("Error: " + e.getMessage());
@@ -40,13 +38,13 @@ public class TranscriptToPDFSaveObject implements TranscriptToPDFsaveInterface {
     }
 
     /**
-     * Generates the PDF from segmentedTreansciption.
+     * Generates the PDF from segmentedTranscription.
      * It is the helper function of the above one(save()).
      * @param segmentedTranscription the segmentedTranscription waiting to be saved.
      * @param pdfFilePath the location of the pdf you want to save, by default it's the folder the application is.
      * @throws IOException output io exception.
      */
-    public static void createPdfFromText(SegmentedTranscription segmentedTranscription, String pdfFilePath)
+    public static void createPdfFromSegmentedTranscription(SegmentedTranscription segmentedTranscription, String pdfFilePath)
             throws IOException {
         PdfWriter writer = new PdfWriter(pdfFilePath);
         PdfDocument pdfDocument = new PdfDocument(writer);
