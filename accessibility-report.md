@@ -6,7 +6,7 @@
 - **Adhering Features:**
     - Since our project is fairly intuitive and easy to understand, most people will be able to use our app effectively. 
 - **Potential Future Features:**
-    - We could add text to speech to the user interface allowing those with visual impairments to use our app. At the same time, those with visual impairments are unlikely to find a subtitle creation app helpful.
+    - We could add text to speech to the user interface allowing those with visual impairments to use our app.
 
 ### Principle 2: Flexibility in Use
 - **Adhering Features:**
@@ -45,13 +45,13 @@
 
 ## 2. Marketing the Program
 
-
+Our application could be marketed to anyone who needs what is said in a video in text form, whether that be as subtitles, a transcript file, or a pdf; however, this is quite a broad category, so one market we could focus on are **students**. Students could use our app to download transcripts of their lectures in order to enhance their studying. If the student is learning a new language, our application could help them by translating transcripts to the language they are learning to enhance their experience. Another market we could target are **people with auditory impairments**. If they run across a video without subtitles that they cannot understand, they could use our app to automatically generate subtitles which would help them engage with overcome social limitations.
 
 ---
 
-## 3. Ethics and Demographics
+## 3. Demographics
 
-[Write a paragraph discussing whether the program might be less likely to be used by certain demographics and how this connects to embedded ethics issues.]
+Our application is less likely to be used by those with visual impairments, as our UI is completely visual and requires a certain level of vision to operate. While our team doesn't believe that lack of access to our app will cause a great amount of tangible harm to those who cannot access it, as it is not a necessity and is merely a convenience, it may make people with visual impairments feel as though they are not relationally equal to those who can access this convenience. Thus, it is important that we add features that allow those with visual impairments to easily use our application. For instance, we could add compatibility for screen readers that most visually impaired people use to interact with computers.
 
 ---
 
