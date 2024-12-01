@@ -49,7 +49,7 @@ public class TranslateTranscriptFileSaveObject implements TranslateTranscriptFil
             if (counter == 0){
                 BufferedWriter writer = new BufferedWriter(new FileWriter(fileName + ".srt"));
                 writeFile(segmentedTranscription, i, writer);
-                this.name = fileName + ".txt";
+                this.name = fileName + ".srt";
             }
             else {
                 BufferedWriter writer = new BufferedWriter(new FileWriter(fileName + "(" + counter + ")" + ".srt"));
