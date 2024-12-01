@@ -8,6 +8,7 @@ import ca.axoplasm.Octoscribe.entity.SegmentedTranscription;
 import ca.axoplasm.Octoscribe.entity.SegmentedTranscriptionFactory;
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -38,7 +39,11 @@ public class TranslateTranscriptInteractorTest {
 
         TranslateTranscriptInputBoundary interactor = new TranslateTranscriptInteractor(dao, fileSaveObject);
 
-        TranslateTranscriptOutputData output = interactor.execute(inputData);
+        try {
+            TranslateTranscriptOutputData output = interactor.execute(inputData);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         assertEquals("Translated_", fileSaveObject.getName().substring(0, "Translated_".indexOf("_")+1));
     }
 }

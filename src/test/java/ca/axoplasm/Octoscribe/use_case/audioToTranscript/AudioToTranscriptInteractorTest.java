@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.File;
+import java.io.IOException;
 
 
 public class AudioToTranscriptInteractorTest {
@@ -26,7 +27,11 @@ public class AudioToTranscriptInteractorTest {
         AudioToTranscriptInputBoundary interactor =
                 new AudioToTranscriptInteractor(dataAccessObject, (AudioToTranscriptFileSaveObject) fileSaveObject);
 
-        AudioToTranscriptOutputData output = interactor.execute(inputData);
+        try {
+            AudioToTranscriptOutputData output = interactor.execute(inputData);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         assertEquals("subtitles.txt", fileSaveObject.getName());
     }
 }
