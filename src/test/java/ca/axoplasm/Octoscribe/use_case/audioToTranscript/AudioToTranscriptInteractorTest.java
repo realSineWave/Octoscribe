@@ -31,6 +31,9 @@ public class AudioToTranscriptInteractorTest {
 
         AudioToTranscriptOutputData output = interactor.execute(inputData);
 
+        assertNotEquals(false, output.getStatus());
+        assertNotEquals(null, output.getFileName());
+        assertNotEquals(0, output.getSegmentedTranscription().getSegments().toArray().length);
         assertEquals(output.getSegmentedTranscription(),
                 assertInstanceOf(SegmentedTranscription.class, output.getSegmentedTranscription()));
 
