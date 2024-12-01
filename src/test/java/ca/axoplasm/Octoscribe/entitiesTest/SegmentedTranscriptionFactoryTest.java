@@ -1,17 +1,16 @@
 package ca.axoplasm.Octoscribe.entitiesTest;
 
-import ca.axoplasm.Octoscribe.entity.Segment;
-import ca.axoplasm.Octoscribe.entity.SegmentFactory;
-import ca.axoplasm.Octoscribe.entity.SegmentedTranscription;
-import ca.axoplasm.Octoscribe.entity.SegmentedTranscriptionFactory;
+import ca.axoplasm.Octoscribe.entity.*;
 import org.junit.jupiter.api.Test;
 
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class SegmentedTranscriptionFactoryTest {
     @Test
@@ -31,5 +30,13 @@ public class SegmentedTranscriptionFactoryTest {
         assertEquals(4, segs.getSegments().toArray().length, "Wrong amount of segments");
     }
 
+    @Test
+    void testRiskyMethodTranscriptionThrowsException() {
+        SegmentFactory service = new SegmentFactory();
+        assertThrows(
+                UnsupportedOperationException.class,
+                () -> service.createTranscription("en", "xiba")
+        );
+    }
 
 }

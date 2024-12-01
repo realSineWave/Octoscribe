@@ -23,10 +23,15 @@ public class AudioToTranscriptInteractorTest {
         AudioToTranscriptInputData inputData  =
                 new AudioToTranscriptInputData(sampleAudioFile, "whisper-small", "en");
 
+        assertEquals("whisper-small", inputData.getModel(), "Wrong Model");
+        assertEquals("en", inputData.getLanguage(), "Wrong Language");
         AudioToTranscriptInputBoundary interactor =
                 new AudioToTranscriptInteractor(dataAccessObject, (AudioToTranscriptFileSaveObject) fileSaveObject);
 
         AudioToTranscriptOutputData output = interactor.execute(inputData);
+        assertNotEquals(false, output.getStatus());
+        assertNotEquals(null, output.getFileName());
+        assertNotEquals(0, output.getSegmentedTranscription().getSegments().toArray().length);
         assertEquals("testAudio.srt", fileSaveObject.getName());
     }
 }
