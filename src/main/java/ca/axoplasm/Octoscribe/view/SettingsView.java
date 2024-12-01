@@ -1,6 +1,7 @@
 package ca.axoplasm.Octoscribe.view;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class SettingsView extends JFrame {
     private JPanel panel1;
@@ -9,4 +10,5 @@ public class SettingsView extends JFrame {
     private JButton OKButton;
     private JPasswordField WhisperAPIKeyField;
     private JPasswordField DeepLAPIKeyField;
+
 }

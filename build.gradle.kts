@@ -17,7 +17,8 @@ dependencies {
     implementation("com.itextpdf:kernel:7.2.6")
     implementation("com.itextpdf:layout:7.2.6")
     implementation ("org.eclipse.parsson:parsson:1.1.1")
-
+    implementation("com.jgoodies:jgoodies-forms:1.9.0")
+    implementation("com.jgoodies:jgoodies-common:1.8.1")
 }
 
 tasks.test {

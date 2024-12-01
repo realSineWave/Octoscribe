@@ -45,7 +45,7 @@ public class DataAccessObject implements AudioToTranscriptDataAccessInterface, T
      * @return the JsonObject, for later manipulation.
      */
     @Override
-    public JsonObject getTranscriptedJson(File file) {
+    public JsonObject getTranscribedJson(File file) {
         MultipartBody requestBody = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
                 .addFormDataPart("file", file.getName(),
@@ -113,14 +113,14 @@ public class DataAccessObject implements AudioToTranscriptDataAccessInterface, T
 
     /**
      * Make the file to the transcription.
-     * With the help of the helper function this.toSegments(), and this.getTranscriptedJson()
+     * With the help of the helper function this.toSegments(), and this.getTranscribedJson()
      *
      * @param file The file you take in for translation.
      * @return the segmentedTranscription.
      */
     @Override
     public SegmentedTranscription getSegmentedTranscription(File file) {
-        JsonObject jsonObject = getTranscriptedJson(file);
+        JsonObject jsonObject = getTranscribedJson(file);
         List<Segment> lists = toSegments(jsonObject);
         String text = jsonObject.getString("text");
         String detectedLanguage;

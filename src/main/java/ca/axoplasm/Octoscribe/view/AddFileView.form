@@ -32,10 +32,6 @@
           </component>
         </children>
       </grid>
-      <component id="5a615" class="javax.swing.JTable" binding="fileStatusTable">
-        <constraints border-constraint="Center"/>
-        <properties/>
-      </component>
       <grid id="4a8c7" default-binding="true" layout-manager="FormLayout">
         <rowspec value="center:d:noGrow"/>
         <rowspec value="top:4dlu:noGrow"/>
@@ -93,7 +89,6 @@
             </constraints>
             <properties>
               <hideActionText value="true"/>
-              <text value="CheckBox"/>
             </properties>
           </component>
           <component id="e890a" class="javax.swing.JLabel">
@@ -121,7 +116,6 @@
             </constraints>
             <properties>
               <hideActionText value="true"/>
-              <text value="CheckBox"/>
             </properties>
           </component>
           <component id="317e" class="javax.swing.JTextField" binding="modelName">
@@ -159,6 +153,17 @@
           </component>
         </children>
       </grid>
+      <scrollpane id="13227">
+        <constraints border-constraint="Center"/>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <component id="5a615" class="javax.swing.JTable" binding="fileStatusTable">
+            <constraints/>
+            <properties/>
+          </component>
+        </children>
+      </scrollpane>
     </children>
   </grid>
 </form>
