@@ -13,10 +13,10 @@ public class CreateSubtitledVideoInteractor implements CreateSubtitledVideoInput
     public CreateSubtitledVideoOutputData execute(CreateSubtitledVideoInputData data) {
         String status = mediaConvertInterface.createSubtitledVideo(data.getVideoFile(), data.getSubtitleFile());
 
-        if (status.equals("Video Conversion Failed") || status.equals("System doesn't have FFMPEG")) {
+        if (!status.equals("Video Conversion Successful")) {
             return new CreateSubtitledVideoOutputData(null, true);
         } else {
-            return new CreateSubtitledVideoOutputData(new File(status), false);
+            return new CreateSubtitledVideoOutputData(mediaConvertInterface.getFile(), false);
         }
     }
 }

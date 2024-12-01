@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class MediaConvertObject implements VideoToAudioMediaConvertInterface, CreateSubtitledVideoMediaConvertInterface {
-    String filename = null;
+    File file = null;
 
     /**
      * Transfers the video into audio file and returns whether successfully made an audio file.
@@ -22,7 +22,6 @@ public class MediaConvertObject implements VideoToAudioMediaConvertInterface, Cr
             return "System doesn't have FFMPEG";
         }
         String audioName = this.createAudioName(video, ".mp3");
-        this.filename = audioName;
         String[] command = {
                 "ffmpeg",
                 "-i", video.getAbsolutePath(),
@@ -44,7 +43,8 @@ public class MediaConvertObject implements VideoToAudioMediaConvertInterface, Cr
             } else {
                 String path = video.getAbsolutePath().substring(0, video.getAbsolutePath().lastIndexOf("/") + 1);
                 String audioPath = path + audioName.substring(audioName.lastIndexOf("/") + 1);
-                return audioPath;
+                this.file = new File(audioPath);
+                return "Video Conversion Successful";
             }
         } catch (IOException | InterruptedException e) {
             return "Video Conversion Failed";
@@ -64,7 +64,6 @@ public class MediaConvertObject implements VideoToAudioMediaConvertInterface, Cr
             return "System doesn't have FFMPEG";
         }
         String videoName = this.createSubtitledName(video, ".mp4");
-        this.filename = videoName;
         String[] command = {
                 "ffmpeg",
                 "-i", video.getAbsolutePath(),
@@ -82,8 +81,9 @@ public class MediaConvertObject implements VideoToAudioMediaConvertInterface, Cr
                 return "Video Conversion Failed";
             } else {
                 String path = video.getAbsolutePath().substring(0, video.getAbsolutePath().lastIndexOf("/") + 1);
-                String audioPath = path + videoName.substring(videoName.lastIndexOf("/") + 1);
-                return audioPath;
+                String videoPath = path + videoName.substring(videoName.lastIndexOf("/") + 1);
+                this.file = new File(videoPath);
+                return "Video Conversion Successful";
             }
         } catch (IOException | InterruptedException e) {
             return "Video Conversion Failed";
@@ -95,8 +95,8 @@ public class MediaConvertObject implements VideoToAudioMediaConvertInterface, Cr
      * @return the name of that saved file
      */
     @Override
-    public String getFileName() {
-        return this.filename;
+    public File getFile() {
+        return this.file;
     }
 
     /**

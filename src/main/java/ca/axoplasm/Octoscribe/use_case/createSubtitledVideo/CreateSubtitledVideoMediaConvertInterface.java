@@ -6,5 +6,5 @@ public interface CreateSubtitledVideoMediaConvertInterface {
 
     String createSubtitledVideo(File video, File subtitle);
 
-    String getFileName();
+    File getFile();
 }
