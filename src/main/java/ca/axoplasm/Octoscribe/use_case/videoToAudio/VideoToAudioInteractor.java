@@ -1,5 +1,7 @@
 package ca.axoplasm.Octoscribe.use_case.videoToAudio;
 
+import java.io.File;
+
 public class VideoToAudioInteractor implements VideoToAudioInputBoundary {
     private final VideoToAudioMediaConvertInterface mci;
 
@@ -9,12 +11,13 @@ public class VideoToAudioInteractor implements VideoToAudioInputBoundary {
 
     @Override
     public VideoToAudioOutputData execute(VideoToAudioInputData data) {
-        String status = mci.audioToVideo(data.getVideoFile());
+        String output = mci.audioToVideo(data.getVideoFile());
 
-        if (!status.equals("Video Conversion Successful")){
+        if (output.equals("Video Conversion Failed") || output.equals("System doesn't have FFMPEG")) {
             return new VideoToAudioOutputData(null, true);
-        } else {
-            return new VideoToAudioOutputData(mci.getFileName(), false);
+        }
+        else {
+            return new VideoToAudioOutputData(new File(output), false);
         }
     }
 }

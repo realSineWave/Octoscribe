@@ -37,7 +37,9 @@ public class MediaConvertObject implements VideoToAudioMediaConvertInterface, Cr
             if (exitCode != 0) {
                 return "Video Conversion Failed";
             } else {
-                return "Video Conversion Successful";
+                String path = video.getAbsolutePath().substring(0, video.getAbsolutePath().lastIndexOf("/") + 1);
+                String audioPath = path + audioName.substring(audioName.lastIndexOf("/") + 1);
+                return audioPath;
             }
         } catch (IOException | InterruptedException e) {
             return "Video Conversion Failed";
