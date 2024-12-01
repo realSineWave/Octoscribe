@@ -236,8 +236,7 @@ public class DataAccessObject implements AudioToTranscriptDataAccessInterface, T
 
 
     /**
-     * It is the ultimate all in one function, get the translated SegTrans from audio, requires to use the third
-     * constructor.
+     * It is the ultimate all in one function, get the translated SegTrans from audio.
      * ISO file for language code(2 letters): <a href="https://www.iso.org/standard/74575.html">...</a>
      * @param file the file takes in for transcription and translation.
      * @param targetLanguage the desired language for translation, in format of Strong, Still, follow ISO Standard.
