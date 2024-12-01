@@ -17,28 +17,18 @@ class VideoToAudioInteractorTest {
         VideoToAudioInputData input = new VideoToAudioInputData(video);
         MediaConvertObject mci = new MediaConvertObject();
 
-        VideoToAudioOutputBoundary boundary = new VideoToAudioOutputBoundary() {
-            @Override
-            public void prepareSuccessView(VideoToAudioOutputData data) {
-                File audio = new File("src/test/resources/TestVideo.mp3");
-                try {
-                    assertEquals("src/test/resources/TestVideo.mp3", data.getFileName());
-                    assertFalse(data.getUseCaseFailed());
-                    audio.delete();
-                } catch (Exception e) {
-                    audio.delete();
-                    assert false;
-                }
-            }
+        VideoToAudioInputBoundary inputBoundary = new VideoToAudioInteractor(mci);
+        VideoToAudioOutputData output = inputBoundary.execute(input);
 
-            @Override
-            public void prepareFailureView(String errorMessage) {
-                fail("Use case failure is unexpected.");
-            }
-        };
-
-        VideoToAudioInputBoundary inputBoundary = new VideoToAudioInteractor(mci, boundary);
-        inputBoundary.execute(input);
+        File audio = new File("src/test/resources/TestVideo.mp3");
+        try {
+            assertEquals("src/test/resources/TestVideo.mp3", output.getFileName());
+            assertFalse(output.getUseCaseFailed());
+            audio.delete();
+        } catch (Exception e) {
+            audio.delete();
+            assert false;
+        }
     }
 
     @Test
@@ -47,25 +37,9 @@ class VideoToAudioInteractorTest {
         VideoToAudioInputData input = new VideoToAudioInputData(video);
         MediaConvertObject mci = new MediaConvertObject();
 
-        VideoToAudioOutputBoundary boundary = new VideoToAudioOutputBoundary() {
-            @Override
-            public void prepareSuccessView(VideoToAudioOutputData data) {
-                try {
-                    fail("Use case success is unexpected.");
-                } catch (Exception e) {
-                    File audio = new File("src/test/resources/TestVideo.mp3");
-                    audio.delete();
-                }
-            }
-
-            @Override
-            public void prepareFailureView(String errorMessage) {
-                assertEquals("Video Conversion Failed", errorMessage);
-            }
-        };
-
-        VideoToAudioInputBoundary inputBoundary = new VideoToAudioInteractor(mci, boundary);
-        inputBoundary.execute(input);
+        VideoToAudioInputBoundary inputBoundary = new VideoToAudioInteractor(mci);
+        VideoToAudioOutputData output = inputBoundary.execute(input);
+        assertTrue(output.getUseCaseFailed());
     }
 
     @Test
@@ -74,26 +48,16 @@ class VideoToAudioInteractorTest {
         VideoToAudioInputData input = new VideoToAudioInputData(video);
         MediaConvertObject mci = new MediaConvertObject();
 
-        VideoToAudioOutputBoundary boundary = new VideoToAudioOutputBoundary() {
-            @Override
-            public void prepareSuccessView(VideoToAudioOutputData data) {
-                File audio = new File("src/test/resources/TestVideo.mp3");
-                try {
-                    assert audio.exists();
-                    audio.delete();
-                } catch (Exception e) {
-                    audio.delete();
-                    assert false;
-                }
-            }
+        VideoToAudioInputBoundary inputBoundary = new VideoToAudioInteractor(mci);
+        VideoToAudioOutputData output = inputBoundary.execute(input);
 
-            @Override
-            public void prepareFailureView(String errorMessage) {
-                fail("Use case failure is unexpected.");
-            }
-        };
-
-        VideoToAudioInputBoundary inputBoundary = new VideoToAudioInteractor(mci, boundary);
-        inputBoundary.execute(input);
+        File audio = new File("src/test/resources/TestVideo.mp3");
+        try {
+            assert audio.exists();
+            audio.delete();
+        } catch (Exception e) {
+            audio.delete();
+            assert false;
+        }
     }
 }
