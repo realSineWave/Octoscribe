@@ -30,4 +30,6 @@ public class SegmentedTranscriptionFactoryTest {
         SegmentedTranscription segs = transFactory.createSegmented("en", "Nice to meet you.", lis);
         assertEquals(4, segs.getSegments().toArray().length, "Wrong amount of segments");
     }
+
+
 }
