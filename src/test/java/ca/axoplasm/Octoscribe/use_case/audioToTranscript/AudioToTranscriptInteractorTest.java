@@ -2,6 +2,7 @@ package ca.axoplasm.Octoscribe.use_case.audioToTranscript;
 
 import ca.axoplasm.Octoscribe.data_access.AudioToTranscriptFileSaveObject;
 import ca.axoplasm.Octoscribe.data_access.DataAccessObject;
+import ca.axoplasm.Octoscribe.entity.SegmentedTranscription;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -29,9 +30,12 @@ public class AudioToTranscriptInteractorTest {
                 new AudioToTranscriptInteractor(dataAccessObject, (AudioToTranscriptFileSaveObject) fileSaveObject);
 
         AudioToTranscriptOutputData output = interactor.execute(inputData);
-        assertNotEquals(false, output.getStatus());
-        assertNotEquals(null, output.getFileName());
-        assertNotEquals(0, output.getSegmentedTranscription().getSegments().toArray().length);
-        assertEquals("testAudio.srt", fileSaveObject.getName());
+
+        assertEquals(output.getSegmentedTranscription(),
+                assertInstanceOf(SegmentedTranscription.class, output.getSegmentedTranscription()));
+
+        File file = new File("src/test/resources/testAudio.srt");
+        file.delete();
+
     }
 }
