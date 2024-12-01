@@ -10,11 +10,12 @@ public class CreateSubtitledVideoInteractor implements CreateSubtitledVideoInput
     @Override
     public CreateSubtitledVideoOutputData execute(CreateSubtitledVideoInputData data) {
         String status = mediaConvertInterface.createSubtitledVideo(data.getVideoFile(), data.getSubtitleFile());
+        System.out.println(status);
 
         if (!status.equals("Video Conversion Successful")) {
-            return new CreateSubtitledVideoOutputData(mediaConvertInterface.getFileName(), false);
-        } else {
             return new CreateSubtitledVideoOutputData(null, true);
+        } else {
+            return new CreateSubtitledVideoOutputData(mediaConvertInterface.getFileName(), false);
         }
     }
 }
