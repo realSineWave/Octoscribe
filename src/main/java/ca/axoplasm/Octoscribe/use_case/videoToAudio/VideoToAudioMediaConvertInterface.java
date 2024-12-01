@@ -6,5 +6,5 @@ public interface VideoToAudioMediaConvertInterface {
 
     String audioToVideo(File file);
 
-    String getFileName();
+    File getFile();
 }
