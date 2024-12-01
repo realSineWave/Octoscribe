@@ -17,7 +17,7 @@ public class AudioToTranscriptInteractorTest {
         AudioToTranscriptDataAccessInterface dataAccessObject = new DataAccessObject();
         AudioToTranscriptFileSaveInterface fileSaveObject = new AudioToTranscriptFileSaveObject();
 
-        String path = "need to add a sample audio file for test/ replace this with path of it";
+        String path = "src/test/resources/testAudio.mp3";
         File sampleAudioFile = new File(path);
 
         AudioToTranscriptInputData inputData  =
@@ -27,6 +27,6 @@ public class AudioToTranscriptInteractorTest {
                 new AudioToTranscriptInteractor(dataAccessObject, (AudioToTranscriptFileSaveObject) fileSaveObject);
 
         AudioToTranscriptOutputData output = interactor.execute(inputData);
-        assertEquals("subtitles.txt", fileSaveObject.getName());
+        assertEquals("testAudio.srt", fileSaveObject.getName());
     }
 }
