@@ -29,28 +29,15 @@ public class transcriptToPDFInteractorTest {
 
        TranscriptToPDFInputData inputData = new TranscriptToPDFInputData(segmentedTranscription);
 
-       TranscriptToPDFOutputBoundary successPresenter = new TranscriptToPDFOutputBoundary() {
-           @Override
-           public void prepareSuccessView(TranscriptToPDFOutputData outputData) {
-               String extension = "";
+       TranscriptToPDFInputBoundary interactor = new TranscriptToPDFInteractor(PDFSaveObject);
+       TranscriptToPDFOutputData output = interactor.execute(inputData);
+        String extension = "";
 
-               int i = outputData.getFile().getName().lastIndexOf('.');
-               if (i > 0) {
-                   extension = outputData.getFile().getName().substring(i+1);
-               }
-                assertEquals("pdf", extension); //check if the output file is pdf or not
-           }
-
-           @Override
-           public void prepareFailView(String errorMessage) {
-               fail("failure is not expected");
-           }
-       };
-
-       TranscriptToPDFInputBoundary interactor =
-               new TranscriptToPDFInteractor(PDFSaveObject, successPresenter);
-
-       interactor.execute(inputData);
+        int i = output.getFile().getName().lastIndexOf('.');
+        if (i > 0) {
+            extension = output.getFile().getName().substring(i+1);
+        }
+        assertEquals("pdf", extension); //check if the output file is pdf or not
    }
 
 }

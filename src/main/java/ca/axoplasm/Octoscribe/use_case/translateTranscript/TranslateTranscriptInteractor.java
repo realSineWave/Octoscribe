@@ -7,25 +7,21 @@ import ca.axoplasm.Octoscribe.data_access.TranslateTranscriptFileSaveObject;
 public class TranslateTranscriptInteractor implements TranslateTranscriptInputBoundary{
     private final TranslateTranscriptDataAccessInterface dao;
     private final TranslateTranscriptFileSaveObject saveObject;
-    private final TranslateTranscriptOutputBoundary outputBoundary;
 
     public TranslateTranscriptInteractor(TranslateTranscriptDataAccessInterface dao,
-                                         TranslateTranscriptFileSaveObject saveObject,
-                                         TranslateTranscriptOutputBoundary outputBoundary) {
+                                         TranslateTranscriptFileSaveObject saveObject) {
         this.dao = dao;
         this.saveObject = saveObject;
-        this.outputBoundary = outputBoundary;
     }
 
 
     @Override
-    public void execute(TranslateTranscriptInputData translateTranscriptInputData) {
+    public TranslateTranscriptOutputData execute(TranslateTranscriptInputData translateTranscriptInputData) {
         final SegmentedTranscription transcript = this.dao.TransSegmentedTranscription(
                 translateTranscriptInputData.getSegmentedTranscription(),
                 translateTranscriptInputData.getTargetLanguage());
         this.saveObject.save(transcript);
-        TranslateTranscriptOutputData temp = new TranslateTranscriptOutputData(transcript,
+        return new TranslateTranscriptOutputData(transcript,
                 this.saveObject.getName(), true);
-        this.outputBoundary.prepareSuccessView(temp);
     }
 }

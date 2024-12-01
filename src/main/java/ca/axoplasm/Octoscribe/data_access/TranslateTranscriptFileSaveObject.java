@@ -14,6 +14,9 @@ import java.util.Date;
 public class TranslateTranscriptFileSaveObject implements TranslateTranscriptFileSaveInterface {
     private String name;
 
+    /**
+     * Initialization of that DAO. Name of that file is at the time the object is created.
+     */
     public TranslateTranscriptFileSaveObject(){
         Date date = new Date();
         StringBuilder s = new StringBuilder();
@@ -22,6 +25,11 @@ public class TranslateTranscriptFileSaveObject implements TranslateTranscriptFil
         this.name = s.toString();
     }
 
+    /**
+     * Saves the segmentedTranscription to a srt file.
+     * Updates the exact time of the file is created.
+     * @param segmentedTranscription the segtedTrans needs to take in for saving operation.
+     */
     @Override
     public void save(SegmentedTranscription segmentedTranscription) {
         int i = 0;
@@ -55,11 +63,22 @@ public class TranslateTranscriptFileSaveObject implements TranslateTranscriptFil
         }
     }
 
+    /**
+     * gets the name of the saved object.
+     * @return
+     */
     @Override
     public String getName() {
         return this.name;
     }
 
+    /**
+     * Helper function about writing the file.
+     * @param segmentedTranscription segmented file you takes in for writing.
+     * @param i the trials of wrting that file.
+     * @param writer writes the file BufferedWriter.
+     * @throws IOException If there is something wrong regarding the file output.
+     */
     private void writeFile(SegmentedTranscription segmentedTranscription, int i, BufferedWriter writer) throws IOException {
         for (Segment segment: segmentedTranscription.getSegments()) {
             writer.write(i + "\n");
@@ -70,6 +89,12 @@ public class TranslateTranscriptFileSaveObject implements TranslateTranscriptFil
         writer.close();
     }
 
+    /**
+     * Converts the duration to a string.
+     * Drops the nanosecond part.
+     * @param duration The duration needs to be converted.
+     * @return Return the string of that duration.
+     */
     private String durationToString(Duration duration) {
         Integer nanos = duration.toNanosPart();
         int sec = duration.toSecondsPart();
