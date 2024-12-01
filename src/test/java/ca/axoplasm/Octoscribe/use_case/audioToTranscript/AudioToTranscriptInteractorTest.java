@@ -23,23 +23,10 @@ public class AudioToTranscriptInteractorTest {
         AudioToTranscriptInputData inputData  =
                 new AudioToTranscriptInputData(sampleAudioFile, "whisper-small", "en");
 
-        AudioToTranscriptOutputBoundary successPresenter = new AudioToTranscriptOutputBoundary() {
-            @Override
-            public void prepareSuccessView(AudioToTranscriptOutputData data) {
-                assertEquals("subtitles.txt", fileSaveObject.getName());
-                // add more cases when we have the sample audio.
-            }
-            @Override
-            public void prepareFailView(String errorMessage) {
-                fail("failure is not expected");
-            }
-
-        };
-
         AudioToTranscriptInputBoundary interactor =
-                new AudioToTranscriptInteractor
-                        (dataAccessObject, (AudioToTranscriptFileSaveObject) fileSaveObject, successPresenter);
+                new AudioToTranscriptInteractor(dataAccessObject, (AudioToTranscriptFileSaveObject) fileSaveObject);
 
-        interactor.execute(inputData);
+        AudioToTranscriptOutputData output = interactor.execute(inputData);
+        assertEquals("subtitles.txt", fileSaveObject.getName());
     }
 }

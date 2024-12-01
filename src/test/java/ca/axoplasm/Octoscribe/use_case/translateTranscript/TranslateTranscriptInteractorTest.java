@@ -36,22 +36,9 @@ public class TranslateTranscriptInteractorTest {
         TranslateTranscriptInputData inputData =
                 new TranslateTranscriptInputData(temp , "en");
 
-        TranslateTranscriptOutputBoundary successPresenter = new TranslateTranscriptOutputBoundary() {
-            @Override
-            public void prepareSuccessView(TranslateTranscriptOutputData data) {
-                assertEquals("Translated_", fileSaveObject.getName().substring(0, "Translated_".indexOf("_")+1));
-            }
+        TranslateTranscriptInputBoundary interactor = new TranslateTranscriptInteractor(dao, fileSaveObject);
 
-            @Override
-            public void prepareFailView(String errorMessage) {
-                fail("failure is not expected");
-            }
-        };
-
-        TranslateTranscriptInputBoundary interactor =
-                new TranslateTranscriptInteractor(dao, fileSaveObject, successPresenter);
-
-        interactor.execute(inputData);
-
+        TranslateTranscriptOutputData output = interactor.execute(inputData);
+        assertEquals("Translated_", fileSaveObject.getName().substring(0, "Translated_".indexOf("_")+1));
     }
 }

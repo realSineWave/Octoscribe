@@ -10,28 +10,22 @@ public class AudioToTranscriptInteractor implements AudioToTranscriptInputBounda
 
     private final AudioToTranscriptDataAccessInterface dao;
     private final AudioToTranscriptFileSaveInterface saveObject;
-    private final AudioToTranscriptOutputBoundary outputBoundary;
 
-    public AudioToTranscriptInteractor(AudioToTranscriptDataAccessInterface DataAccessObject, AudioToTranscriptFileSaveObject saveObject,
-                                       AudioToTranscriptOutputBoundary OutputBoundary) {
+    public AudioToTranscriptInteractor(AudioToTranscriptDataAccessInterface DataAccessObject, AudioToTranscriptFileSaveObject saveObject) {
 
         this.dao = DataAccessObject;
         this.saveObject = saveObject;
-        this.outputBoundary = OutputBoundary;
 
     }
 
     @Override
-    public void execute(AudioToTranscriptInputData audioToTranscriptInputData) {
+    public AudioToTranscriptOutputData execute(AudioToTranscriptInputData audioToTranscriptInputData) {
 
-        final SegmentedTranscription transcript = dao.
-                getSegmentedTranscription(audioToTranscriptInputData.getAudiofile());
+        final SegmentedTranscription transcript =
+                dao.getSegmentedTranscription(audioToTranscriptInputData.getAudiofile());
 
         saveObject.save(transcript, audioToTranscriptInputData.getAudiofile().toPath());
 
-        AudioToTranscriptOutputData temp =
-                new AudioToTranscriptOutputData(transcript, saveObject.getName(), false);
-
-        outputBoundary.prepareSuccessView(temp);
+        return new AudioToTranscriptOutputData(transcript, saveObject.getName(), false);
     }
 }
