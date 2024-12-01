@@ -55,6 +55,12 @@ Talk about usage
 ## License
 This project is licensed under the [The MIT License](https://opensource.org/license/MIT).
 
+This project includes or depends on these following project(s):
+
+| Project                                                                               | License         |
+| ------------------------------------------------------------------------------------- | --------------- |
+| [FFmpeg/FFmpeg](https://www.ffmpeg.org/)                                              | LGPLv2.1, GPLv2 |
+
 ## Feedback
 We welcome your feedback!
 - Submit your feedback [here](https://docs.google.com/forms/d/e/1FAIpQLSe9SZl1695yW99S0Hx6U-1d1nf78ga5zvNP_-BJ50xL7BDOUg/viewform?usp=sf_link).
