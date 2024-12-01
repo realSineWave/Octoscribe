@@ -8,7 +8,7 @@ public class AudioToTranscriptOutputData {
     private final String name;
     private final boolean status;
 
-    public AudioToTranscriptOutputData(SegmentedTranscription segmentedTranscription, String name, Boolean status){
+    public AudioToTranscriptOutputData(SegmentedTranscription segmentedTranscription, String name, Boolean status) {
         this.segmentedTranscription = segmentedTranscription;
         this.name = name;
         this.status = status;

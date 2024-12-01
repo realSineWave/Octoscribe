@@ -40,5 +40,10 @@ public class TranslateTranscriptInteractorTest {
 
         TranslateTranscriptOutputData output = interactor.execute(inputData);
         assertEquals("Translated_", fileSaveObject.getName().substring(0, "Translated_".indexOf("_")+1));
+        assertEquals(1, output.getSegmentedTranscription().getSegments().toArray().length, "Wrong" +
+                " Amout of Segments");
+        assertEquals("Translated_", output.getFileName().substring(0, "Translated_".indexOf("_")+1)
+                , "Wrong FileName!");
+        assertEquals(true, output.getStatus(), "Wrong Status");
     }
 }

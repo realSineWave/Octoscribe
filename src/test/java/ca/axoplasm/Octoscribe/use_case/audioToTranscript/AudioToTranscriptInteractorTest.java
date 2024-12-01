@@ -17,16 +17,21 @@ public class AudioToTranscriptInteractorTest {
         AudioToTranscriptDataAccessInterface dataAccessObject = new DataAccessObject();
         AudioToTranscriptFileSaveInterface fileSaveObject = new AudioToTranscriptFileSaveObject();
 
-        String path = "need to add a sample audio file for test/ replace this with path of it";
+        String path = "src/test/resources/testAudio.mp3";
         File sampleAudioFile = new File(path);
 
         AudioToTranscriptInputData inputData  =
                 new AudioToTranscriptInputData(sampleAudioFile, "whisper-small", "en");
 
+        assertEquals("whisper-small", inputData.getModel(), "Wrong Model");
+        assertEquals("en", inputData.getLanguage(), "Wrong Language");
         AudioToTranscriptInputBoundary interactor =
                 new AudioToTranscriptInteractor(dataAccessObject, (AudioToTranscriptFileSaveObject) fileSaveObject);
 
         AudioToTranscriptOutputData output = interactor.execute(inputData);
-        assertEquals("subtitles.txt", fileSaveObject.getName());
+        assertNotEquals(false, output.getStatus());
+        assertNotEquals(null, output.getFileName());
+        assertNotEquals(0, output.getSegmentedTranscription().getSegments().toArray().length);
+        assertEquals("testAudio.srt", fileSaveObject.getName());
     }
 }
