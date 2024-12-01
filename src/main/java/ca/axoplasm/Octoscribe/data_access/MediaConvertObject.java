@@ -77,17 +77,13 @@ public class MediaConvertObject implements VideoToAudioMediaConvertInterface, Cr
 
             Process process = pb.start();
 
-            BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
-            String line;
-            while ((line = reader.readLine()) != null) {
-                System.out.println(line);
-            }
-
             int exitCode = process.waitFor();
             if (exitCode != 0) {
                 return "Video Conversion Failed";
             } else {
-                return "Video Conversion Successful";
+                String path = video.getAbsolutePath().substring(0, video.getAbsolutePath().lastIndexOf("/") + 1);
+                String audioPath = path + videoName.substring(videoName.lastIndexOf("/") + 1);
+                return audioPath;
             }
         } catch (IOException | InterruptedException e) {
             return "Video Conversion Failed";

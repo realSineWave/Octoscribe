@@ -22,7 +22,7 @@ class CreateSubtitledVideoInteractorTest {
         if (!output.getUseCaseFailed()) {
             File sVideo = new File("src/test/resources/subtitledTestVideo.mp4");
             try {
-                assertEquals("src/test/resources/subtitledTestVideo.mp4", output.getFileName());
+                assertEquals(sVideo.getAbsolutePath(), output.getFile().getAbsolutePath());
                 sVideo.delete();
             } catch (Exception e) {
                 sVideo.delete();
