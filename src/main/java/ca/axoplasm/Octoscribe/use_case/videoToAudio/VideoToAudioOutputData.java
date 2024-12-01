@@ -1,16 +1,18 @@
 package ca.axoplasm.Octoscribe.use_case.videoToAudio;
 
+import java.io.File;
+
 public class VideoToAudioOutputData {
-    private final String filename;
+    private final File file;
     private final Boolean useCaseFailed;
 
-    public VideoToAudioOutputData(String filename, Boolean useCaseFailed) {
-        this.filename = filename;
+    public VideoToAudioOutputData(File file, Boolean useCaseFailed) {
+        this.file = file;
         this.useCaseFailed = useCaseFailed;
     }
 
-    public String getFileName() {
-        return filename;
+    public File getFile() {
+        return file;
     }
 
     public Boolean getUseCaseFailed() {
