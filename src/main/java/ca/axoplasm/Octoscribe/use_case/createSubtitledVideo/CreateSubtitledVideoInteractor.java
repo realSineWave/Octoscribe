@@ -1,5 +1,7 @@
 package ca.axoplasm.Octoscribe.use_case.createSubtitledVideo;
 
+import java.io.File;
+
 public class CreateSubtitledVideoInteractor implements CreateSubtitledVideoInputBoundary {
     private final CreateSubtitledVideoMediaConvertInterface mediaConvertInterface;
 
@@ -10,12 +12,11 @@ public class CreateSubtitledVideoInteractor implements CreateSubtitledVideoInput
     @Override
     public CreateSubtitledVideoOutputData execute(CreateSubtitledVideoInputData data) {
         String status = mediaConvertInterface.createSubtitledVideo(data.getVideoFile(), data.getSubtitleFile());
-        System.out.println(status);
 
-        if (!status.equals("Video Conversion Successful")) {
+        if (status.equals("Video Conversion Failed") || status.equals("System doesn't have FFMPEG")) {
             return new CreateSubtitledVideoOutputData(null, true);
         } else {
-            return new CreateSubtitledVideoOutputData(mediaConvertInterface.getFileName(), false);
+            return new CreateSubtitledVideoOutputData(new File(status), false);
         }
     }
 }
