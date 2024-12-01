@@ -16,7 +16,7 @@ public interface AudioToTranscriptDataAccessInterface {
     /**
      * Get the translated result in format of JSObject
      */
-    JsonObject getTranscriptedJson(File file);
+    JsonObject getTranscribedJson(File file);
 
     /**
      * Output segments

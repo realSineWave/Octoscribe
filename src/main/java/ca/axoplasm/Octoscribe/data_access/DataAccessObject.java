@@ -30,7 +30,7 @@ public class DataAccessObject implements AudioToTranscriptDataAccessInterface, T
      * target languge.
      *
      */
-    public DataAccessObject(){
+    public DataAccessObject() {
         this.OpenAiapiKey = "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";
         this.whisperApiUrl = "https://api.openai.com/v1/audio/transcriptions";
         this.DeepLUrl = "https://api-free.deepl.com/v2/translate";
@@ -39,7 +39,7 @@ public class DataAccessObject implements AudioToTranscriptDataAccessInterface, T
 
 
     @Override
-    public JsonObject getTranscriptedJson(File file) {
+    public JsonObject getTranscribedJson(File file) {
         MultipartBody requestBody = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
                 .addFormDataPart("file", file.getName(),
@@ -99,7 +99,7 @@ public class DataAccessObject implements AudioToTranscriptDataAccessInterface, T
      */
     @Override
     public SegmentedTranscription getSegmentedTranscription(File file) {
-        JsonObject jsonObject = getTranscriptedJson(file);
+        JsonObject jsonObject = getTranscribedJson(file);
         List<Segment> lists = toSegments(jsonObject);
         String text = jsonObject.getString("text");
         String detectedLanguage;
