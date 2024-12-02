@@ -14,7 +14,9 @@ public class TranscriptToPDFInputData {
         this.file = file;
     }
 
-    public SegmentedTranscription getSegmentedTranscription() {return segmentedTranscription;}
+    public SegmentedTranscription getSegmentedTranscription() {
+        return segmentedTranscription;
+    }
 
     public File getFile() {
         return file;

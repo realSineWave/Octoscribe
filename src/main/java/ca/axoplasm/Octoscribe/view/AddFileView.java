@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.IOException;
 
 public class AddFileView extends JFrame {
+    private final JFileChooser fileChooser = new JFileChooser();
     private JPanel contentPane;
     private JButton settingsButton;
     private JButton aboutButton;
@@ -21,10 +22,10 @@ public class AddFileView extends JFrame {
     private JTextField translateToLanguageCode;
     private JCheckBox subVideoCheckbox;
     private JCheckBox createPDFCheckbox;
-    private final JFileChooser fileChooser = new JFileChooser();
     private AddFileController controller = null;
     private FileListModel fileListModel;
     private SettingsView settingsView;
+    private AboutView aboutView;
 
     public AddFileView(FileListModel fileListModel) {
         setTitle("Octoscribe");
@@ -63,6 +64,10 @@ public class AddFileView extends JFrame {
         settingsButton.addActionListener(e -> {
             settingsView.setVisible(true);
         });
+
+        aboutButton.addActionListener(e -> {
+            aboutView.setVisible(true);
+        });
     }
 
     public void setController(AddFileController controller) {
@@ -77,4 +82,7 @@ public class AddFileView extends JFrame {
         this.settingsView = settingsView;
     }
 
+    public void setAboutView(AboutView aboutView) {
+        this.aboutView = aboutView;
+    }
 }

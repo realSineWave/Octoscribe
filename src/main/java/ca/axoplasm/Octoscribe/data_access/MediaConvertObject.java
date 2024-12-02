@@ -3,8 +3,8 @@ package ca.axoplasm.Octoscribe.data_access;
 import ca.axoplasm.Octoscribe.use_case.createSubtitledVideo.CreateSubtitledVideoMediaConvertInterface;
 import ca.axoplasm.Octoscribe.use_case.videoToAudio.VideoToAudioMediaConvertInterface;
 
-import java.io.File;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
@@ -13,6 +13,7 @@ public class MediaConvertObject implements VideoToAudioMediaConvertInterface, Cr
 
     /**
      * Transfers the video into audio file and returns whether successfully made an audio file.
+     *
      * @param video the video file you needs to take in to generate the audio file.
      * @return String indicates whether we've done it successfully.
      */
@@ -53,7 +54,7 @@ public class MediaConvertObject implements VideoToAudioMediaConvertInterface, Cr
     /**
      * Takes in the subtitle and video file to generate a subtitled video
      *
-     * @param video the video needs to taken in.
+     * @param video    the video needs to taken in.
      * @param subtitle the subtitle to patch.
      * @return the patched subtitle.
      */
@@ -90,6 +91,7 @@ public class MediaConvertObject implements VideoToAudioMediaConvertInterface, Cr
 
     /**
      * Get the name of that file.
+     *
      * @return the name of that saved file
      */
     @Override
@@ -99,7 +101,8 @@ public class MediaConvertObject implements VideoToAudioMediaConvertInterface, Cr
 
     /**
      * Helper function. Generate the video in certain format.
-     * @param video the video you need to take in for generating audio.
+     *
+     * @param video  the video you need to take in for generating audio.
      * @param format the format of the output audio (.mp3)
      * @return The String that indicating the results.
      */
@@ -122,7 +125,8 @@ public class MediaConvertObject implements VideoToAudioMediaConvertInterface, Cr
     /**
      * Generate the subtitle name  of the video.
      * Takes in video and format to generate a name
-     * @param video the video needs to take in for generating the subtitle name.
+     *
+     * @param video  the video needs to take in for generating the subtitle name.
      * @param format the format you'll need for generating the subtitle. .srt by default.
      * @return the string indicating the name of the subtitle file.
      */
@@ -145,9 +149,10 @@ public class MediaConvertObject implements VideoToAudioMediaConvertInterface, Cr
 
     /**
      * Check whether we have the ffmpeg package.
+     *
      * @return ture or false. True if we have.
      */
-    private boolean checkSystem(){
+    private boolean checkSystem() {
         try {
             ProcessBuilder pb = new ProcessBuilder("ffmpeg", "-version");
             pb.redirectErrorStream(true);

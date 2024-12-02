@@ -1,6 +1,6 @@
 package ca.axoplasm.Octoscribe.entity;
 
-public class TranscriptionFactory implements TransFactory{
+public class TranscriptionFactory implements TransFactory {
 
     @Override
     public Transcription createTranscription(String language, String text) {

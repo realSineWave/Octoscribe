@@ -7,7 +7,7 @@ import java.nio.file.Path;
 
 public interface AudioToTranscriptFileSaveInterface {
 
-void save (SegmentedTranscription segmentedTranscription, Path path);
+    void save(SegmentedTranscription segmentedTranscription, Path path);
 
     String getName();
 

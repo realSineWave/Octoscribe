@@ -1,14 +1,12 @@
 package ca.axoplasm;
 
-import ca.axoplasm.Octoscribe.data_access.*;
+import ca.axoplasm.Octoscribe.data_access.MediaConvertObject;
+import ca.axoplasm.Octoscribe.data_access.SettingsFileSaveObject;
+import ca.axoplasm.Octoscribe.data_access.TranscriptToPDFSaveObject;
 import ca.axoplasm.Octoscribe.interface_adapter.AddFile.AddFileController;
 import ca.axoplasm.Octoscribe.interface_adapter.AddFile.FileListModel;
 import ca.axoplasm.Octoscribe.interface_adapter.AddFile.FileState;
 import ca.axoplasm.Octoscribe.interface_adapter.Settings.SettingsController;
-import ca.axoplasm.Octoscribe.use_case.audioToTranscript.AudioToTranscriptDataAccessInterface;
-import ca.axoplasm.Octoscribe.use_case.audioToTranscript.AudioToTranscriptFileSaveInterface;
-import ca.axoplasm.Octoscribe.use_case.audioToTranscript.AudioToTranscriptInputBoundary;
-import ca.axoplasm.Octoscribe.use_case.audioToTranscript.AudioToTranscriptInteractor;
 import ca.axoplasm.Octoscribe.use_case.createSubtitledVideo.CreateSubtitledVideoInputBoundary;
 import ca.axoplasm.Octoscribe.use_case.createSubtitledVideo.CreateSubtitledVideoInteractor;
 import ca.axoplasm.Octoscribe.use_case.createSubtitledVideo.CreateSubtitledVideoMediaConvertInterface;
@@ -17,13 +15,10 @@ import ca.axoplasm.Octoscribe.use_case.settings.SettingsInteractor;
 import ca.axoplasm.Octoscribe.use_case.transcriptToPDF.TranscriptToPDFInputBoundary;
 import ca.axoplasm.Octoscribe.use_case.transcriptToPDF.TranscriptToPDFInteractor;
 import ca.axoplasm.Octoscribe.use_case.transcriptToPDF.TranscriptToPDFSaveInterface;
-import ca.axoplasm.Octoscribe.use_case.translateTranscript.TranslateTranscriptDataAccessInterface;
-import ca.axoplasm.Octoscribe.use_case.translateTranscript.TranslateTranscriptFileSaveInterface;
-import ca.axoplasm.Octoscribe.use_case.translateTranscript.TranslateTranscriptInputBoundary;
-import ca.axoplasm.Octoscribe.use_case.translateTranscript.TranslateTranscriptInteractor;
 import ca.axoplasm.Octoscribe.use_case.videoToAudio.VideoToAudioInputBoundary;
 import ca.axoplasm.Octoscribe.use_case.videoToAudio.VideoToAudioInteractor;
 import ca.axoplasm.Octoscribe.use_case.videoToAudio.VideoToAudioMediaConvertInterface;
+import ca.axoplasm.Octoscribe.view.AboutView;
 import ca.axoplasm.Octoscribe.view.AddFileView;
 import ca.axoplasm.Octoscribe.view.SettingsView;
 
@@ -58,7 +53,7 @@ public class Main {
         SettingsView settingsView = new SettingsView();
         SettingsDataAccessInterface settingsDataAccessObject;
         try {
-             settingsDataAccessObject = new SettingsFileSaveObject();
+            settingsDataAccessObject = new SettingsFileSaveObject();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -67,6 +62,9 @@ public class Main {
         settingsController.setAddFileController(addFileController);
         settingsView.setController(settingsController);
         addFileView.setSettingsView(settingsView);
+
+        AboutView aboutView = new AboutView();
+        addFileView.setAboutView(aboutView);
 
         addFileView.setVisible(true);
     }

@@ -1,4 +1,5 @@
 package ca.axoplasm.Octoscribe.use_case.audioToTranscript;
+
 import java.io.File;
 
 public class AudioToTranscriptInputData {

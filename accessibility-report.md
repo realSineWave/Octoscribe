@@ -7,6 +7,7 @@
     - Since our project is fairly intuitive and easy to understand, most people will be able to use our app effectively. 
 - **Potential Future Features:**
     - We could add text to speech to the user interface allowing those with visual impairments to use our app.
+    - Localization support would be great for users who don't understand English.
 
 ### Principle 2: Flexibility in Use
 - **Adhering Features:**

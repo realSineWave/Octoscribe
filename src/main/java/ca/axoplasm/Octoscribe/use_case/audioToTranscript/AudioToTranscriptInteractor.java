@@ -1,14 +1,13 @@
 package ca.axoplasm.Octoscribe.use_case.audioToTranscript;
 
 import ca.axoplasm.Octoscribe.entity.SegmentedTranscription;
-import ca.axoplasm.Octoscribe.data_access.AudioToTranscriptFileSaveObject;
 
 import java.io.IOException;
 
 /**
  *
  */
-public class AudioToTranscriptInteractor implements AudioToTranscriptInputBoundary{
+public class AudioToTranscriptInteractor implements AudioToTranscriptInputBoundary {
 
     private final AudioToTranscriptDataAccessInterface dao;
     private final AudioToTranscriptFileSaveInterface saveObject;

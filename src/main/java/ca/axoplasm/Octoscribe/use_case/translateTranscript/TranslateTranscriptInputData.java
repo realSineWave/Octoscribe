@@ -10,21 +10,21 @@ public class TranslateTranscriptInputData {
     private final String targetLanguage;
     private final File file;
 
-    public TranslateTranscriptInputData(SegmentedTranscription segmentedTranscription, String targetLanguage, File file){
+    public TranslateTranscriptInputData(SegmentedTranscription segmentedTranscription, String targetLanguage, File file) {
         this.segmentedTranscription = segmentedTranscription;
         this.targetLanguage = targetLanguage;
         this.file = file;
     }
 
-    public String getTargetLanguage(){
+    public String getTargetLanguage() {
         return this.targetLanguage;
     }
 
-    public SegmentedTranscription getSegmentedTranscription(){
+    public SegmentedTranscription getSegmentedTranscription() {
         return this.segmentedTranscription;
     }
 
-    public File getFile(){
+    public File getFile() {
         return this.file;
     }
 }

@@ -13,7 +13,7 @@ public class CreateSubtitledVideoInteractor implements CreateSubtitledVideoInput
 
         return new CreateSubtitledVideoOutputData(mediaConvertInterface.getFile(), false);
 
-        }
     }
+}
 
 

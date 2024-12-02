@@ -10,7 +10,7 @@ public class AudioToTranscriptOutputData {
     private final String name;
     private final File transcript;
 
-    public AudioToTranscriptOutputData(SegmentedTranscription segmentedTranscription, String name, File transcript){
+    public AudioToTranscriptOutputData(SegmentedTranscription segmentedTranscription, String name, File transcript) {
 
         this.segmentedTranscription = segmentedTranscription;
         this.name = name;
@@ -25,7 +25,7 @@ public class AudioToTranscriptOutputData {
         return this.transcript;
     }
 
-    public SegmentedTranscription getSegmentedTranscription(){
+    public SegmentedTranscription getSegmentedTranscription() {
         return this.segmentedTranscription;
     }
 }

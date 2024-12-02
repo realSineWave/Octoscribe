@@ -7,7 +7,7 @@ import java.nio.file.Path;
 
 public interface TranslateTranscriptFileSaveInterface {
 
-    void save (SegmentedTranscription segmentedTranscription, Path path);
+    void save(SegmentedTranscription segmentedTranscription, Path path);
 
     String getName();
 

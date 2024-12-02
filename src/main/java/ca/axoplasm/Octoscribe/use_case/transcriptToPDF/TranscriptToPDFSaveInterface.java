@@ -7,6 +7,6 @@ import java.nio.file.Path;
 
 public interface TranscriptToPDFSaveInterface {
 
-    File save (SegmentedTranscription segmentedTranscription, Path path);
+    File save(SegmentedTranscription segmentedTranscription, Path path);
 
 }

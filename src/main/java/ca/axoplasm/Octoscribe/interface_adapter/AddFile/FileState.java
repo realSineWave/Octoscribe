@@ -5,13 +5,9 @@ import java.io.File;
 public class FileState {
     private File file;
     private FileOptions options;
-    public enum Status {
-        PENDING,
-        COMPLETE,
-        FAILED
-    };
     private Status status;
 
+    ;
     public FileState(File file, FileOptions options) {
         this.file = file;
         this.options = options;
@@ -36,5 +32,11 @@ public class FileState {
 
     public File getFile() {
         return file;
+    }
+
+    public enum Status {
+        PENDING,
+        COMPLETE,
+        FAILED
     }
 }

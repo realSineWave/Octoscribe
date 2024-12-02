@@ -5,12 +5,12 @@ import ca.axoplasm.Octoscribe.entity.SegmentFactory;
 import ca.axoplasm.Octoscribe.entity.SegmentedTranscription;
 import ca.axoplasm.Octoscribe.entity.SegmentedTranscriptionFactory;
 import ca.axoplasm.Octoscribe.use_case.audioToTranscript.AudioToTranscriptDataAccessInterface;
-import okhttp3.*;
 import ca.axoplasm.Octoscribe.use_case.translateTranscript.TranslateTranscriptDataAccessInterface;
+import jakarta.json.*;
+import okhttp3.*;
 
 import java.io.File;
 import java.io.IOException;
-import jakarta.json.*;
 import java.io.StringReader;
 import java.time.Duration;
 import java.util.ArrayList;
@@ -18,16 +18,15 @@ import java.util.List;
 
 public class DataAccessObject implements AudioToTranscriptDataAccessInterface, TranslateTranscriptDataAccessInterface {
     private final OkHttpClient client = new OkHttpClient();
-    private String whisperAPIKey;
-    private String whisperAPIEndpoint;
     private final SegmentFactory segmentFactory = new SegmentFactory();
     private final SegmentedTranscriptionFactory segmentedTranscriptionFactory = new SegmentedTranscriptionFactory();
+    private String whisperAPIKey;
+    private String whisperAPIEndpoint;
     private String deeplAPIKey;
     private String deeplAPIEndpoint;
 
     /**
      * Constructor of the DAO, stores the Endpoint and API key for them.
-     *
      */
     public DataAccessObject(String whisperAPIEndpoint, String whisperAPIKey, String deeplAPIKey) {
         this.deeplAPIEndpoint = "https://api-free.deepl.com/v2/translate";
@@ -90,7 +89,7 @@ public class DataAccessObject implements AudioToTranscriptDataAccessInterface, T
     public List<Segment> toSegments(JsonObject jsonObject) {
         List<Segment> result = new ArrayList<>();
         JsonArray ray = jsonObject.getJsonArray("segments");
-        for (JsonValue each : ray){
+        for (JsonValue each : ray) {
             JsonObject asobj = each.asJsonObject();
             float start = asobj.getJsonNumber("start").numberValue().floatValue();
             long startsecondsPart = (long) start;
@@ -134,7 +133,7 @@ public class DataAccessObject implements AudioToTranscriptDataAccessInterface, T
      * ISO file for language code(2 letters): <a href="https://www.iso.org/standard/74575.html">...</a>
      * It's the helper function of TransSegment()
      *
-     * @param text Takes in the string for transformation.
+     * @param text     Takes in the string for transformation.
      * @param language the desired language, makes sure that it follows ISO 639. (2023)
      * @return JsonObject of the translated results. Null if there is something wrong.
      */
@@ -178,7 +177,8 @@ public class DataAccessObject implements AudioToTranscriptDataAccessInterface, T
      * It's the helper function of TransSegmentList().
      * Translate the Segments to the translated segments.
      * ISO file for language code(2 letters): <a href="https://www.iso.org/standard/74575.html">...</a>
-     * @param segment the segment takes in for translation.
+     *
+     * @param segment  the segment takes in for translation.
      * @param language the desired language.
      * @return a translated segment.
      */
@@ -186,18 +186,19 @@ public class DataAccessObject implements AudioToTranscriptDataAccessInterface, T
     public Segment TransSegment(Segment segment, String language) throws IOException {
         JsonObject jsonObject = getTranslateJson(segment.getText(), language);
         StringBuilder lastString = new StringBuilder();
-        for (JsonValue each : jsonObject.getJsonArray("translations")){
+        for (JsonValue each : jsonObject.getJsonArray("translations")) {
             JsonObject jsonText = each.asJsonObject();
             String textTranslated = jsonText.getString("text");
             lastString.append(textTranslated);
         }
-        return this.segmentFactory.createSegment(segment.getStartTime(),segment.getEndTime(), lastString.toString());
+        return this.segmentFactory.createSegment(segment.getStartTime(), segment.getEndTime(), lastString.toString());
     }
 
     /**
      * It's the helper function of TransSegmentedTranscription()
      * Translate the list of segments. Uses helper function TransSegment()
      * ISO file for language code(2 letters): <a href="https://www.iso.org/standard/74575.html">...</a>
+     *
      * @param segments the list of segment takes in for translation.
      * @param language the desired language for translation.
      * @return the translated list of segments.
@@ -205,7 +206,7 @@ public class DataAccessObject implements AudioToTranscriptDataAccessInterface, T
     @Override
     public List<Segment> TransSegmentList(List<Segment> segments, String language) throws IOException {
         List<Segment> segments1 = new ArrayList<>();
-        for(Segment seg : segments) {
+        for (Segment seg : segments) {
             segments1.add(this.TransSegment(seg, language));
         }
         return segments1;
@@ -214,15 +215,16 @@ public class DataAccessObject implements AudioToTranscriptDataAccessInterface, T
     /**
      * This one is to get the translated SegmentedTranscription.
      * ISO file for language code(2 letters): <a href="https://www.iso.org/standard/74575.html">...</a>
+     *
      * @param transcription Segmented transcription.
-     * @param language the desired language.
+     * @param language      the desired language.
      * @return The segmented transcription.
      */
     @Override
     public SegmentedTranscription TransSegmentedTranscription(SegmentedTranscription transcription, String language) throws IOException {
         List<Segment> segments = TransSegmentList(transcription.getSegments(), language);
         StringBuilder allText = new StringBuilder();
-        for (Segment segment: segments) {
+        for (Segment segment : segments) {
             allText.append(segment.getText());
         }
         return this.segmentedTranscriptionFactory.createSegmented(language, allText.toString(), segments);
