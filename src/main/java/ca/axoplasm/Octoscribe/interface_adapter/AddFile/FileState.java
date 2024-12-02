@@ -5,19 +5,36 @@ import java.io.File;
 public class FileState {
     private File file;
     private FileOptions options;
-    private boolean isComplete;
+    public enum Status {
+        PENDING,
+        COMPLETE,
+        FAILED
+    };
+    private Status status;
 
-    public void FileState(File file, FileOptions options, boolean isComplete) {
+    public FileState(File file, FileOptions options) {
         this.file = file;
         this.options = options;
-        this.isComplete = isComplete;
+        this.status = Status.PENDING;
     }
 
-    public boolean isComplete() {
-        return isComplete;
+    public Status getStatus() {
+        return status;
     }
 
-    public void setComplete(boolean complete) {
-        isComplete = complete;
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+    public FileOptions getOptions() {
+        return options;
+    }
+
+    public String getFileName() {
+        return file.getName();
+    }
+
+    public File getFile() {
+        return file;
     }
 }

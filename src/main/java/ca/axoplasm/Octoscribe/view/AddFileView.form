@@ -32,12 +32,10 @@
           </component>
         </children>
       </grid>
-      <component id="5a615" class="javax.swing.JTable" binding="fileStatusTable">
-        <constraints border-constraint="Center"/>
-        <properties/>
-      </component>
       <grid id="4a8c7" default-binding="true" layout-manager="FormLayout">
         <rowspec value="center:d:noGrow"/>
+        <rowspec value="top:4dlu:noGrow"/>
+        <rowspec value="center:max(d;4px):noGrow"/>
         <rowspec value="top:4dlu:noGrow"/>
         <rowspec value="center:max(d;4px):noGrow"/>
         <rowspec value="top:4dlu:noGrow"/>
@@ -93,7 +91,6 @@
             </constraints>
             <properties>
               <hideActionText value="true"/>
-              <text value="CheckBox"/>
             </properties>
           </component>
           <component id="e890a" class="javax.swing.JLabel">
@@ -121,7 +118,6 @@
             </constraints>
             <properties>
               <hideActionText value="true"/>
-              <text value="CheckBox"/>
             </properties>
           </component>
           <component id="317e" class="javax.swing.JTextField" binding="modelName">
@@ -157,8 +153,35 @@
               <text value=""/>
             </properties>
           </component>
+          <component id="78eb8" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="16" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+              <forms/>
+            </constraints>
+            <properties>
+              <text value="Create PDF?"/>
+            </properties>
+          </component>
+          <component id="fc226" class="javax.swing.JCheckBox" binding="createPDFCheckbox">
+            <constraints>
+              <grid row="16" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+              <forms/>
+            </constraints>
+            <properties/>
+          </component>
         </children>
       </grid>
+      <scrollpane id="13227">
+        <constraints border-constraint="Center"/>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <component id="5a615" class="javax.swing.JTable" binding="fileStatusTable">
+            <constraints/>
+            <properties/>
+          </component>
+        </children>
+      </scrollpane>
     </children>
   </grid>
 </form>

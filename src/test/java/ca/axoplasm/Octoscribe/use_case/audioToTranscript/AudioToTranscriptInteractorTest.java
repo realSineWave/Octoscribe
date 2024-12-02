@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.File;
+import java.io.IOException;
 
 
 public class AudioToTranscriptInteractorTest {
@@ -28,17 +29,12 @@ public class AudioToTranscriptInteractorTest {
         assertEquals("en", inputData.getLanguage(), "Wrong Language");
         AudioToTranscriptInputBoundary interactor =
                 new AudioToTranscriptInteractor(dataAccessObject, (AudioToTranscriptFileSaveObject) fileSaveObject);
-
-        AudioToTranscriptOutputData output = interactor.execute(inputData);
-
-        assertNotEquals(false, output.getStatus());
-        assertNotEquals(null, output.getFileName());
-        assertNotEquals(0, output.getSegmentedTranscription().getSegments().toArray().length);
-        assertEquals(output.getSegmentedTranscription(),
-                assertInstanceOf(SegmentedTranscription.class, output.getSegmentedTranscription()));
-
-        File file = new File("src/test/resources/testAudio.srt");
-        file.delete();
+        try {
+            AudioToTranscriptOutputData output = interactor.execute(inputData);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        assertEquals("subtitles.txt", fileSaveObject.getName());
 
     }
 }

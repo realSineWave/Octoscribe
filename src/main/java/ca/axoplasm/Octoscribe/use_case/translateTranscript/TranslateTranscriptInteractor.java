@@ -4,24 +4,26 @@ import ca.axoplasm.Octoscribe.entity.SegmentedTranscription;
 import ca.axoplasm.Octoscribe.data_access.AudioToTranscriptFileSaveObject;
 import ca.axoplasm.Octoscribe.data_access.TranslateTranscriptFileSaveObject;
 
+import java.io.IOException;
+
 public class TranslateTranscriptInteractor implements TranslateTranscriptInputBoundary{
     private final TranslateTranscriptDataAccessInterface dao;
-    private final TranslateTranscriptFileSaveObject saveObject;
+    private final TranslateTranscriptFileSaveInterface saveObject;
 
     public TranslateTranscriptInteractor(TranslateTranscriptDataAccessInterface dao,
-                                         TranslateTranscriptFileSaveObject saveObject) {
+                                         TranslateTranscriptFileSaveInterface saveObject) {
         this.dao = dao;
         this.saveObject = saveObject;
     }
 
 
     @Override
-    public TranslateTranscriptOutputData execute(TranslateTranscriptInputData translateTranscriptInputData) {
+    public TranslateTranscriptOutputData execute(TranslateTranscriptInputData translateTranscriptInputData) throws IOException {
         final SegmentedTranscription transcript = this.dao.TransSegmentedTranscription(
                 translateTranscriptInputData.getSegmentedTranscription(),
                 translateTranscriptInputData.getTargetLanguage());
-        this.saveObject.save(transcript);
+        this.saveObject.save(transcript, translateTranscriptInputData.getFile().toPath());
         return new TranslateTranscriptOutputData(transcript,
-                this.saveObject.getName(), true);
+                this.saveObject.getName(), true, saveObject.getTranscript());
     }
 }

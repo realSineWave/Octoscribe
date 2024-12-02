@@ -7,6 +7,7 @@ import jakarta.json.*;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
+import java.io.IOException;
 import java.time.Duration;
 import java.util.*;
 
@@ -14,10 +15,15 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class AudioToTranscriptDAOTest {
     @Test
-    void getTranscriptedJson(){
+    void getTranscriptedJson() {
         DataAccessObject dao = new DataAccessObject();
         File file = new File("src/test/resources/testAudio.mp3");
-        SegmentedTranscription segmentedTranscription = dao.getSegmentedTranscription(file);
+        SegmentedTranscription segmentedTranscription = null;
+        try {
+            segmentedTranscription = dao.getSegmentedTranscription(file);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         assertEquals(segmentedTranscription.getText(), "Good morning. Nice to meet you.");
         assertEquals(segmentedTranscription.getSegments().getFirst().getStartTime(), Duration.ofNanos(0));
     }

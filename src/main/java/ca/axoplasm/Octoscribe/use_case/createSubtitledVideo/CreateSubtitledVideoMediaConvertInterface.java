@@ -4,7 +4,7 @@ import java.io.File;
 
 public interface CreateSubtitledVideoMediaConvertInterface {
 
-    String createSubtitledVideo(File video, File subtitle);
+    void createSubtitledVideo(File video, File subtitle);
 
-    String getFileName();
+    File getFile();
 }

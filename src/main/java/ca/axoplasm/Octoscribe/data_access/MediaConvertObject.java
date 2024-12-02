@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class MediaConvertObject implements VideoToAudioMediaConvertInterface, CreateSubtitledVideoMediaConvertInterface {
-    String filename = null;
+    File file = null;
 
     /**
      * Transfers the video into audio file and returns whether successfully made an audio file.
@@ -17,12 +17,11 @@ public class MediaConvertObject implements VideoToAudioMediaConvertInterface, Cr
      * @return String indicates whether we've done it successfully.
      */
     @Override
-    public String audioToVideo(File video) {
+    public void audioToVideo(File video) {
         if (this.checkSystem()) {
-            return "System doesn't have FFMPEG";
+            throw new RuntimeException("FFmpeg not installed");
         }
         String audioName = this.createAudioName(video, ".mp3");
-        this.filename = audioName;
         String[] command = {
                 "ffmpeg",
                 "-i", video.getAbsolutePath(),
@@ -40,12 +39,14 @@ public class MediaConvertObject implements VideoToAudioMediaConvertInterface, Cr
 
             int exitCode = process.waitFor();
             if (exitCode != 0) {
-                return "Video Conversion Failed";
+                throw new RuntimeException("Process exited with code " + exitCode);
             } else {
-                return "Video Conversion Successful";
+                String path = video.getAbsolutePath().substring(0, video.getAbsolutePath().lastIndexOf("/") + 1);
+                String audioPath = path + audioName.substring(audioName.lastIndexOf("/") + 1);
+                this.file = new File(audioPath);
             }
         } catch (IOException | InterruptedException e) {
-            return "Video Conversion Failed";
+            throw new RuntimeException(e);
         }
     }
 
@@ -57,12 +58,11 @@ public class MediaConvertObject implements VideoToAudioMediaConvertInterface, Cr
      * @return the patched subtitle.
      */
     @Override
-    public String createSubtitledVideo(File video, File subtitle) {
+    public void createSubtitledVideo(File video, File subtitle) {
         if (this.checkSystem()) {
-            return "System doesn't have FFMPEG";
+            throw new RuntimeException("Cannot convert video to subtitle");
         }
         String videoName = this.createSubtitledName(video, ".mp4");
-        this.filename = videoName;
         String[] command = {
                 "ffmpeg",
                 "-i", video.getAbsolutePath(),
@@ -75,20 +75,16 @@ public class MediaConvertObject implements VideoToAudioMediaConvertInterface, Cr
 
             Process process = pb.start();
 
-            BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
-            String line;
-            while ((line = reader.readLine()) != null) {
-                System.out.println(line);
-            }
-
             int exitCode = process.waitFor();
             if (exitCode != 0) {
-                return "Video Conversion Failed";
+                throw new RuntimeException("Process exited with code " + exitCode);
             } else {
-                return "Video Conversion Successful";
+                String path = video.getAbsolutePath().substring(0, video.getAbsolutePath().lastIndexOf("/") + 1);
+                String videoPath = path + videoName.substring(videoName.lastIndexOf("/") + 1);
+                this.file = new File(videoPath);
             }
         } catch (IOException | InterruptedException e) {
-            return "Video Conversion Failed";
+            throw new RuntimeException(e);
         }
     }
 
@@ -97,8 +93,8 @@ public class MediaConvertObject implements VideoToAudioMediaConvertInterface, Cr
      * @return the name of that saved file
      */
     @Override
-    public String getFileName() {
-        return this.filename;
+    public File getFile() {
+        return this.file;
     }
 
     /**

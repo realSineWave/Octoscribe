@@ -7,6 +7,7 @@ import ca.axoplasm.Octoscribe.entity.SegmentedTranscription;
 import ca.axoplasm.Octoscribe.entity.SegmentedTranscriptionFactory;
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -23,7 +24,12 @@ public class TranslateTranscriptionDAOTest {
         Duration startDuration = Duration.ofNanos(0);
         Duration endDuration = Duration.ofNanos(1000000000);
         Segment segment = factory.createSegment(startDuration, endDuration, "안녕 세상");
-        Segment result = dao.TransSegment(segment, "en");
+        Segment result = null;
+        try {
+            result = dao.TransSegment(segment, "en");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         assertEquals(segment.getStartTime(), result.getStartTime(),
                 "Different Start time in initial segments and results.");
         assertEquals(segment.getEndTime(), result.getEndTime(),
@@ -41,7 +47,12 @@ public class TranslateTranscriptionDAOTest {
         Segment segment1 = factory.createSegment(startDuration, endDuration, "안녕 세상");
         Segment segment2 = factory.createSegment(secondStartDuration, secondEndDuration, "안녕");
         List<Segment> lis = new ArrayList<>(Arrays.asList(segment1, segment2));
-        List<Segment> reslis = dao.TransSegmentList(lis, "en");
+        List<Segment> reslis = null;
+        try {
+            reslis = dao.TransSegmentList(lis, "en");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         assertEquals(reslis.getFirst().getStartTime(), lis.getFirst().getStartTime(),
                 "Error in start time of method " +
                 "TransSegmentList in DAo");
@@ -69,7 +80,12 @@ public class TranslateTranscriptionDAOTest {
                 "안녕 세상.안녕.", lis);
 //        SegmentedTranscription preres =
 //        segmentedTranscriptionFactory.createSegmented("ko", "hello world.hello", )
-        SegmentedTranscription res = dao.TransSegmentedTranscription(segs, "en");
+        SegmentedTranscription res = null;
+        try {
+            res = dao.TransSegmentedTranscription(segs, "en");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         assertEquals(res.getSegments().getFirst().getStartTime(), segs.getSegments().getFirst().getStartTime(),
                 "Error in start time of method " +
                 "TransSegmentList in DAO");
