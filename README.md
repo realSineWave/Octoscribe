@@ -33,8 +33,6 @@ anyone who requires subtitles on their video.
 - **Transcript Translation:** Generate a translated transcript in the form of a .srt file
 - **PDF Generation:** Upload an audio file and generate a PDF containing the transcript 
 
-Provide examples, screenshots, or tutorials here as needed.
-
 ## Installation
 ### Prerequisites
 - Operating System: Windows/MacOS/Linux (Don't know if this is true lol)
@@ -44,10 +42,13 @@ Provide examples, screenshots, or tutorials here as needed.
 ### Installation Steps
 
 1. **Step 1:** Clone the repository from Github.
+```bash
+git clone https://github.com/realSineWave/Octoscribe.git
+```
 2. **Step 2:** Download FFmpeg from the link above
 3. **Step 3:** Run Main.java
-
-Will have to talk about API key
+4. **Step 4:** Input API keys in the fellowing areas
+   
 
 ## Usage
 Talk about usage
