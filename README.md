@@ -9,11 +9,12 @@
 - Evan Lee: [dogunee](https://github.com/Dogunee)
 
 ## What does this project do?
-This program allows you to add subtitles to a video through a series of 3 steps you can take:
-1. Extract an audio file from a video
-2. Convert and audio file to a .srt subtitle file
-3. Use a video with a srt file to create a Subtitle video
-This project also allows you to translate subtitles and turn subtitles into PDF files.
+This program allows you upload a video and generate any the following:
+1. The extracted Audio from the video
+2. A transcript (.srt) file of what is said in the video
+3. A pdf of the transcript
+4. A translated transcript into a language of your choosing
+5. A subtitled video
 
 This program was created to allow users to easily create transcripts of videos and add subtitles, and is useful for 
 anyone who requires subtitles on their video.
@@ -28,10 +29,10 @@ anyone who requires subtitles on their video.
 
 ## Features
 - **Audio Extraction:** Upload a video file and extract its audio onto a mp3 file
-- **Transcript Creation:** Upload an audio file and generate a transcript in the form of a .srt file 
-- **Subtitle Addition:** Add subtitles to a video using a .srt file
-- **Transcript Translation:** Generate a translated transcript in the form of a .srt file
-- **PDF Generation:** Upload an audio file and generate a PDF containing the transcript 
+- **Transcript Creation:** Upload an video or audio file and generate a transcript in the form of a .srt file 
+- **Subtitle Generation:** Upload a video file and generate the same video with subtitles
+- **Transcript Translation:** Upload a video or audio file and generate a translated transcription
+- **PDF Generation:** Upload a video or audio file and generate a pdf containing the transcription
 
 ## Installation
 ### Prerequisites
@@ -53,19 +54,23 @@ git clone https://github.com/realSineWave/Octoscribe.git
    
 
 ## Usage
-1. **Toggle whether you want translated subtitles generated**
+1. **Select model and the langauge of the file you will upload. It is recommended to leave these blank.**
+
+   ![Others](images/Blank.png)
+
+3. **Toggle whether you want translated subtitles generated**
 
 ![Toggle Translation](images/Translate.png)
 
-2. **Toggle whether you want to generated a subtitled video**
+3. **Toggle whether you want to generated a subtitled video**
 
 ![Toggle Subtitles](images/Createsub.png)
 
-3. **Toggle whether you want to generate a PDF with the transcription**
+4. **Toggle whether you want to generate a PDF with the transcription**
 
 ![Toggle PDF](images/pdf.png)
 
-4. **Add a video or audio file, and the program will automatically generate what you selected**
+5. **Add a video or audio file, and the program will automatically generate what you selected**
 
 ![Add File](images/AddFile.png)
 
