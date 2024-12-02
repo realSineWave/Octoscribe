@@ -18,23 +18,25 @@ import java.util.List;
 
 public class DataAccessObject implements AudioToTranscriptDataAccessInterface, TranslateTranscriptDataAccessInterface {
     private final OkHttpClient client = new OkHttpClient();
-    private String whisperAPIKey;
-    private String whisperAPIEndpoint;
+    private String OpenAiapiKey;
+    private String whisperApiUrl;
     private final SegmentFactory segmentFactory = new SegmentFactory();
     private final SegmentedTranscriptionFactory segmentedTranscriptionFactory = new SegmentedTranscriptionFactory();
-    private String deeplAPIKey;
-    private String deeplAPIEndpoint;
+    private String DeepLApiKey;
+    private String DeepLUrl;
 
     /**
      * Constructor of the DAO, stores the Endpoint and API key for them.
      *
      */
-    public DataAccessObject(String whisperAPIEndpoint, String whisperAPIKey, String deeplAPIKey) {
-        this.deeplAPIEndpoint = "https://api-free.deepl.com/v2/translate";
-        this.whisperAPIEndpoint = whisperAPIEndpoint;
-        this.whisperAPIKey = whisperAPIKey;
-        this.deeplAPIKey = deeplAPIKey;
+    public DataAccessObject(){
+        this.OpenAiapiKey = "sk-proj-uGI-ofIHwn18Y3PSlfZHDfs3wIfdzqmWWN2VJaTzl15gtBsDzTTtzb-uWRJz34f55i3yVA80S" +
+                "dT3BlbkFJPP4fS9xLckhEMcmPrcKEfF9Yti_l0AUqYhxJJwutUvmqAXnl_WBdS20G1_nm1qjpaYuNs8cAQA";
+        this.whisperApiUrl = "https://api.openai.com/v1/audio/transcriptions";
+        this.DeepLUrl = "https://api-free.deepl.com/v2/translate";
+        this.DeepLApiKey = "119441ee-8da3-4d15-9373-f117f5eca6fa:fx";
     }
+
 
     /**
      * Send the file to Whisper API by okhttp3, and return the get the json object of the transcription.
@@ -54,8 +56,8 @@ public class DataAccessObject implements AudioToTranscriptDataAccessInterface, T
                 .build();
 
         Request request = new Request.Builder()
-                .url(this.whisperAPIEndpoint)
-                .addHeader("Authorization", "Bearer " + this.whisperAPIKey)
+                .url(this.whisperApiUrl)
+                .addHeader("Authorization", "Bearer " + this.OpenAiapiKey)
                 .post(requestBody)
                 .build();
 
@@ -153,8 +155,8 @@ public class DataAccessObject implements AudioToTranscriptDataAccessInterface, T
         );
 
         Request request = new Request.Builder()
-                .url(this.deeplAPIEndpoint)
-                .addHeader("Authorization", "DeepL-Auth-Key " + this.deeplAPIKey)
+                .url(this.DeepLUrl)
+                .addHeader("Authorization", "DeepL-Auth-Key " + this.DeepLApiKey)
                 .addHeader("Content-Type", "application/json")
                 .post(requestBody)
                 .build();

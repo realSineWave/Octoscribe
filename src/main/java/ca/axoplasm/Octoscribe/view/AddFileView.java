@@ -24,7 +24,6 @@ public class AddFileView extends JFrame {
     private final JFileChooser fileChooser = new JFileChooser();
     private AddFileController controller = null;
     private FileListModel fileListModel;
-    private SettingsView settingsView;
 
     public AddFileView(FileListModel fileListModel) {
         setTitle("Octoscribe");
@@ -59,10 +58,6 @@ public class AddFileView extends JFrame {
                 }
             }
         });
-
-        settingsButton.addActionListener(e -> {
-            settingsView.setVisible(true);
-        });
     }
 
     public void setController(AddFileController controller) {
@@ -71,10 +66,6 @@ public class AddFileView extends JFrame {
 
     public JTable getFileStatusTable() {
         return fileStatusTable;
-    }
-
-    public void setSettingsView(SettingsView settingsView) {
-        this.settingsView = settingsView;
     }
 
 }
