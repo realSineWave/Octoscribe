@@ -17,9 +17,9 @@ public class MediaConvertObject implements VideoToAudioMediaConvertInterface, Cr
      * @return String indicates whether we've done it successfully.
      */
     @Override
-    public String videoToAudio(File video) {
+    public void videoToAudio(File video) {
         if (this.checkSystem()) {
-            return "System doesn't have FFMPEG";
+            throw new RuntimeException("Cannot convert video to audio");
         }
         String audioName = this.createAudioName(video, ".mp3");
         String[] command = {
@@ -39,15 +39,14 @@ public class MediaConvertObject implements VideoToAudioMediaConvertInterface, Cr
 
             int exitCode = process.waitFor();
             if (exitCode != 0) {
-                return "Video Conversion Failed";
+                throw new RuntimeException("Process exited with code " + exitCode);
             } else {
                 String path = video.getAbsolutePath().substring(0, video.getAbsolutePath().lastIndexOf("/") + 1);
                 String audioPath = path + audioName.substring(audioName.lastIndexOf("/") + 1);
                 this.file = new File(audioPath);
-                return "Video Conversion Successful";
             }
         } catch (IOException | InterruptedException e) {
-            return "Video Conversion Failed";
+            throw new RuntimeException(e);
         }
     }
 
@@ -59,9 +58,9 @@ public class MediaConvertObject implements VideoToAudioMediaConvertInterface, Cr
      * @return the patched subtitle.
      */
     @Override
-    public String createSubtitledVideo(File video, File subtitle) {
+    public void createSubtitledVideo(File video, File subtitle) {
         if (this.checkSystem()) {
-            return "System doesn't have FFMPEG";
+            throw new RuntimeException("Cannot convert video to subtitle");
         }
         String videoName = this.createSubtitledName(video, ".mp4");
         String[] command = {
@@ -78,15 +77,14 @@ public class MediaConvertObject implements VideoToAudioMediaConvertInterface, Cr
 
             int exitCode = process.waitFor();
             if (exitCode != 0) {
-                return "Video Conversion Failed";
+                throw new RuntimeException("Process exited with code " + exitCode);
             } else {
                 String path = video.getAbsolutePath().substring(0, video.getAbsolutePath().lastIndexOf("/") + 1);
                 String videoPath = path + videoName.substring(videoName.lastIndexOf("/") + 1);
                 this.file = new File(videoPath);
-                return "Video Conversion Successful";
             }
         } catch (IOException | InterruptedException e) {
-            return "Video Conversion Failed";
+            throw new RuntimeException(e);
         }
     }
 

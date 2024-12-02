@@ -140,14 +140,23 @@ public class AddFileController {
                 }
 
                 if (fileOptions.isCreateSubVideo()) {
-                    if (fileOptions.isDoTranslate()) {
-                        CreateSubtitledVideoInputData createSubtitledVideoInputData = new CreateSubtitledVideoInputData(originalFile, translateOutputData.getTranscript());
-                        CreateSubtitledVideoOutputData createSubtitledVideoOutputData = createSubtitledVideoInteractor.execute(createSubtitledVideoInputData);
-                    } else {
-                        CreateSubtitledVideoInputData createSubtitledVideoInputData = new CreateSubtitledVideoInputData(originalFile, outputData.getTranscript());
-                        CreateSubtitledVideoOutputData createSubtitledVideoOutputData = createSubtitledVideoInteractor.execute(createSubtitledVideoInputData);
+                    if (!fileIsVideo) {
+                        fileState.setStatus(FileState.Status.FAILED);
+                        fileListModel.fireTableDataChanged();
+                        continue;
                     }
-
+                    CreateSubtitledVideoInputData createSubtitledVideoInputData;
+                    if (fileOptions.isDoTranslate()) {
+                         createSubtitledVideoInputData = new CreateSubtitledVideoInputData(originalFile, translateOutputData.getTranscript());
+                    } else {
+                         createSubtitledVideoInputData = new CreateSubtitledVideoInputData(originalFile, outputData.getTranscript());
+                    }
+                    try {
+                        CreateSubtitledVideoOutputData createSubtitledVideoOutputData = createSubtitledVideoInteractor.execute(createSubtitledVideoInputData);
+                    } catch (RuntimeException ex) {
+                        fileState.setStatus(FileState.Status.FAILED);
+                        fileListModel.fireTableDataChanged();
+                    }
                 }
 
                 fileState.setStatus(FileState.Status.COMPLETE);
