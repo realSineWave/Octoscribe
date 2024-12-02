@@ -8,6 +8,7 @@ import ca.axoplasm.Octoscribe.entity.SegmentedTranscription;
 import ca.axoplasm.Octoscribe.entity.SegmentedTranscriptionFactory;
 import org.junit.jupiter.api.Test;
 
+import java.io.File;
 import java.io.IOException;
 import java.time.Duration;
 import java.util.ArrayList;
@@ -35,7 +36,7 @@ public class TranslateTranscriptInteractorTest {
                 "안녕 세상", lis); // need to initiale; replace this with having sample list of segments
 
         TranslateTranscriptInputData inputData =
-                new TranslateTranscriptInputData(temp , "en");
+                new TranslateTranscriptInputData(temp , "en", new File("src/test/resources/testAudio.mp3"));
 
         TranslateTranscriptInputBoundary interactor = new TranslateTranscriptInteractor(dao, fileSaveObject);
 
@@ -44,6 +45,7 @@ public class TranslateTranscriptInteractorTest {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        assertEquals("Translated_", fileSaveObject.getName().substring(0, "Translated_".indexOf("_")+1));
+        assertEquals("src/test/re", fileSaveObject.getName().substring(0, "Translated_".indexOf("_")+1));
+
     }
 }

@@ -22,8 +22,8 @@ public class TranslateTranscriptInteractor implements TranslateTranscriptInputBo
         final SegmentedTranscription transcript = this.dao.TransSegmentedTranscription(
                 translateTranscriptInputData.getSegmentedTranscription(),
                 translateTranscriptInputData.getTargetLanguage());
-        this.saveObject.save(transcript);
+        this.saveObject.save(transcript, translateTranscriptInputData.getFile().toPath());
         return new TranslateTranscriptOutputData(transcript,
-                this.saveObject.getName(), true);
+                this.saveObject.getName(), true, saveObject.getTranscript());
     }
 }

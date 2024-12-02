@@ -10,6 +10,7 @@ import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.Paragraph;
 
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.List;
 
 import ca.axoplasm.Octoscribe.entity.Segment;
@@ -23,9 +24,9 @@ public class TranscriptToPDFSaveObject implements TranscriptToPDFSaveInterface {
      * @return the output pdf file.
      */
     @Override
-    public File save(SegmentedTranscription segmentedTranscription){
+    public File save(SegmentedTranscription segmentedTranscription, Path path){
 
-        String outputPdfFile = "output.pdf";
+        String outputPdfFile = path.toString().substring(0, path.toString().lastIndexOf(".")) + ".pdf";
 
         try {
             createPdfFromSegmentedTranscription(segmentedTranscription, outputPdfFile);

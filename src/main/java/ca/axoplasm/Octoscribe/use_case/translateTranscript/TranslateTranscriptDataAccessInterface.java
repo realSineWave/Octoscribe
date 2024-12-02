@@ -12,16 +12,20 @@ public interface TranslateTranscriptDataAccessInterface {
     /**
      * Translate the transcript into another language into json
      */
+
     default JsonObject getTranslateJson(String text, String language) throws IOException {
         throw new UnsupportedOperationException("Not implemented or wrong object");
     }
 
+
     /**
      * Get the segment to the segment translation
      */
+
     default Segment TransSegment(Segment segment, String language) throws IOException{
         throw new UnsupportedOperationException("Not implemented or wrong object");
     }
+
 
     /**
      * Get a list of segments output
@@ -30,19 +34,15 @@ public interface TranslateTranscriptDataAccessInterface {
         throw new UnsupportedOperationException("Not implemented or wrong object");
     }
 
+
     /**
      * Get new translated SegmentedTranscipt results from the initial one that one shoule be the
      * final ultimate pro max ultra and super solution to interface.
      * also i used the combination of the segment to reduce the use of the api.
      */
+
     default SegmentedTranscription TransSegmentedTranscription(SegmentedTranscription transcription, String language) throws IOException {
         throw new UnsupportedOperationException("Not implemented or wrong object");
     }
-
-
-
-
-
-
 
 }

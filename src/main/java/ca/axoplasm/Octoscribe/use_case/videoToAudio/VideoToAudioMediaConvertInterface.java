@@ -4,7 +4,7 @@ import java.io.File;
 
 public interface VideoToAudioMediaConvertInterface {
 
-    String videoToAudio(File file);
+    void audioToVideo(File file);
 
     File getFile();
 }

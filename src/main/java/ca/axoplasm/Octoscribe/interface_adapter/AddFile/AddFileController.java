@@ -7,6 +7,8 @@ import ca.axoplasm.Octoscribe.use_case.audioToTranscript.AudioToTranscriptInputD
 import ca.axoplasm.Octoscribe.use_case.audioToTranscript.AudioToTranscriptOutputData;
 import ca.axoplasm.Octoscribe.use_case.createSubtitledVideo.CreateSubtitledVideoInputBoundary;
 import ca.axoplasm.Octoscribe.use_case.createSubtitledVideo.CreateSubtitledVideoInputData;
+import ca.axoplasm.Octoscribe.use_case.createSubtitledVideo.CreateSubtitledVideoInteractor;
+import ca.axoplasm.Octoscribe.use_case.createSubtitledVideo.CreateSubtitledVideoOutputData;
 import ca.axoplasm.Octoscribe.use_case.transcriptToPDF.TranscriptToPDFInputBoundary;
 import ca.axoplasm.Octoscribe.use_case.transcriptToPDF.TranscriptToPDFInputData;
 import ca.axoplasm.Octoscribe.use_case.transcriptToPDF.TranscriptToPDFOutputData;
@@ -24,7 +26,6 @@ import java.io.IOException;
 import java.util.List;
 
 public class AddFileController {
-    AddFileView addFileView;
     List<FileState> fileStates;
     FileListModel fileListModel;
     AudioToTranscriptInputBoundary audioToTranscriptInteractor;
@@ -34,13 +35,11 @@ public class AddFileController {
     TranscriptToPDFInputBoundary transcriptToPDFInteractor;
     Tika tika = new Tika();
 
-    public AddFileController(AddFileView addFileView,
-                             List<FileState> fileStates,
+    public AddFileController(List<FileState> fileStates,
                              FileListModel fileListModel,
                              VideoToAudioInputBoundary videoToAudioInteractor,
                              CreateSubtitledVideoInputBoundary createSubtitledVideoInteractor,
                              TranscriptToPDFInputBoundary transcriptToPDFInteractor) {
-        this.addFileView = addFileView;
         this.fileStates = fileStates;
         this.fileListModel = fileListModel;
         this.videoToAudioInteractor = videoToAudioInteractor;
@@ -108,14 +107,15 @@ public class AddFileController {
 
                 SegmentedTranscription transcription = outputData.getSegmentedTranscription();
 
+                TranslateTranscriptOutputData translateOutputData = null;
                 // If translate is checked, next pipeline stages work on the translated transcription
                 if (fileOptions.isDoTranslate()) {
                     TranslateTranscriptInputData translateTranscriptInputData =
                             new TranslateTranscriptInputData(
                                     transcription,
-                                    fileOptions.getTranslateToLanguageCode()
+                                    fileOptions.getTranslateToLanguageCode(),
+                                    originalFile
                             );
-                    TranslateTranscriptOutputData translateOutputData;
 
                     try {
                         translateOutputData = translateTranscriptInteractor.execute(translateTranscriptInputData);
@@ -128,8 +128,28 @@ public class AddFileController {
                 }
 
                 if (fileOptions.isCreatePDF()) {
-                    TranscriptToPDFInputData transcriptToPDFInputData = new TranscriptToPDFInputData(transcription);
+                    TranscriptToPDFInputData transcriptToPDFInputData = new TranscriptToPDFInputData(transcription, originalFile);
                     TranscriptToPDFOutputData transcriptOutputData = transcriptToPDFInteractor.execute(transcriptToPDFInputData);
+                }
+
+                if (fileOptions.isCreateSubVideo()) {
+                    if (!fileIsVideo) {
+                        fileState.setStatus(FileState.Status.FAILED);
+                        fileListModel.fireTableDataChanged();
+                        continue;
+                    }
+                    CreateSubtitledVideoInputData createSubtitledVideoInputData;
+                    if (fileOptions.isDoTranslate()) {
+                         createSubtitledVideoInputData = new CreateSubtitledVideoInputData(originalFile, translateOutputData.getTranscript());
+                    } else {
+                         createSubtitledVideoInputData = new CreateSubtitledVideoInputData(originalFile, outputData.getTranscript());
+                    }
+                    try {
+                        CreateSubtitledVideoOutputData createSubtitledVideoOutputData = createSubtitledVideoInteractor.execute(createSubtitledVideoInputData);
+                    } catch (RuntimeException ex) {
+                        fileState.setStatus(FileState.Status.FAILED);
+                        fileListModel.fireTableDataChanged();
+                    }
                 }
 
                 fileState.setStatus(FileState.Status.COMPLETE);

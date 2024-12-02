@@ -1,23 +1,20 @@
 package ca.axoplasm.Octoscribe.use_case.videoToAudio;
 
-import java.io.File;
-
 public class VideoToAudioInteractor implements VideoToAudioInputBoundary {
-    private final VideoToAudioMediaConvertInterface mci;
+    private final VideoToAudioMediaConvertInterface mediaConvertObject;
 
-    public VideoToAudioInteractor(VideoToAudioMediaConvertInterface mci) {
-        this.mci = mci;
+    public VideoToAudioInteractor(VideoToAudioMediaConvertInterface mediaConvertObject) {
+        this.mediaConvertObject = mediaConvertObject;
     }
 
     @Override
     public VideoToAudioOutputData execute(VideoToAudioInputData data) {
-        String output = mci.videoToAudio(data.getVideoFile());
+        mediaConvertObject.audioToVideo(data.getVideoFile());
 
-        if (!output.equals("Video Conversion Successful")) {
-            return new VideoToAudioOutputData(null, true);
-        }
-        else {
-            return new VideoToAudioOutputData(mci.getFile(), false);
-        }
+        return new VideoToAudioOutputData(mediaConvertObject.getFile(), false);
     }
 }
+
+
+
+
