@@ -51,7 +51,7 @@ Our application could be marketed to anyone who needs what is said in a video in
 
 ## 3. Demographics
 
-Our application is less likely to be used by those with visual impairments, as our UI is completely visual and requires a certain level of vision to operate. While our team doesn't believe that lack of access to our app will cause a great amount of tangible harm to those who cannot access it, as it is not a necessity and is merely a convenience, it may make people with visual impairments feel as though they are not relationally equal to those who can access this convenience. Thus, it is important that we add features that allow those with visual impairments to easily use our application. For instance, we could add compatibility for screen readers that most visually impaired people use to interact with computers.
+Our application is less likely to be used by those with **visual impairments**, as our UI is completely visual and requires a certain level of vision to operate. While our team doesn't believe that lack of access to our app will cause a great amount of tangible harm to those who cannot access it, as it is not a necessity and is merely a convenience, it may make people with visual impairments feel as though they are not relationally equal to those who can access this convenience. Thus, it is important that we add features that allow those with visual impairments to easily use our application. For instance, we could add compatibility for screen readers that most visually impaired people use to interact with computers.
 
 ---
 
