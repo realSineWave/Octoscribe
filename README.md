@@ -54,7 +54,7 @@ git clone https://github.com/realSineWave/Octoscribe.git
    
 
 ## Usage
-1. **Select model and the langauge of the file you will upload. It is recommended to leave these blank.**
+1. **Select model and the langauge of the file you will upload (It is recommended to leave these blank).**
 
    ![Others](images/Blank.png)
 
