@@ -17,9 +17,9 @@ public class MediaConvertObject implements VideoToAudioMediaConvertInterface, Cr
      * @return String indicates whether we've done it successfully.
      */
     @Override
-    public void videoToAudio(File video) {
+    public void audioToVideo(File video) {
         if (this.checkSystem()) {
-            throw new RuntimeException("Cannot convert video to audio");
+            throw new RuntimeException("FFmpeg not installed");
         }
         String audioName = this.createAudioName(video, ".mp3");
         String[] command = {

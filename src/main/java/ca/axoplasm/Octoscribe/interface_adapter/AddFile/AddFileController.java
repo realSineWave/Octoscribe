@@ -26,7 +26,6 @@ import java.io.IOException;
 import java.util.List;
 
 public class AddFileController {
-    AddFileView addFileView;
     List<FileState> fileStates;
     FileListModel fileListModel;
     AudioToTranscriptInputBoundary audioToTranscriptInteractor;
@@ -36,15 +35,13 @@ public class AddFileController {
     TranscriptToPDFInputBoundary transcriptToPDFInteractor;
     Tika tika = new Tika();
 
-    public AddFileController(AddFileView addFileView,
-                             List<FileState> fileStates,
+    public AddFileController(List<FileState> fileStates,
                              FileListModel fileListModel,
                              AudioToTranscriptInputBoundary audioToTranscriptInteractor,
                              TranslateTranscriptInputBoundary translateTranscriptInteractor,
                              VideoToAudioInputBoundary videoToAudioInteractor,
                              CreateSubtitledVideoInputBoundary createSubtitledVideoInteractor,
                              TranscriptToPDFInputBoundary transcriptToPDFInteractor) {
-        this.addFileView = addFileView;
         this.fileStates = fileStates;
         this.fileListModel = fileListModel;
         this.audioToTranscriptInteractor = audioToTranscriptInteractor;

@@ -58,7 +58,7 @@ public class Main {
 
         AddFileView addFileView = new AddFileView(fileListModel);
         AddFileController addFileController = new AddFileController(
-                addFileView, fileStates, fileListModel,
+                fileStates, fileListModel,
                 audioToTranscriptInteractor,
                 translateTranscriptInteractor,
                 videoToAudioInteractor,
