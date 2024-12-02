@@ -8,11 +8,13 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.time.Duration;
 import java.util.Date;
 
 public class TranslateTranscriptFileSaveObject implements TranslateTranscriptFileSaveInterface {
     private String name;
+    private File transcript = null;
 
     /**
      * Initialization of that DAO. Name of that file is at the time the object is created.
@@ -31,13 +33,11 @@ public class TranslateTranscriptFileSaveObject implements TranslateTranscriptFil
      * @param segmentedTranscription the segtedTrans needs to take in for saving operation.
      */
     @Override
-    public void save(SegmentedTranscription segmentedTranscription) {
+    public void save(SegmentedTranscription segmentedTranscription, Path path) {
         int i = 0;
-        Date date = new Date();
         StringBuilder fileName = new StringBuilder();
-        fileName.append("Translated_Transcript_at_");
-        fileName.append(date);
-        File file = new File(fileName + ".srt");
+        fileName.append(path.toString().substring(0, path.toString().lastIndexOf("/")));
+        File file = new File(fileName + ".translated" +".srt");
         int counter = 0;
 
         try {
@@ -50,11 +50,13 @@ public class TranslateTranscriptFileSaveObject implements TranslateTranscriptFil
                 BufferedWriter writer = new BufferedWriter(new FileWriter(fileName + ".srt"));
                 writeFile(segmentedTranscription, i, writer);
                 this.name = fileName + ".srt";
+                this.transcript = file;
             }
             else {
                 BufferedWriter writer = new BufferedWriter(new FileWriter(fileName + "(" + counter + ")" + ".srt"));
                 writeFile(segmentedTranscription, i, writer);
                 this.name = fileName + "(" + counter + ")" + ".srt";
+                this.transcript = file;
             }
 
 
@@ -87,6 +89,11 @@ public class TranslateTranscriptFileSaveObject implements TranslateTranscriptFil
             i++;
         }
         writer.close();
+    }
+
+    @Override
+    public File getTranscript() {
+        return this.transcript;
     }
 
     /**

@@ -7,6 +7,8 @@ import ca.axoplasm.Octoscribe.use_case.audioToTranscript.AudioToTranscriptInputD
 import ca.axoplasm.Octoscribe.use_case.audioToTranscript.AudioToTranscriptOutputData;
 import ca.axoplasm.Octoscribe.use_case.createSubtitledVideo.CreateSubtitledVideoInputBoundary;
 import ca.axoplasm.Octoscribe.use_case.createSubtitledVideo.CreateSubtitledVideoInputData;
+import ca.axoplasm.Octoscribe.use_case.createSubtitledVideo.CreateSubtitledVideoInteractor;
+import ca.axoplasm.Octoscribe.use_case.createSubtitledVideo.CreateSubtitledVideoOutputData;
 import ca.axoplasm.Octoscribe.use_case.transcriptToPDF.TranscriptToPDFInputBoundary;
 import ca.axoplasm.Octoscribe.use_case.transcriptToPDF.TranscriptToPDFInputData;
 import ca.axoplasm.Octoscribe.use_case.transcriptToPDF.TranscriptToPDFOutputData;
@@ -112,14 +114,15 @@ public class AddFileController {
 
                 SegmentedTranscription transcription = outputData.getSegmentedTranscription();
 
+                TranslateTranscriptOutputData translateOutputData = null;
                 // If translate is checked, next pipeline stages work on the translated transcription
                 if (fileOptions.isDoTranslate()) {
                     TranslateTranscriptInputData translateTranscriptInputData =
                             new TranslateTranscriptInputData(
                                     transcription,
-                                    fileOptions.getTranslateToLanguageCode()
+                                    fileOptions.getTranslateToLanguageCode(),
+                                    originalFile
                             );
-                    TranslateTranscriptOutputData translateOutputData;
 
                     try {
                         translateOutputData = translateTranscriptInteractor.execute(translateTranscriptInputData);
@@ -134,6 +137,17 @@ public class AddFileController {
                 if (fileOptions.isCreatePDF()) {
                     TranscriptToPDFInputData transcriptToPDFInputData = new TranscriptToPDFInputData(transcription);
                     TranscriptToPDFOutputData transcriptOutputData = transcriptToPDFInteractor.execute(transcriptToPDFInputData);
+                }
+
+                if (fileOptions.isCreateSubVideo()) {
+                    if (fileOptions.isDoTranslate()) {
+                        CreateSubtitledVideoInputData createSubtitledVideoInputData = new CreateSubtitledVideoInputData(originalFile, translateOutputData.getTranscript());
+                        CreateSubtitledVideoOutputData createSubtitledVideoOutputData = createSubtitledVideoInteractor.execute(createSubtitledVideoInputData);
+                    } else {
+                        CreateSubtitledVideoInputData createSubtitledVideoInputData = new CreateSubtitledVideoInputData(originalFile, outputData.getTranscript());
+                        CreateSubtitledVideoOutputData createSubtitledVideoOutputData = createSubtitledVideoInteractor.execute(createSubtitledVideoInputData);
+                    }
+
                 }
 
                 fileState.setStatus(FileState.Status.COMPLETE);

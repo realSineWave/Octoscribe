@@ -28,6 +28,6 @@ public class AudioToTranscriptInteractor implements AudioToTranscriptInputBounda
 
         saveObject.save(transcript, audioToTranscriptInputData.getAudiofile().toPath());
 
-        return new AudioToTranscriptOutputData(transcript, saveObject.getName());
+        return new AudioToTranscriptOutputData(transcript, saveObject.getName(), saveObject.getTranscript());
     }
 }

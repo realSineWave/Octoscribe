@@ -12,6 +12,7 @@ import java.time.Duration;
 
 public class AudioToTranscriptFileSaveObject implements AudioToTranscriptFileSaveInterface {
     private String name = "subtitles.srt";
+    private File trancript = null;
 
     /**
      * Save the segmentedTranscription to a srt file. It's the main method we gonna use for saving the received
@@ -36,6 +37,7 @@ public class AudioToTranscriptFileSaveObject implements AudioToTranscriptFileSav
             BufferedWriter writer = new BufferedWriter(new FileWriter(file));
             writeFile(segmentedTranscription, i, writer);
             this.name = file.getName();
+            this.trancript = file;
 
 
         } catch (IOException e) {
@@ -50,6 +52,11 @@ public class AudioToTranscriptFileSaveObject implements AudioToTranscriptFileSav
     @Override
     public String getName() {
         return this.name;
+    }
+
+    @Override
+    public File getTranscript() {
+        return this.trancript;
     }
 
     private void writeFile(SegmentedTranscription segmentedTranscription, int i, BufferedWriter writer)
