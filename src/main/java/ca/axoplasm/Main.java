@@ -18,6 +18,7 @@ import ca.axoplasm.Octoscribe.use_case.transcriptToPDF.TranscriptToPDFSaveInterf
 import ca.axoplasm.Octoscribe.use_case.videoToAudio.VideoToAudioInputBoundary;
 import ca.axoplasm.Octoscribe.use_case.videoToAudio.VideoToAudioInteractor;
 import ca.axoplasm.Octoscribe.use_case.videoToAudio.VideoToAudioMediaConvertInterface;
+import ca.axoplasm.Octoscribe.view.AboutView;
 import ca.axoplasm.Octoscribe.view.AddFileView;
 import ca.axoplasm.Octoscribe.view.SettingsView;
 
@@ -61,6 +62,9 @@ public class Main {
         settingsController.setAddFileController(addFileController);
         settingsView.setController(settingsController);
         addFileView.setSettingsView(settingsView);
+
+        AboutView aboutView = new AboutView();
+        addFileView.setAboutView(aboutView);
 
         addFileView.setVisible(true);
     }
