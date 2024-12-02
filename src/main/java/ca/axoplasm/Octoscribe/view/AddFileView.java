@@ -47,7 +47,8 @@ public class AddFileView extends JFrame {
                             audioLanguageCode.getText(),
                             translateCheckbox.isSelected(),
                             translateToLanguageCode.getText(),
-                            subVideoCheckbox.isSelected()
+                            subVideoCheckbox.isSelected(),
+                            createPDFCheckbox.isSelected()
                     );
                     try {
                         controller.execute();

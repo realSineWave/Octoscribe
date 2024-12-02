@@ -1,7 +1,7 @@
 package ca.axoplasm.Octoscribe.data_access;
 
 import ca.axoplasm.Octoscribe.entity.SegmentedTranscription;
-import ca.axoplasm.Octoscribe.use_case.transcriptToPDF.TranscriptToPDFsaveInterface;
+import ca.axoplasm.Octoscribe.use_case.transcriptToPDF.TranscriptToPDFSaveInterface;
 
 import java.io.File;
 import com.itextpdf.kernel.pdf.PdfDocument;
@@ -14,7 +14,7 @@ import java.util.List;
 
 import ca.axoplasm.Octoscribe.entity.Segment;
 
-public class TranscriptToPDFSaveObject implements TranscriptToPDFsaveInterface {
+public class TranscriptToPDFSaveObject implements TranscriptToPDFSaveInterface {
 
     /**
      * Generates the file in format of PDF.

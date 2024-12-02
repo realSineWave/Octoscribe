@@ -6,9 +6,9 @@ import java.io.File;
 
 public class TranscriptToPDFInteractor implements TranscriptToPDFInputBoundary {
 
-    private final TranscriptToPDFsaveInterface saveObject;
+    private final TranscriptToPDFSaveInterface saveObject;
 
-    public TranscriptToPDFInteractor(TranscriptToPDFsaveInterface saveObject) {
+    public TranscriptToPDFInteractor(TranscriptToPDFSaveInterface saveObject) {
         this.saveObject = saveObject;
     }
 
