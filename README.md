@@ -9,8 +9,8 @@
 - Evan Lee: [dogunee](https://github.com/Dogunee)
 
 ## What does this project do?
-This program allows you upload a video and generate any the following:
-1. The extracted Audio from the video
+This program allows you upload a video file and generate any the following:
+1. The extracted audio from the video
 2. A transcript (.srt) file of what is said in the video
 3. A pdf of the transcript
 4. A translated transcript into a language of your choosing
