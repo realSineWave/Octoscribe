@@ -48,11 +48,26 @@ git clone https://github.com/realSineWave/Octoscribe.git
 2. **Step 2:** Download FFmpeg from the link above
 3. **Step 3:** Run Main.java
 4. **Step 4:** Input API keys in the fellowing areas
+![Settings](images/Settings.png)
+![APIKeys](images/APIKeys.png)
    
 
 ## Usage
-**Toggle whether you want translated subtitles generated**
-![Toggle Translation]("images/Translate.png")
+1. **Toggle whether you want translated subtitles generated**
+
+![Toggle Translation](images/Translate.png)
+
+2. **Toggle whether you want to generated a subtitled video**
+
+![Toggle Subtitles](images/Createsub.png)
+
+3. **Toggle whether you want to generate a PDF with the transcription**
+
+![Toggle PDF](images/pdf.png)
+
+4. **Add a video or audio file, and the program will automatically generate what you selected**
+
+![Add File](images/AddFile.png)
 
 ## License
 This project is licensed under the [The MIT License](https://opensource.org/license/MIT).
