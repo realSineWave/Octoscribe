@@ -36,8 +36,8 @@ public class TranslateTranscriptFileSaveObject implements TranslateTranscriptFil
     public void save(SegmentedTranscription segmentedTranscription, Path path) {
         int i = 0;
         StringBuilder fileName = new StringBuilder();
-        fileName.append(path.toString().substring(0, path.toString().lastIndexOf("/")));
-        File file = new File(fileName + ".translated" +".srt");
+        fileName.append(path.toString().substring(0, path.toString().lastIndexOf(".")));
+        File file = new File(fileName.toString() + ".translated" +".srt");
         int counter = 0;
 
         try {
@@ -47,7 +47,7 @@ public class TranslateTranscriptFileSaveObject implements TranslateTranscriptFil
             }
 
             if (counter == 0){
-                BufferedWriter writer = new BufferedWriter(new FileWriter(fileName + ".srt"));
+                BufferedWriter writer = new BufferedWriter(new FileWriter(file));
                 writeFile(segmentedTranscription, i, writer);
                 this.name = fileName + ".srt";
                 this.transcript = file;
