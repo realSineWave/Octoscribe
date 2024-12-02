@@ -1,4 +1,4 @@
-# Octoscribe
+# **Octoscribe**
 
 ---
 
@@ -36,9 +36,9 @@ anyone who requires subtitles on their video.
 
 ## Installation
 ### Prerequisites
-- Operating System: Windows/MacOS/Linux (Don't know if this is true lol)
+- Operating System: Windows/MacOS
 - Required Software and Packages:
-    - FFmpeg: [Download Here](https://www.ffmpeg.org/download.html)
+    - FFmpeg (Version 7.0 or above): [Download Here](https://www.ffmpeg.org/download.html)
 
 ### Installation Steps
 
