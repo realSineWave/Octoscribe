@@ -37,16 +37,12 @@ public class AddFileController {
     public AddFileController(AddFileView addFileView,
                              List<FileState> fileStates,
                              FileListModel fileListModel,
-                             AudioToTranscriptInputBoundary audioToTranscriptInteractor,
-                             TranslateTranscriptInputBoundary translateTranscriptInteractor,
                              VideoToAudioInputBoundary videoToAudioInteractor,
                              CreateSubtitledVideoInputBoundary createSubtitledVideoInteractor,
                              TranscriptToPDFInputBoundary transcriptToPDFInteractor) {
         this.addFileView = addFileView;
         this.fileStates = fileStates;
         this.fileListModel = fileListModel;
-        this.audioToTranscriptInteractor = audioToTranscriptInteractor;
-        this.translateTranscriptInteractor = translateTranscriptInteractor;
         this.videoToAudioInteractor = videoToAudioInteractor;
         this.createSubtitledVideoInteractor = createSubtitledVideoInteractor;
         this.transcriptToPDFInteractor = transcriptToPDFInteractor;
@@ -145,5 +141,13 @@ public class AddFileController {
     public void updateFileStatus(FileState fileState, FileState.Status status) {
         fileState.setStatus(status);
         fileListModel.fireTableDataChanged();
+    }
+
+    public void setAudioToTranscriptInteractor(AudioToTranscriptInputBoundary audioToTranscriptInteractor) {
+        this.audioToTranscriptInteractor = audioToTranscriptInteractor;
+    }
+
+    public void setTranslateTranscriptInteractor(TranslateTranscriptInputBoundary translateTranscriptInteractor) {
+        this.translateTranscriptInteractor = translateTranscriptInteractor;
     }
 }
