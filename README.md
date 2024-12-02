@@ -51,7 +51,8 @@ git clone https://github.com/realSineWave/Octoscribe.git
    
 
 ## Usage
-Talk about usage
+**Toggle whether you want translated subtitles generated**
+![Toggle Translation]("images/Translate.png")
 
 ## License
 This project is licensed under the [The MIT License](https://opensource.org/license/MIT).
