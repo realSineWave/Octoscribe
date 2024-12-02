@@ -132,7 +132,7 @@ public class AddFileController {
                 }
 
                 if (fileOptions.isCreatePDF()) {
-                    TranscriptToPDFInputData transcriptToPDFInputData = new TranscriptToPDFInputData(transcription);
+                    TranscriptToPDFInputData transcriptToPDFInputData = new TranscriptToPDFInputData(transcription, originalFile);
                     TranscriptToPDFOutputData transcriptOutputData = transcriptToPDFInteractor.execute(transcriptToPDFInputData);
                 }
 

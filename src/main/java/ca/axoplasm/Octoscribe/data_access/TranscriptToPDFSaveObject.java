@@ -23,9 +23,9 @@ public class TranscriptToPDFSaveObject implements TranscriptToPDFSaveInterface {
      * @return the output pdf file.
      */
     @Override
-    public File save(SegmentedTranscription segmentedTranscription){
+    public File save(SegmentedTranscription segmentedTranscription, File file){
 
-        String outputPdfFile = "output.pdf";
+        String outputPdfFile = file.getAbsolutePath().substring(0, file.getAbsolutePath().lastIndexOf(".")) + ".pdf";
 
         try {
             createPdfFromSegmentedTranscription(segmentedTranscription, outputPdfFile);

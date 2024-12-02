@@ -6,6 +6,6 @@ import java.io.File;
 
 public interface TranscriptToPDFSaveInterface {
 
-    File save (SegmentedTranscription segmentedTranscription);
+    File save (SegmentedTranscription segmentedTranscription, File file);
 
 }
