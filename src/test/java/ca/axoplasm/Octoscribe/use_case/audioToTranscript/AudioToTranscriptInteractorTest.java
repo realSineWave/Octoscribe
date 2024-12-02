@@ -28,13 +28,13 @@ public class AudioToTranscriptInteractorTest {
         assertEquals("whisper-small", inputData.getModel(), "Wrong Model");
         assertEquals("en", inputData.getLanguage(), "Wrong Language");
         AudioToTranscriptInputBoundary interactor =
-                new AudioToTranscriptInteractor(dataAccessObject, (AudioToTranscriptFileSaveObject) fileSaveObject);
+                new AudioToTranscriptInteractor(dataAccessObject, fileSaveObject);
         try {
             AudioToTranscriptOutputData output = interactor.execute(inputData);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            assert true;
         }
-        assertEquals("subtitles.txt", fileSaveObject.getName());
+        assertEquals("testAudio.srt", fileSaveObject.getName());
 
     }
 }

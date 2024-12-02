@@ -3,8 +3,10 @@ package ca.axoplasm.Octoscribe.use_case.transcriptToPDF;
 import  ca.axoplasm.Octoscribe.data_access.TranscriptToPDFSaveObject;
 import ca.axoplasm.Octoscribe.entity.Segment;
 import ca.axoplasm.Octoscribe.entity.SegmentedTranscription;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Test;
 
+import java.io.File;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.*;
@@ -26,7 +28,9 @@ public class transcriptToPDFInteractorTest {
        SegmentedTranscription segmentedTranscription =
                new SegmentedTranscription("en", "test", segmentList);
 
-       TranscriptToPDFInputData inputData = new TranscriptToPDFInputData(segmentedTranscription);
+       File file = new File ("src/test/resources/testfile.mp3");
+
+       TranscriptToPDFInputData inputData = new TranscriptToPDFInputData(segmentedTranscription, file);
 
        TranscriptToPDFInputBoundary interactor = new TranscriptToPDFInteractor(PDFSaveObject);
        TranscriptToPDFOutputData output = interactor.execute(inputData);
