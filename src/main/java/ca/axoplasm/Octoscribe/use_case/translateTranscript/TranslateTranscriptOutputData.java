@@ -26,11 +26,11 @@ public class TranslateTranscriptOutputData {
         return transcript;
     }
 
-    public SegmentedTranscription getSegmentedTranscription(){
+    public SegmentedTranscription getSegmentedTranscription() {
         return this.segmentedTranscription;
     }
 
-    public Boolean getStatus(){
+    public Boolean getStatus() {
         return this.status;
     }
 }

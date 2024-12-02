@@ -3,6 +3,7 @@ package ca.axoplasm.Octoscribe.data_access;
 import ca.axoplasm.Octoscribe.entity.Segment;
 import ca.axoplasm.Octoscribe.entity.SegmentedTranscription;
 import ca.axoplasm.Octoscribe.use_case.audioToTranscript.AudioToTranscriptFileSaveInterface;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -19,7 +20,7 @@ public class AudioToTranscriptFileSaveObject implements AudioToTranscriptFileSav
      * segmentedTranscription.
      *
      * @param segmentedTranscription The object we want to save.
-     * @param path the path we want to store that file to.
+     * @param path                   the path we want to store that file to.
      */
     @Override
     public void save(SegmentedTranscription segmentedTranscription, Path path) {
@@ -47,6 +48,7 @@ public class AudioToTranscriptFileSaveObject implements AudioToTranscriptFileSav
 
     /**
      * Get the name of the subtitle file (srt file)
+     *
      * @return the name of the .srt file.
      */
     @Override

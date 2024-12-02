@@ -15,8 +15,8 @@ public class TranscriptToPDFInteractor implements TranscriptToPDFInputBoundary {
     @Override
     public TranscriptToPDFOutputData execute(TranscriptToPDFInputData inputData) {
         final SegmentedTranscription transcript = inputData.getSegmentedTranscription();
-            File outputPDF = saveObject.save(transcript, inputData.getFile().toPath());
+        File outputPDF = saveObject.save(transcript, inputData.getFile().toPath());
 
-            return new TranscriptToPDFOutputData(outputPDF, true);
+        return new TranscriptToPDFOutputData(outputPDF, true);
     }
 }

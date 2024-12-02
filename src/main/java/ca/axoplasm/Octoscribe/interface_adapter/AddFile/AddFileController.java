@@ -1,13 +1,11 @@
 package ca.axoplasm.Octoscribe.interface_adapter.AddFile;
 
-import ca.axoplasm.Octoscribe.entity.Segment;
 import ca.axoplasm.Octoscribe.entity.SegmentedTranscription;
 import ca.axoplasm.Octoscribe.use_case.audioToTranscript.AudioToTranscriptInputBoundary;
 import ca.axoplasm.Octoscribe.use_case.audioToTranscript.AudioToTranscriptInputData;
 import ca.axoplasm.Octoscribe.use_case.audioToTranscript.AudioToTranscriptOutputData;
 import ca.axoplasm.Octoscribe.use_case.createSubtitledVideo.CreateSubtitledVideoInputBoundary;
 import ca.axoplasm.Octoscribe.use_case.createSubtitledVideo.CreateSubtitledVideoInputData;
-import ca.axoplasm.Octoscribe.use_case.createSubtitledVideo.CreateSubtitledVideoInteractor;
 import ca.axoplasm.Octoscribe.use_case.createSubtitledVideo.CreateSubtitledVideoOutputData;
 import ca.axoplasm.Octoscribe.use_case.transcriptToPDF.TranscriptToPDFInputBoundary;
 import ca.axoplasm.Octoscribe.use_case.transcriptToPDF.TranscriptToPDFInputData;
@@ -18,7 +16,6 @@ import ca.axoplasm.Octoscribe.use_case.translateTranscript.TranslateTranscriptOu
 import ca.axoplasm.Octoscribe.use_case.videoToAudio.VideoToAudioInputBoundary;
 import ca.axoplasm.Octoscribe.use_case.videoToAudio.VideoToAudioInputData;
 import ca.axoplasm.Octoscribe.use_case.videoToAudio.VideoToAudioOutputData;
-import ca.axoplasm.Octoscribe.view.AddFileView;
 import org.apache.tika.Tika;
 
 import java.io.File;
@@ -83,7 +80,7 @@ public class AddFileController {
                     VideoToAudioOutputData videoToAudioOutputData =
                             videoToAudioInteractor.execute(videoToAudioInputData);
                     audioFile = videoToAudioOutputData.getFile();
-                // If file is neither an audio nor a video, bail out
+                    // If file is neither an audio nor a video, bail out
                 } else if (!fileType.split("/")[0].equals("audio")) {
                     fileState.setStatus(FileState.Status.FAILED);
                     fileListModel.fireTableDataChanged();
@@ -140,9 +137,9 @@ public class AddFileController {
                     }
                     CreateSubtitledVideoInputData createSubtitledVideoInputData;
                     if (fileOptions.isDoTranslate()) {
-                         createSubtitledVideoInputData = new CreateSubtitledVideoInputData(originalFile, translateOutputData.getTranscript());
+                        createSubtitledVideoInputData = new CreateSubtitledVideoInputData(originalFile, translateOutputData.getTranscript());
                     } else {
-                         createSubtitledVideoInputData = new CreateSubtitledVideoInputData(originalFile, outputData.getTranscript());
+                        createSubtitledVideoInputData = new CreateSubtitledVideoInputData(originalFile, outputData.getTranscript());
                     }
                     try {
                         CreateSubtitledVideoOutputData createSubtitledVideoOutputData = createSubtitledVideoInteractor.execute(createSubtitledVideoInputData);

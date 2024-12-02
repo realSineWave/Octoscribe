@@ -30,6 +30,7 @@ public class TranslateTranscriptFileSaveObject implements TranslateTranscriptFil
     /**
      * Saves the segmentedTranscription to a srt file.
      * Updates the exact time of the file is created.
+     *
      * @param segmentedTranscription the segtedTrans needs to take in for saving operation.
      */
     @Override
@@ -37,7 +38,7 @@ public class TranslateTranscriptFileSaveObject implements TranslateTranscriptFil
         int i = 0;
         StringBuilder fileName = new StringBuilder();
         fileName.append(path.toString().substring(0, path.toString().lastIndexOf(".")));
-        File file = new File(fileName.toString() + ".translated" +".srt");
+        File file = new File(fileName.toString() + ".translated" + ".srt");
         int counter = 0;
 
         try {
@@ -46,13 +47,12 @@ public class TranslateTranscriptFileSaveObject implements TranslateTranscriptFil
                 file = new File(fileName + "(" + counter + ")" + ".srt");
             }
 
-            if (counter == 0){
+            if (counter == 0) {
                 BufferedWriter writer = new BufferedWriter(new FileWriter(file));
                 writeFile(segmentedTranscription, i, writer);
                 this.name = fileName + ".srt";
                 this.transcript = file;
-            }
-            else {
+            } else {
                 BufferedWriter writer = new BufferedWriter(new FileWriter(fileName + "(" + counter + ")" + ".srt"));
                 writeFile(segmentedTranscription, i, writer);
                 this.name = fileName + "(" + counter + ")" + ".srt";
@@ -67,6 +67,7 @@ public class TranslateTranscriptFileSaveObject implements TranslateTranscriptFil
 
     /**
      * gets the name of the saved object.
+     *
      * @return
      */
     @Override
@@ -76,13 +77,14 @@ public class TranslateTranscriptFileSaveObject implements TranslateTranscriptFil
 
     /**
      * Helper function about writing the file.
+     *
      * @param segmentedTranscription segmented file you takes in for writing.
-     * @param i the trials of wrting that file.
-     * @param writer writes the file BufferedWriter.
+     * @param i                      the trials of wrting that file.
+     * @param writer                 writes the file BufferedWriter.
      * @throws IOException If there is something wrong regarding the file output.
      */
     private void writeFile(SegmentedTranscription segmentedTranscription, int i, BufferedWriter writer) throws IOException {
-        for (Segment segment: segmentedTranscription.getSegments()) {
+        for (Segment segment : segmentedTranscription.getSegments()) {
             writer.write(i + "\n");
             writer.write(durationToString(segment.getStartTime()) + " --> " + durationToString(segment.getEndTime()) + "\n");
             writer.write(segment.getText() + "\n\n");
@@ -99,6 +101,7 @@ public class TranslateTranscriptFileSaveObject implements TranslateTranscriptFil
     /**
      * Converts the duration to a string.
      * Drops the nanosecond part.
+     *
      * @param duration The duration needs to be converted.
      * @return Return the string of that duration.
      */

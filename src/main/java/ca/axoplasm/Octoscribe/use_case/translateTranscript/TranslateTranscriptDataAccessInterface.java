@@ -2,7 +2,6 @@ package ca.axoplasm.Octoscribe.use_case.translateTranscript;
 
 import ca.axoplasm.Octoscribe.entity.Segment;
 import ca.axoplasm.Octoscribe.entity.SegmentedTranscription;
-
 import jakarta.json.JsonObject;
 
 import java.io.IOException;
@@ -22,7 +21,7 @@ public interface TranslateTranscriptDataAccessInterface {
      * Get the segment to the segment translation
      */
 
-    default Segment TransSegment(Segment segment, String language) throws IOException{
+    default Segment TransSegment(Segment segment, String language) throws IOException {
         throw new UnsupportedOperationException("Not implemented or wrong object");
     }
 

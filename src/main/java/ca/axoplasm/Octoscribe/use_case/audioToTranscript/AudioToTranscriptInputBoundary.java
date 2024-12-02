@@ -10,6 +10,7 @@ public interface AudioToTranscriptInputBoundary {
 
     /**
      * Execute the audioToTranscript use case.
+     *
      * @param audioToTranscriptInputData input data for audioToTranscript use case.
      */
     AudioToTranscriptOutputData execute(AudioToTranscriptInputData audioToTranscriptInputData) throws IOException;
