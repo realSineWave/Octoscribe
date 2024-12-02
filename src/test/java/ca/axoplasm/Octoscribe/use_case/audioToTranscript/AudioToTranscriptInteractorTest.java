@@ -2,6 +2,7 @@ package ca.axoplasm.Octoscribe.use_case.audioToTranscript;
 
 import ca.axoplasm.Octoscribe.data_access.AudioToTranscriptFileSaveObject;
 import ca.axoplasm.Octoscribe.data_access.DataAccessObject;
+import ca.axoplasm.Octoscribe.entity.SegmentedTranscription;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -18,20 +19,22 @@ public class AudioToTranscriptInteractorTest {
         AudioToTranscriptDataAccessInterface dataAccessObject = new DataAccessObject();
         AudioToTranscriptFileSaveInterface fileSaveObject = new AudioToTranscriptFileSaveObject();
 
-        String path = "need to add a sample audio file for test/ replace this with path of it";
+        String path = "src/test/resources/testAudio.mp3";
         File sampleAudioFile = new File(path);
 
         AudioToTranscriptInputData inputData  =
                 new AudioToTranscriptInputData(sampleAudioFile, "whisper-small", "en");
 
+        assertEquals("whisper-small", inputData.getModel(), "Wrong Model");
+        assertEquals("en", inputData.getLanguage(), "Wrong Language");
         AudioToTranscriptInputBoundary interactor =
                 new AudioToTranscriptInteractor(dataAccessObject, (AudioToTranscriptFileSaveObject) fileSaveObject);
-
         try {
             AudioToTranscriptOutputData output = interactor.execute(inputData);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
         assertEquals("subtitles.txt", fileSaveObject.getName());
+
     }
 }

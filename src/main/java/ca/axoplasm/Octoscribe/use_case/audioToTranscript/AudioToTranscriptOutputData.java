@@ -11,6 +11,7 @@ public class AudioToTranscriptOutputData {
     private final File transcript;
 
     public AudioToTranscriptOutputData(SegmentedTranscription segmentedTranscription, String name, File transcript){
+
         this.segmentedTranscription = segmentedTranscription;
         this.name = name;
         this.transcript = transcript;

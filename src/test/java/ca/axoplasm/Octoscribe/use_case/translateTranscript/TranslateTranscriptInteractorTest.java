@@ -46,5 +46,6 @@ public class TranslateTranscriptInteractorTest {
             throw new RuntimeException(e);
         }
         assertEquals("src/test/re", fileSaveObject.getName().substring(0, "Translated_".indexOf("_")+1));
+
     }
 }

@@ -39,4 +39,10 @@ public class transcriptToPDFInteractorTest {
         assertEquals("pdf", extension); //check if the output file is pdf or not
    }
 
+   @AfterAll
+    public static void cleanUp() {
+        File file = new File("output.pdf");
+        file.delete();
+   }
+
 }
