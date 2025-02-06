@@ -5,7 +5,7 @@
 ## Authors and Contributors
 - Edison Zeng: [realSinewave](https://github.com/realSineWave)
 - SeungHo Choi: [SHCAAA](https://github.com/SHCAAA)
-- Nathan Li: [banxiafire](https://github.com/banxiafire)
+- Nathan (Nanxin) Li: [banxiafire](https://github.com/banxiafire)
 - Evan Lee: [dogunee](https://github.com/Dogunee)
 
 ## What does this project do?
